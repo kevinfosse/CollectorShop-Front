@@ -1,0 +1,79 @@
+<div class="cart section">
+  <div class="container">
+    <h1>Shopping Cart</h1>
+
+    <div class="cart__layout">
+      <!-- Cart Items -->
+      <div class="cart__items">
+        <div class="cart-item">
+          <img
+            src="https://placehold.co/120x120/1a1a1a/c9a962?text=Product"
+            alt="Product"
+            class="cart-item__image"
+          />
+          <div class="cart-item__info">
+            <h3 class="cart-item__name">Charizard Holo 1st Edition</h3>
+            <p class="cart-item__meta">Condition: Near Mint</p>
+            <div class="cart-item__quantity">
+              <button>-</button>
+              <span>1</span>
+              <button>+</button>
+            </div>
+          </div>
+          <div class="cart-item__price">
+            <span class="current">$15,000.00</span>
+          </div>
+          <button class="cart-item__remove">
+            <i class="pi pi-trash"></i>
+          </button>
+        </div>
+
+        <div class="cart-item">
+          <img
+            src="https://placehold.co/120x120/1a1a1a/c9a962?text=Product"
+            alt="Product"
+            class="cart-item__image"
+          />
+          <div class="cart-item__info">
+            <h3 class="cart-item__name">Limited Edition Pikachu Plush</h3>
+            <p class="cart-item__meta">Condition: Mint</p>
+            <div class="cart-item__quantity">
+              <button>-</button>
+              <span>2</span>
+              <button>+</button>
+            </div>
+          </div>
+          <div class="cart-item__price">
+            <span class="current">$300.00</span>
+          </div>
+          <button class="cart-item__remove">
+            <i class="pi pi-trash"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Cart Summary -->
+      <div class="cart__summary">
+        <h2>Order Summary</h2>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>$15,300.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span>Calculated at checkout</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total</span>
+          <span>$15,300.00</span>
+        </div>
+        <a routerLink="/checkout" class="btn-primary btn-lg" style="width: 100%">
+          Proceed to Checkout
+        </a>
+        <a routerLink="/catalog" class="btn-secondary" style="width: 100%; margin-top: 1rem">
+          Continue Shopping
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

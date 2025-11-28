@@ -18,28 +18,67 @@
     <!-- Desktop Navigation -->
     <nav class="header__nav" [class.header__nav--open]="isMenuOpen">
       <ul class="header__nav-list">
-        <li><a routerLink="/" class="header__nav-link" (click)="closeMenu()">Home</a></li>
-        <li><a routerLink="/catalog" class="header__nav-link" (click)="closeMenu()">Shop</a></li>
         <li>
-          <a routerLink="/catalog/trading-cards" class="header__nav-link" (click)="closeMenu()"
-            >Trading Cards</a
-          >
+          <a routerLink="/" class="header__nav-link" (click)="closeMenu()">{{
+            'NAV.HOME' | translate
+          }}</a>
         </li>
         <li>
-          <a routerLink="/catalog/figurines" class="header__nav-link" (click)="closeMenu()"
-            >Figurines</a
-          >
+          <a routerLink="/catalog" class="header__nav-link" (click)="closeMenu()">{{
+            'NAV.SHOP' | translate
+          }}</a>
         </li>
         <li>
-          <a routerLink="/catalog/vintage" class="header__nav-link" (click)="closeMenu()"
-            >Vintage</a
-          >
+          <a routerLink="/catalog/trading-cards" class="header__nav-link" (click)="closeMenu()">{{
+            'HOME.CATEGORIES.TRADING_CARDS' | translate
+          }}</a>
+        </li>
+        <li>
+          <a routerLink="/catalog/figurines" class="header__nav-link" (click)="closeMenu()">{{
+            'HOME.CATEGORIES.VINTAGE_TOYS' | translate
+          }}</a>
+        </li>
+        <li>
+          <a routerLink="/catalog/vintage" class="header__nav-link" (click)="closeMenu()">{{
+            'HOME.CATEGORIES.MEMORABILIA' | translate
+          }}</a>
         </li>
       </ul>
     </nav>
 
     <!-- Actions -->
     <div class="header__actions">
+      <!-- Language Switcher -->
+      <div class="header__lang-switcher">
+        <button
+          class="header__action-btn header__lang-btn"
+          (click)="toggleLangMenu()"
+          aria-label="Change language"
+        >
+          <span class="header__lang-flag">{{ currentLang.flag }}</span>
+          <span class="header__lang-code">{{ currentLang.code.toUpperCase() }}</span>
+          <i
+            class="pi pi-chevron-down header__lang-arrow"
+            [class.header__lang-arrow--open]="isLangMenuOpen"
+          ></i>
+        </button>
+        @if (isLangMenuOpen) {
+        <div class="header__lang-menu">
+          @for (lang of languages; track lang.code) {
+          <button
+            class="header__lang-option"
+            [class.header__lang-option--active]="lang.code === currentLang.code"
+            (click)="switchLanguage(lang.code)"
+          >
+            <span class="header__lang-flag">{{ lang.flag }}</span>
+            <span>{{ lang.name }}</span>
+          </button>
+          }
+        </div>
+        <div class="header__lang-overlay" (click)="closeLangMenu()"></div>
+        }
+      </div>
+
       <!-- Search Toggle -->
       <button class="header__action-btn" (click)="toggleSearch()" aria-label="Search">
         <i class="pi pi-search"></i>
@@ -77,7 +116,7 @@
       <input
         type="search"
         class="header__search-input"
-        placeholder="Search for collectibles..."
+        [placeholder]="'NAV.SEARCH' | translate"
         autofocus
       />
       <button class="header__search-close" (click)="toggleSearch()" aria-label="Close search">

@@ -1,0 +1,199 @@
+{
+  "NAV": {
+    "HOME": "Home",
+    "SHOP": "Shop",
+    "CATEGORIES": "Categories",
+    "ABOUT": "About",
+    "CONTACT": "Contact",
+    "SEARCH": "Search...",
+    "CART": "Cart",
+    "ACCOUNT": "Account",
+    "LOGIN": "Login",
+    "REGISTER": "Register",
+    "LOGOUT": "Sign Out"
+  },
+  "COMMON": {
+    "ADD_TO_CART": "Add to Cart",
+    "BUY_NOW": "Buy Now",
+    "VIEW_DETAILS": "View Details",
+    "LEARN_MORE": "Learn More",
+    "CONTINUE_SHOPPING": "Continue Shopping",
+    "PROCEED_TO_CHECKOUT": "Proceed to Checkout",
+    "SUBMIT": "Submit",
+    "SAVE": "Save Changes",
+    "CANCEL": "Cancel",
+    "BACK": "Back",
+    "NEXT": "Next",
+    "LOADING": "Loading...",
+    "NO_RESULTS": "No results found",
+    "ERROR": "An error occurred",
+    "SUCCESS": "Success",
+    "IN_STOCK": "In Stock",
+    "OUT_OF_STOCK": "Out of Stock",
+    "CONDITION": "Condition",
+    "YEAR": "Year",
+    "SKU": "SKU",
+    "AVAILABILITY": "Availability",
+    "PRICE": "Price",
+    "QUANTITY": "Quantity",
+    "SUBTOTAL": "Subtotal",
+    "SHIPPING": "Shipping",
+    "TAX": "Tax",
+    "TOTAL": "Total"
+  },
+  "HOME": {
+    "HERO_TITLE": "Discover Rare Collectibles",
+    "HERO_SUBTITLE": "Premium trading cards, vintage toys, and exclusive memorabilia for passionate collectors",
+    "SHOP_NOW": "Shop Now",
+    "BROWSE_CATEGORIES": "Browse Categories",
+    "FEATURED_PRODUCTS": "Featured Products",
+    "VIEW_ALL": "View All",
+    "CATEGORIES": {
+      "TRADING_CARDS": "Trading Cards",
+      "VINTAGE_TOYS": "Vintage Toys",
+      "MEMORABILIA": "Memorabilia",
+      "COMICS": "Comics"
+    },
+    "WHY_CHOOSE_US": "Why Choose Us",
+    "AUTHENTIC_ITEMS": "Authentic Items",
+    "AUTHENTIC_DESC": "Every item is verified for authenticity",
+    "SECURE_SHIPPING": "Secure Shipping",
+    "SECURE_DESC": "Insured and tracked worldwide delivery",
+    "EXPERT_GRADING": "Expert Grading",
+    "EXPERT_DESC": "Professional condition assessment"
+  },
+  "CATALOG": {
+    "TITLE": "Shop",
+    "FILTERS": "Filters",
+    "SORT_BY": "Sort by",
+    "PRICE_LOW_HIGH": "Price: Low to High",
+    "PRICE_HIGH_LOW": "Price: High to Low",
+    "NEWEST": "Newest",
+    "BEST_SELLING": "Best Selling",
+    "CATEGORY": "Category",
+    "CONDITION": "Condition",
+    "PRICE_RANGE": "Price Range",
+    "CLEAR_FILTERS": "Clear Filters",
+    "SHOWING": "Showing",
+    "PRODUCTS": "products",
+    "OF": "of"
+  },
+  "PRODUCT": {
+    "REVIEWS": "reviews",
+    "DESCRIPTION": "Description",
+    "SPECIFICATIONS": "Specifications",
+    "RELATED_PRODUCTS": "Related Products",
+    "ADD_TO_WISHLIST": "Add to Wishlist",
+    "SHARE": "Share"
+  },
+  "CART": {
+    "TITLE": "Shopping Cart",
+    "EMPTY": "Your cart is empty",
+    "START_SHOPPING": "Start Shopping",
+    "REMOVE": "Remove",
+    "ORDER_SUMMARY": "Order Summary",
+    "CALCULATED_AT_CHECKOUT": "Calculated at checkout",
+    "FREE_SHIPPING": "Free shipping on orders over $100"
+  },
+  "CHECKOUT": {
+    "TITLE": "Checkout",
+    "SHIPPING_INFO": "Shipping Information",
+    "PAYMENT_METHOD": "Payment Method",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "EMAIL": "Email",
+    "ADDRESS": "Address",
+    "CITY": "City",
+    "POSTAL_CODE": "Postal Code",
+    "COUNTRY": "Country",
+    "CREDIT_CARD": "Credit Card",
+    "PAYPAL": "PayPal",
+    "CARD_NUMBER": "Card Number",
+    "EXPIRY_DATE": "Expiry Date",
+    "CVV": "CVV",
+    "PLACE_ORDER": "Place Order",
+    "ORDER_SUMMARY": "Order Summary"
+  },
+  "AUTH": {
+    "LOGIN": {
+      "TITLE": "Welcome Back",
+      "SUBTITLE": "Sign in to your account to continue",
+      "EMAIL": "Email",
+      "PASSWORD": "Password",
+      "REMEMBER_ME": "Remember me",
+      "FORGOT_PASSWORD": "Forgot password?",
+      "SIGN_IN": "Sign In",
+      "NO_ACCOUNT": "Don't have an account?",
+      "SIGN_UP": "Sign up"
+    },
+    "REGISTER": {
+      "TITLE": "Create Account",
+      "SUBTITLE": "Join our community of collectors",
+      "FIRST_NAME": "First Name",
+      "LAST_NAME": "Last Name",
+      "EMAIL": "Email",
+      "PASSWORD": "Password",
+      "CONFIRM_PASSWORD": "Confirm Password",
+      "AGREE_TERMS": "I agree to the",
+      "TERMS": "Terms of Service",
+      "AND": "and",
+      "PRIVACY": "Privacy Policy",
+      "CREATE_ACCOUNT": "Create Account",
+      "ALREADY_ACCOUNT": "Already have an account?",
+      "SIGN_IN": "Sign in"
+    },
+    "FORGOT_PASSWORD": {
+      "TITLE": "Reset Password",
+      "SUBTITLE": "Enter your email and we'll send you a reset link",
+      "EMAIL": "Email",
+      "SEND_LINK": "Send Reset Link",
+      "REMEMBER_PASSWORD": "Remember your password?",
+      "SIGN_IN": "Sign in"
+    }
+  },
+  "ACCOUNT": {
+    "MY_PROFILE": "My Profile",
+    "ORDERS": "Orders",
+    "WISHLIST": "Wishlist",
+    "SETTINGS": "Settings",
+    "SIGN_OUT": "Sign Out",
+    "PERSONAL_INFO": "Personal Information",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "EMAIL": "Email",
+    "PHONE": "Phone",
+    "ORDER_HISTORY": {
+      "TITLE": "Order History",
+      "EMPTY": "Your past orders will appear here."
+    },
+    "WISHLIST_PAGE": {
+      "TITLE": "My Wishlist",
+      "EMPTY": "Your saved items will appear here."
+    },
+    "SETTINGS_PAGE": {
+      "TITLE": "Account Settings",
+      "DESCRIPTION": "Manage your account settings and preferences."
+    }
+  },
+  "FOOTER": {
+    "ABOUT": "About CollectorShop",
+    "ABOUT_TEXT": "Your trusted source for premium collectibles, trading cards, and rare memorabilia since 2020.",
+    "QUICK_LINKS": "Quick Links",
+    "CUSTOMER_SERVICE": "Customer Service",
+    "FAQ": "FAQ",
+    "SHIPPING_INFO": "Shipping Info",
+    "RETURNS": "Returns",
+    "TRACK_ORDER": "Track Order",
+    "CONNECT": "Connect With Us",
+    "NEWSLETTER": "Subscribe to our newsletter",
+    "SUBSCRIBE": "Subscribe",
+    "EMAIL_PLACEHOLDER": "Your email",
+    "COPYRIGHT": "© 2024 CollectorShop. All rights reserved."
+  },
+  "LANGUAGES": {
+    "EN": "English",
+    "FR": "Français",
+    "DE": "Deutsch",
+    "IT": "Italiano"
+  }
+}

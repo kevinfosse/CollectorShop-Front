@@ -1,0 +1,31 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-card__header">
+      <h1>Welcome Back</h1>
+      <p>Sign in to your account to continue</p>
+    </div>
+
+    <form class="auth-form">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="you@example.com" />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" placeholder="••••••••" />
+      </div>
+      <div class="form-row">
+        <label class="checkbox">
+          <input type="checkbox" />
+          <span>Remember me</span>
+        </label>
+        <a routerLink="/auth/forgot-password" class="link">Forgot password?</a>
+      </div>
+      <button type="submit" class="btn-primary btn-lg" style="width: 100%">Sign In</button>
+    </form>
+
+    <div class="auth-card__footer">
+      <p>Don't have an account? <a routerLink="/auth/register">Sign up</a></p>
+    </div>
+  </div>
+</div>

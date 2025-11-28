@@ -1,0 +1,199 @@
+{
+  "NAV": {
+    "HOME": "Startseite",
+    "SHOP": "Shop",
+    "CATEGORIES": "Kategorien",
+    "ABOUT": "Über uns",
+    "CONTACT": "Kontakt",
+    "SEARCH": "Suchen...",
+    "CART": "Warenkorb",
+    "ACCOUNT": "Konto",
+    "LOGIN": "Anmelden",
+    "REGISTER": "Registrieren",
+    "LOGOUT": "Abmelden"
+  },
+  "COMMON": {
+    "ADD_TO_CART": "In den Warenkorb",
+    "BUY_NOW": "Jetzt kaufen",
+    "VIEW_DETAILS": "Details anzeigen",
+    "LEARN_MORE": "Mehr erfahren",
+    "CONTINUE_SHOPPING": "Weiter einkaufen",
+    "PROCEED_TO_CHECKOUT": "Zur Kasse",
+    "SUBMIT": "Absenden",
+    "SAVE": "Speichern",
+    "CANCEL": "Abbrechen",
+    "BACK": "Zurück",
+    "NEXT": "Weiter",
+    "LOADING": "Laden...",
+    "NO_RESULTS": "Keine Ergebnisse gefunden",
+    "ERROR": "Ein Fehler ist aufgetreten",
+    "SUCCESS": "Erfolg",
+    "IN_STOCK": "Auf Lager",
+    "OUT_OF_STOCK": "Ausverkauft",
+    "CONDITION": "Zustand",
+    "YEAR": "Jahr",
+    "SKU": "Art.-Nr.",
+    "AVAILABILITY": "Verfügbarkeit",
+    "PRICE": "Preis",
+    "QUANTITY": "Menge",
+    "SUBTOTAL": "Zwischensumme",
+    "SHIPPING": "Versand",
+    "TAX": "Steuern",
+    "TOTAL": "Gesamt"
+  },
+  "HOME": {
+    "HERO_TITLE": "Entdecken Sie Seltene Sammlerstücke",
+    "HERO_SUBTITLE": "Premium-Sammelkarten, Vintage-Spielzeug und exklusive Erinnerungsstücke für leidenschaftliche Sammler",
+    "SHOP_NOW": "Jetzt einkaufen",
+    "BROWSE_CATEGORIES": "Kategorien durchsuchen",
+    "FEATURED_PRODUCTS": "Ausgewählte Produkte",
+    "VIEW_ALL": "Alle anzeigen",
+    "CATEGORIES": {
+      "TRADING_CARDS": "Sammelkarten",
+      "VINTAGE_TOYS": "Vintage-Spielzeug",
+      "MEMORABILIA": "Erinnerungsstücke",
+      "COMICS": "Comics"
+    },
+    "WHY_CHOOSE_US": "Warum uns wählen",
+    "AUTHENTIC_ITEMS": "Authentische Artikel",
+    "AUTHENTIC_DESC": "Jeder Artikel wird auf Echtheit geprüft",
+    "SECURE_SHIPPING": "Sicherer Versand",
+    "SECURE_DESC": "Versicherter und verfolgter weltweiter Versand",
+    "EXPERT_GRADING": "Experten-Bewertung",
+    "EXPERT_DESC": "Professionelle Zustandsbewertung"
+  },
+  "CATALOG": {
+    "TITLE": "Shop",
+    "FILTERS": "Filter",
+    "SORT_BY": "Sortieren nach",
+    "PRICE_LOW_HIGH": "Preis: aufsteigend",
+    "PRICE_HIGH_LOW": "Preis: absteigend",
+    "NEWEST": "Neueste",
+    "BEST_SELLING": "Bestseller",
+    "CATEGORY": "Kategorie",
+    "CONDITION": "Zustand",
+    "PRICE_RANGE": "Preisbereich",
+    "CLEAR_FILTERS": "Filter löschen",
+    "SHOWING": "Zeige",
+    "PRODUCTS": "Produkte",
+    "OF": "von"
+  },
+  "PRODUCT": {
+    "REVIEWS": "Bewertungen",
+    "DESCRIPTION": "Beschreibung",
+    "SPECIFICATIONS": "Spezifikationen",
+    "RELATED_PRODUCTS": "Ähnliche Produkte",
+    "ADD_TO_WISHLIST": "Zur Wunschliste hinzufügen",
+    "SHARE": "Teilen"
+  },
+  "CART": {
+    "TITLE": "Warenkorb",
+    "EMPTY": "Ihr Warenkorb ist leer",
+    "START_SHOPPING": "Jetzt einkaufen",
+    "REMOVE": "Entfernen",
+    "ORDER_SUMMARY": "Bestellübersicht",
+    "CALCULATED_AT_CHECKOUT": "Wird an der Kasse berechnet",
+    "FREE_SHIPPING": "Kostenloser Versand ab 100€"
+  },
+  "CHECKOUT": {
+    "TITLE": "Kasse",
+    "SHIPPING_INFO": "Versandinformationen",
+    "PAYMENT_METHOD": "Zahlungsmethode",
+    "FIRST_NAME": "Vorname",
+    "LAST_NAME": "Nachname",
+    "EMAIL": "E-Mail",
+    "ADDRESS": "Adresse",
+    "CITY": "Stadt",
+    "POSTAL_CODE": "Postleitzahl",
+    "COUNTRY": "Land",
+    "CREDIT_CARD": "Kreditkarte",
+    "PAYPAL": "PayPal",
+    "CARD_NUMBER": "Kartennummer",
+    "EXPIRY_DATE": "Ablaufdatum",
+    "CVV": "CVV",
+    "PLACE_ORDER": "Bestellung aufgeben",
+    "ORDER_SUMMARY": "Bestellübersicht"
+  },
+  "AUTH": {
+    "LOGIN": {
+      "TITLE": "Willkommen zurück",
+      "SUBTITLE": "Melden Sie sich an, um fortzufahren",
+      "EMAIL": "E-Mail",
+      "PASSWORD": "Passwort",
+      "REMEMBER_ME": "Angemeldet bleiben",
+      "FORGOT_PASSWORD": "Passwort vergessen?",
+      "SIGN_IN": "Anmelden",
+      "NO_ACCOUNT": "Noch kein Konto?",
+      "SIGN_UP": "Registrieren"
+    },
+    "REGISTER": {
+      "TITLE": "Konto erstellen",
+      "SUBTITLE": "Werden Sie Teil unserer Sammler-Community",
+      "FIRST_NAME": "Vorname",
+      "LAST_NAME": "Nachname",
+      "EMAIL": "E-Mail",
+      "PASSWORD": "Passwort",
+      "CONFIRM_PASSWORD": "Passwort bestätigen",
+      "AGREE_TERMS": "Ich stimme den",
+      "TERMS": "Nutzungsbedingungen",
+      "AND": "und der",
+      "PRIVACY": "Datenschutzrichtlinie",
+      "CREATE_ACCOUNT": "Konto erstellen",
+      "ALREADY_ACCOUNT": "Bereits ein Konto?",
+      "SIGN_IN": "Anmelden"
+    },
+    "FORGOT_PASSWORD": {
+      "TITLE": "Passwort zurücksetzen",
+      "SUBTITLE": "Geben Sie Ihre E-Mail ein und wir senden Ihnen einen Link",
+      "EMAIL": "E-Mail",
+      "SEND_LINK": "Link senden",
+      "REMEMBER_PASSWORD": "Passwort eingefallen?",
+      "SIGN_IN": "Anmelden"
+    }
+  },
+  "ACCOUNT": {
+    "MY_PROFILE": "Mein Profil",
+    "ORDERS": "Bestellungen",
+    "WISHLIST": "Wunschliste",
+    "SETTINGS": "Einstellungen",
+    "SIGN_OUT": "Abmelden",
+    "PERSONAL_INFO": "Persönliche Informationen",
+    "FIRST_NAME": "Vorname",
+    "LAST_NAME": "Nachname",
+    "EMAIL": "E-Mail",
+    "PHONE": "Telefon",
+    "ORDER_HISTORY": {
+      "TITLE": "Bestellverlauf",
+      "EMPTY": "Ihre vergangenen Bestellungen erscheinen hier."
+    },
+    "WISHLIST_PAGE": {
+      "TITLE": "Meine Wunschliste",
+      "EMPTY": "Ihre gespeicherten Artikel erscheinen hier."
+    },
+    "SETTINGS_PAGE": {
+      "TITLE": "Kontoeinstellungen",
+      "DESCRIPTION": "Verwalten Sie Ihre Kontoeinstellungen und Präferenzen."
+    }
+  },
+  "FOOTER": {
+    "ABOUT": "Über CollectorShop",
+    "ABOUT_TEXT": "Ihre vertrauenswürdige Quelle für Premium-Sammlerstücke, Sammelkarten und seltene Erinnerungsstücke seit 2020.",
+    "QUICK_LINKS": "Schnelllinks",
+    "CUSTOMER_SERVICE": "Kundenservice",
+    "FAQ": "FAQ",
+    "SHIPPING_INFO": "Versandinfos",
+    "RETURNS": "Rückgaben",
+    "TRACK_ORDER": "Bestellung verfolgen",
+    "CONNECT": "Folgen Sie uns",
+    "NEWSLETTER": "Newsletter abonnieren",
+    "SUBSCRIBE": "Abonnieren",
+    "EMAIL_PLACEHOLDER": "Ihre E-Mail",
+    "COPYRIGHT": "© 2024 CollectorShop. Alle Rechte vorbehalten."
+  },
+  "LANGUAGES": {
+    "EN": "English",
+    "FR": "Français",
+    "DE": "Deutsch",
+    "IT": "Italiano"
+  }
+}
