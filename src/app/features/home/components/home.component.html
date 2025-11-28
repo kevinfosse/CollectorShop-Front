@@ -1,0 +1,120 @@
+<div class="home">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero__container container">
+      <div class="hero__content">
+        <span class="hero__badge">Premium Collectibles</span>
+        <h1 class="hero__title">Discover Rare & Unique Treasures</h1>
+        <p class="hero__subtitle">
+          Your trusted destination for trading cards, vintage figurines, and exclusive collectibles.
+        </p>
+        <div class="hero__actions">
+          <a routerLink="/catalog" class="btn-primary btn-lg">Shop Now</a>
+          <a routerLink="/catalog?sort=newest" class="btn-secondary btn-lg">New Arrivals</a>
+        </div>
+      </div>
+      <div class="hero__image">
+        <img
+          src="https://placehold.co/600x600/1a1a1a/c9a962?text=Hero+Image"
+          alt="Featured Collectibles"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Shop by Category</h2>
+        <a routerLink="/catalog" class="section-header__link">
+          View All <i class="pi pi-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="categories__grid">
+        @for (category of categories; track category.slug) {
+        <a [routerLink]="['/catalog', category.slug]" class="category-card">
+          <div class="category-card__image">
+            <img [src]="category.image" [alt]="category.name" />
+          </div>
+          <div class="category-card__content">
+            <h3 class="category-card__name">{{ category.name }}</h3>
+            <span class="category-card__count">{{ category.count }} items</span>
+          </div>
+        </a>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section class="featured section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Featured Collectibles</h2>
+        <a routerLink="/catalog" class="section-header__link">
+          View All <i class="pi pi-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="featured__grid">
+        @for (product of featuredProducts; track product.id) {
+        <app-product-card
+          [product]="product"
+          (addToCart)="onAddToCart($event)"
+          (addToWishlist)="onAddToWishlist($event)"
+          (quickView)="onQuickView($event)"
+        />
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- USP Section -->
+  <section class="usp section">
+    <div class="container">
+      <div class="usp__grid">
+        <div class="usp__item">
+          <div class="usp__icon">
+            <i class="pi pi-verified"></i>
+          </div>
+          <h3 class="usp__title">Authenticity Guaranteed</h3>
+          <p class="usp__text">Every item verified by expert collectors</p>
+        </div>
+        <div class="usp__item">
+          <div class="usp__icon">
+            <i class="pi pi-shield"></i>
+          </div>
+          <h3 class="usp__title">Secure Packaging</h3>
+          <p class="usp__text">Premium protection for your collectibles</p>
+        </div>
+        <div class="usp__item">
+          <div class="usp__icon">
+            <i class="pi pi-truck"></i>
+          </div>
+          <h3 class="usp__title">Worldwide Shipping</h3>
+          <p class="usp__text">Insured delivery to your doorstep</p>
+        </div>
+        <div class="usp__item">
+          <div class="usp__icon">
+            <i class="pi pi-replay"></i>
+          </div>
+          <h3 class="usp__title">Easy Returns</h3>
+          <p class="usp__text">30-day hassle-free return policy</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta__content">
+        <h2 class="cta__title">Start Your Collection Today</h2>
+        <p class="cta__text">Join thousands of collectors who trust us for their rare finds</p>
+        <a routerLink="/register" class="btn-accent btn-lg">Create Account</a>
+      </div>
+    </div>
+  </section>
+</div>

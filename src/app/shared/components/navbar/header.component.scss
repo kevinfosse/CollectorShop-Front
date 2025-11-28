@@ -1,0 +1,250 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+  background-color: $color-white;
+  border-bottom: $border-width solid $border-color;
+
+  &__container {
+    @include container;
+    @include flex-between;
+    height: $header-height-mobile;
+
+    @include lg {
+      height: $header-height-desktop;
+    }
+  }
+
+  // Logo
+  &__logo {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+
+    @include lg {
+      font-size: $font-size-2xl;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__logo-accent {
+    color: $color-accent;
+  }
+
+  // Mobile menu toggle
+  &__menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    color: $color-primary;
+    font-size: $font-size-xl;
+
+    @include lg {
+      display: none;
+    }
+  }
+
+  // Navigation
+  &__nav {
+    // Mobile: slide-in menu
+    position: fixed;
+    top: $header-height-mobile;
+    left: 0;
+    width: 280px;
+    height: calc(100vh - $header-height-mobile);
+    background-color: $color-white;
+    transform: translateX(-100%);
+    transition: transform $transition-slow;
+    z-index: $z-fixed;
+    padding: $spacing-6;
+    overflow-y: auto;
+
+    &--open {
+      transform: translateX(0);
+    }
+
+    @include lg {
+      position: static;
+      width: auto;
+      height: auto;
+      transform: none;
+      padding: 0;
+      overflow: visible;
+    }
+  }
+
+  &__nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+
+    @include lg {
+      flex-direction: row;
+      align-items: center;
+      gap: $spacing-8;
+    }
+  }
+
+  &__nav-link {
+    display: block;
+    padding: $spacing-3 0;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-gray-700;
+    text-decoration: none;
+    transition: color $transition-fast;
+    border-bottom: $border-width solid $border-color;
+
+    @include lg {
+      padding: $spacing-2 0;
+      border-bottom: none;
+      font-size: $font-size-sm;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  // Actions (icons)
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+
+    @include lg {
+      gap: $spacing-2;
+    }
+  }
+
+  &__action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    color: $color-gray-700;
+    font-size: $font-size-lg;
+    transition: color $transition-fast;
+    text-decoration: none;
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    &--desktop {
+      display: none;
+
+      @include lg {
+        display: flex;
+      }
+    }
+  }
+
+  // Cart with badge
+  &__cart-btn {
+    position: relative;
+  }
+
+  &__cart-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    background-color: $color-accent;
+    color: $color-primary;
+    font-size: 10px;
+    font-weight: $font-weight-bold;
+    border-radius: $border-radius-full;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  // Search bar
+  &__search {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: $color-white;
+    border-bottom: $border-width solid $border-color;
+    padding: $spacing-4;
+    animation: slideUp $transition-base;
+  }
+
+  &__search-container {
+    @include container;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__search-icon {
+    position: absolute;
+    left: $spacing-4;
+    color: $color-gray-400;
+  }
+
+  &__search-input {
+    width: 100%;
+    padding: $spacing-3 $spacing-4;
+    padding-left: $spacing-10;
+    padding-right: $spacing-10;
+    font-size: $font-size-base;
+    border: $border-width solid $border-color;
+    border-radius: $border-radius-full;
+    background-color: $color-gray-50;
+
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      background-color: $color-white;
+    }
+  }
+
+  &__search-close {
+    position: absolute;
+    right: $spacing-4;
+    background: none;
+    border: none;
+    color: $color-gray-500;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  // Mobile overlay
+  &__overlay {
+    position: fixed;
+    top: $header-height-mobile;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($color-primary, 0.5);
+    z-index: $z-modal-backdrop;
+
+    @include lg {
+      display: none;
+    }
+  }
+}

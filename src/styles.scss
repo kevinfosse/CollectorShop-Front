@@ -1,1 +1,250 @@
-/* You can add global styles to this file, and also import other style files */
+/* CollectorShop Global Styles */
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+// Import PrimeIcons
+@import 'primeicons/primeicons.css';
+
+// ===========================================
+// CSS RESET & BASE STYLES
+// ===========================================
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  color: $color-gray-900;
+  background-color: $color-gray-50;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ===========================================
+// TYPOGRAPHY
+// ===========================================
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-family-heading;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  color: $color-gray-900;
+}
+
+h1 {
+  @include heading-1;
+}
+h2 {
+  @include heading-2;
+}
+h3 {
+  @include heading-3;
+}
+
+p {
+  @include body-text;
+  margin-bottom: $spacing-4;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+a {
+  color: $color-primary;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-accent;
+  }
+}
+
+// ===========================================
+// IMAGES
+// ===========================================
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// ===========================================
+// BUTTONS
+// ===========================================
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.btn {
+  @include button-base;
+}
+
+.btn-primary {
+  @include button-primary;
+}
+
+.btn-secondary {
+  @include button-secondary;
+}
+
+.btn-accent {
+  @include button-accent;
+}
+
+.btn-sm {
+  padding: $spacing-2 $spacing-4;
+  font-size: $font-size-xs;
+}
+
+.btn-lg {
+  padding: $spacing-4 $spacing-8;
+  font-size: $font-size-base;
+}
+
+// ===========================================
+// FORMS
+// ===========================================
+
+input,
+textarea,
+select {
+  @include input-base;
+}
+
+label {
+  display: block;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-gray-700;
+  margin-bottom: $spacing-2;
+}
+
+// ===========================================
+// LAYOUT UTILITIES
+// ===========================================
+
+.container {
+  @include container;
+}
+
+.section {
+  padding: $spacing-12 0;
+
+  @include lg {
+    padding: $spacing-16 0;
+  }
+}
+
+// ===========================================
+// UTILITY CLASSES
+// ===========================================
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+.truncate {
+  @include truncate;
+}
+
+// Text alignment
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+
+// Display
+.hidden {
+  display: none;
+}
+.block {
+  display: block;
+}
+.inline-block {
+  display: inline-block;
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+
+// Flex utilities
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-2 {
+  gap: $spacing-2;
+}
+.gap-4 {
+  gap: $spacing-4;
+}
+.gap-6 {
+  gap: $spacing-6;
+}
+
+// ===========================================
+// ANIMATIONS
+// ===========================================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn $transition-base;
+}
+
+.animate-slide-up {
+  animation: slideUp $transition-slow;
+}

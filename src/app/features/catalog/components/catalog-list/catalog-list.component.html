@@ -1,0 +1,142 @@
+<div class="catalog">
+  <div class="container">
+    <!-- Breadcrumb -->
+    <nav class="catalog__breadcrumb">
+      <a routerLink="/">Home</a>
+      <i class="pi pi-angle-right"></i>
+      <span>{{ formatCategoryName(currentCategory) }}</span>
+    </nav>
+
+    <div class="catalog__layout">
+      <!-- Sidebar Filters -->
+      <aside class="catalog__sidebar">
+        <div class="filter-section">
+          <h3 class="filter-section__title">Categories</h3>
+          <ul class="filter-section__list">
+            <li><a routerLink="/catalog" class="filter-link">All Products</a></li>
+            <li><a routerLink="/catalog/trading-cards" class="filter-link">Trading Cards</a></li>
+            <li><a routerLink="/catalog/figurines" class="filter-link">Figurines</a></li>
+            <li><a routerLink="/catalog/vintage" class="filter-link">Vintage</a></li>
+            <li><a routerLink="/catalog/sealed" class="filter-link">Sealed Products</a></li>
+          </ul>
+        </div>
+
+        <div class="filter-section">
+          <h3 class="filter-section__title">Price Range</h3>
+          <div class="filter-section__price">
+            <input type="number" placeholder="Min" class="filter-input" />
+            <span>-</span>
+            <input type="number" placeholder="Max" class="filter-input" />
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <h3 class="filter-section__title">Condition</h3>
+          <ul class="filter-section__list">
+            <li>
+              <label class="filter-checkbox">
+                <input type="checkbox" />
+                <span>Mint</span>
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox">
+                <input type="checkbox" />
+                <span>Near Mint</span>
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox">
+                <input type="checkbox" />
+                <span>Excellent</span>
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox">
+                <input type="checkbox" />
+                <span>Good</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="filter-section">
+          <h3 class="filter-section__title">Rarity</h3>
+          <ul class="filter-section__list">
+            <li>
+              <label class="filter-checkbox">
+                <input type="checkbox" />
+                <span>Legendary</span>
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox">
+                <input type="checkbox" />
+                <span>Ultra Rare</span>
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox">
+                <input type="checkbox" />
+                <span>Rare</span>
+              </label>
+            </li>
+            <li>
+              <label class="filter-checkbox">
+                <input type="checkbox" />
+                <span>Uncommon</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <button class="btn-primary" style="width: 100%">Apply Filters</button>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="catalog__main">
+        <!-- Header -->
+        <div class="catalog__header">
+          <h1>{{ formatCategoryName(currentCategory) }}</h1>
+          <div class="catalog__controls">
+            <span class="catalog__count">{{ products.length }} products</span>
+            <select class="catalog__sort">
+              <option value="newest">Newest</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="name-asc">Name: A to Z</option>
+              <option value="rating">Best Rating</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="catalog__grid">
+          @for (product of products; track product.id) {
+          <app-product-card
+            [product]="product"
+            (addToCart)="onAddToCart($event)"
+            (addToWishlist)="onAddToWishlist($event)"
+            (quickView)="onQuickView($event)"
+          />
+          }
+        </div>
+
+        <!-- Pagination -->
+        <div class="catalog__pagination">
+          <button class="pagination__btn" disabled>
+            <i class="pi pi-angle-left"></i>
+          </button>
+          <button class="pagination__btn pagination__btn--active">1</button>
+          <button class="pagination__btn">2</button>
+          <button class="pagination__btn">3</button>
+          <span class="pagination__dots">...</span>
+          <button class="pagination__btn">10</button>
+          <button class="pagination__btn">
+            <i class="pi pi-angle-right"></i>
+          </button>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>

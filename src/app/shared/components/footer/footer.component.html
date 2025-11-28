@@ -1,0 +1,96 @@
+<footer class="footer">
+  <div class="footer__container">
+    <!-- Main Footer Content -->
+    <div class="footer__content">
+      <!-- Brand Column -->
+      <div class="footer__brand">
+        <a routerLink="/" class="footer__logo">
+          Collector<span class="footer__logo-accent">Shop</span>
+        </a>
+        <p class="footer__tagline">
+          Your destination for rare and unique collectibles. From trading cards to vintage
+          treasures.
+        </p>
+
+        <!-- Newsletter -->
+        <div class="footer__newsletter">
+          <h4 class="footer__newsletter-title">Join Our Newsletter</h4>
+          <form class="footer__newsletter-form">
+            <input type="email" placeholder="Enter your email" class="footer__newsletter-input" />
+            <button type="submit" class="footer__newsletter-btn">
+              <i class="pi pi-arrow-right"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Links Columns -->
+      <div class="footer__links">
+        <!-- Shop -->
+        <div class="footer__column">
+          <h4 class="footer__column-title">Shop</h4>
+          <ul class="footer__list">
+            @for (link of footerLinks.shop; track link.path) {
+            <li>
+              <a [routerLink]="link.path" class="footer__link">{{ link.label }}</a>
+            </li>
+            }
+          </ul>
+        </div>
+
+        <!-- Support -->
+        <div class="footer__column">
+          <h4 class="footer__column-title">Support</h4>
+          <ul class="footer__list">
+            @for (link of footerLinks.support; track link.path) {
+            <li>
+              <a [routerLink]="link.path" class="footer__link">{{ link.label }}</a>
+            </li>
+            }
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div class="footer__column">
+          <h4 class="footer__column-title">Company</h4>
+          <ul class="footer__list">
+            @for (link of footerLinks.company; track link.path) {
+            <li>
+              <a [routerLink]="link.path" class="footer__link">{{ link.label }}</a>
+            </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer__bottom">
+      <div class="footer__copyright">
+        <p>&copy; {{ currentYear }} CollectorShop. All rights reserved.</p>
+      </div>
+
+      <!-- Social Links -->
+      <div class="footer__social">
+        @for (social of socialLinks; track social.url) {
+        <a
+          [href]="social.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer__social-link"
+          [attr.aria-label]="social.label"
+        >
+          <i class="pi" [class]="social.icon"></i>
+        </a>
+        }
+      </div>
+
+      <!-- Legal Links -->
+      <div class="footer__legal">
+        @for (link of footerLinks.legal; track link.path) {
+        <a [routerLink]="link.path" class="footer__legal-link">{{ link.label }}</a>
+        }
+      </div>
+    </div>
+  </div>
+</footer>

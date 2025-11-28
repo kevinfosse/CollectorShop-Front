@@ -1,0 +1,220 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+.footer {
+  background-color: $color-primary;
+  color: $color-white;
+  padding-top: $spacing-12;
+
+  @include lg {
+    padding-top: $spacing-16;
+  }
+
+  &__container {
+    @include container;
+  }
+
+  // Main Content
+  &__content {
+    display: grid;
+    gap: $spacing-10;
+    padding-bottom: $spacing-10;
+    border-bottom: 1px solid rgba($color-white, 0.1);
+
+    @include lg {
+      grid-template-columns: 1.5fr 2fr;
+      gap: $spacing-16;
+    }
+  }
+
+  // Brand Section
+  &__brand {
+    max-width: 320px;
+  }
+
+  &__logo {
+    display: inline-block;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-white;
+    text-decoration: none;
+    margin-bottom: $spacing-4;
+  }
+
+  &__logo-accent {
+    color: $color-accent;
+  }
+
+  &__tagline {
+    font-size: $font-size-sm;
+    color: rgba($color-white, 0.7);
+    line-height: $line-height-relaxed;
+    margin-bottom: $spacing-6;
+  }
+
+  // Newsletter
+  &__newsletter {
+    margin-top: $spacing-6;
+  }
+
+  &__newsletter-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    margin-bottom: $spacing-3;
+    color: $color-white;
+  }
+
+  &__newsletter-form {
+    display: flex;
+    gap: $spacing-2;
+  }
+
+  &__newsletter-input {
+    flex: 1;
+    padding: $spacing-3 $spacing-4;
+    background-color: rgba($color-white, 0.1);
+    border: 1px solid rgba($color-white, 0.2);
+    border-radius: $border-radius-base;
+    color: $color-white;
+    font-size: $font-size-sm;
+
+    &::placeholder {
+      color: rgba($color-white, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $color-accent;
+      background-color: rgba($color-white, 0.15);
+    }
+  }
+
+  &__newsletter-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: $color-accent;
+    color: $color-primary;
+    border: none;
+    border-radius: $border-radius-base;
+    cursor: pointer;
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background-color: $color-accent-dark;
+    }
+  }
+
+  // Links Section
+  &__links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-8;
+
+    @include md {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__column-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: $color-accent;
+    margin-bottom: $spacing-4;
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__link {
+    font-size: $font-size-sm;
+    color: rgba($color-white, 0.7);
+    text-decoration: none;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $color-white;
+    }
+  }
+
+  // Bottom Bar
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+    padding: $spacing-6 0;
+
+    @include md {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  &__copyright {
+    font-size: $font-size-sm;
+    color: rgba($color-white, 0.5);
+    order: 3;
+
+    @include md {
+      order: 1;
+    }
+  }
+
+  &__social {
+    display: flex;
+    gap: $spacing-4;
+    order: 1;
+
+    @include md {
+      order: 2;
+    }
+  }
+
+  &__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    color: rgba($color-white, 0.7);
+    border: 1px solid rgba($color-white, 0.2);
+    border-radius: $border-radius-full;
+    transition: all $transition-fast;
+
+    &:hover {
+      color: $color-primary;
+      background-color: $color-accent;
+      border-color: $color-accent;
+    }
+  }
+
+  &__legal {
+    display: flex;
+    gap: $spacing-4;
+    order: 2;
+
+    @include md {
+      order: 3;
+    }
+  }
+
+  &__legal-link {
+    font-size: $font-size-xs;
+    color: rgba($color-white, 0.5);
+    text-decoration: none;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $color-white;
+    }
+  }
+}
