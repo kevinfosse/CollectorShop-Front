@@ -84,25 +84,57 @@
         <i class="pi pi-search"></i>
       </button>
 
-      <!-- User Account -->
-      <a routerLink="/account" class="header__action-btn" aria-label="Account">
-        <i class="pi pi-user"></i>
+      <!-- User Account / Auth -->
+      @if (isAuthenticated()) {
+      <div class="header__user-menu-container">
+        <button class="header__action-btn" (click)="toggleUserMenu()" aria-label="User menu">
+          <i class="pi pi-user"></i>
+        </button>
+        @if (isUserMenuOpen) {
+        <div class="header__user-menu">
+          <div class="header__user-info">
+            <span class="header__user-name">{{ user()?.firstName }} {{ user()?.lastName }}</span>
+            <span class="header__user-email">{{ user()?.email }}</span>
+          </div>
+          <a routerLink="/account" class="header__user-option" (click)="closeUserMenu()">
+            <i class="pi pi-user"></i>
+            <span>{{ 'NAV.ACCOUNT' | translate }}</span>
+          </a>
+          <a routerLink="/account/orders" class="header__user-option" (click)="closeUserMenu()">
+            <i class="pi pi-list"></i>
+            <span>{{ 'NAV.ORDERS' | translate }}</span>
+          </a>
+          <button class="header__user-option header__user-option--logout" (click)="logout()">
+            <i class="pi pi-sign-out"></i>
+            <span>{{ 'NAV.LOGOUT' | translate }}</span>
+          </button>
+        </div>
+        <div class="header__user-overlay" (click)="closeUserMenu()"></div>
+        }
+      </div>
+      } @else {
+      <a routerLink="/auth/login" class="header__action-btn" aria-label="Login">
+        <i class="pi pi-sign-in"></i>
       </a>
+      }
 
       <!-- Wishlist -->
       <a
-        routerLink="/wishlist"
+        routerLink="/account/wishlist"
         class="header__action-btn header__action-btn--desktop"
         aria-label="Wishlist"
       >
         <i class="pi pi-heart"></i>
+        @if (wishlistCount() > 0) {
+        <span class="header__wishlist-badge">{{ wishlistCount() }}</span>
+        }
       </a>
 
       <!-- Cart -->
       <a routerLink="/cart" class="header__action-btn header__cart-btn" aria-label="Cart">
         <i class="pi pi-shopping-cart"></i>
-        @if (cartItemCount > 0) {
-        <span class="header__cart-badge">{{ cartItemCount }}</span>
+        @if (cartItemCount() > 0) {
+        <span class="header__cart-badge">{{ cartItemCount() }}</span>
         }
       </a>
     </div>

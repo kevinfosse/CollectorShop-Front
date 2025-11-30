@@ -4,7 +4,7 @@
     <nav class="catalog__breadcrumb">
       <a routerLink="/">Home</a>
       <i class="pi pi-angle-right"></i>
-      <span>{{ formatCategoryName(currentCategory) }}</span>
+      <span>{{ currentCategory() }}</span>
     </nav>
 
     <div class="catalog__layout">
@@ -97,9 +97,9 @@
       <main class="catalog__main">
         <!-- Header -->
         <div class="catalog__header">
-          <h1>{{ formatCategoryName(currentCategory) }}</h1>
+          <h1>{{ currentCategory() }}</h1>
           <div class="catalog__controls">
-            <span class="catalog__count">{{ products.length }} products</span>
+            <span class="catalog__count">{{ products().length }} products</span>
             <select class="catalog__sort">
               <option value="newest">Newest</option>
               <option value="price-asc">Price: Low to High</option>
@@ -112,7 +112,7 @@
 
         <!-- Products Grid -->
         <div class="catalog__grid">
-          @for (product of products; track product.id) {
+          @for (product of products(); track product.id) {
           <app-product-card
             [product]="product"
             (addToCart)="onAddToCart($event)"
@@ -123,19 +123,37 @@
         </div>
 
         <!-- Pagination -->
+        @if (totalPages() > 1) {
         <div class="catalog__pagination">
-          <button class="pagination__btn" disabled>
+          <button
+            class="pagination__btn"
+            [disabled]="currentPage() === 1"
+            (click)="onPageChange(currentPage() - 1)"
+          >
             <i class="pi pi-angle-left"></i>
           </button>
-          <button class="pagination__btn pagination__btn--active">1</button>
-          <button class="pagination__btn">2</button>
-          <button class="pagination__btn">3</button>
+
+          @for (page of getPageNumbers(); track page) { @if (page === '...') {
           <span class="pagination__dots">...</span>
-          <button class="pagination__btn">10</button>
-          <button class="pagination__btn">
+          } @else {
+          <button
+            class="pagination__btn"
+            [class.pagination__btn--active]="currentPage() === page"
+            (click)="onPageChange(+page)"
+          >
+            {{ page }}
+          </button>
+          } }
+
+          <button
+            class="pagination__btn"
+            [disabled]="currentPage() === totalPages()"
+            (click)="onPageChange(currentPage() + 1)"
+          >
             <i class="pi pi-angle-right"></i>
           </button>
         </div>
+        }
       </main>
     </div>
   </div>

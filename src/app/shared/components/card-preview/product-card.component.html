@@ -2,7 +2,7 @@
   <a [routerLink]="productUrl" class="product-card__link">
     <!-- Image Container -->
     <div class="product-card__image-wrapper">
-      <img [src]="primaryImage" [alt]="product().name" class="product-card__image" loading="lazy" />
+      <img [src]="primaryImage" [alt]="productName" class="product-card__image" loading="lazy" />
 
       <!-- Badges -->
       <div class="product-card__badges">
@@ -10,12 +10,8 @@
         <span class="product-card__badge product-card__badge--sale">
           -{{ discountPercentage }}%
         </span>
-        } @if (!product().inStock) {
+        } @if (!isInStock) {
         <span class="product-card__badge product-card__badge--out-of-stock"> Out of Stock </span>
-        } @if (product().rarity) {
-        <span class="product-card__badge" [class]="getRarityClass(product().rarity)">
-          {{ product().rarity }}
-        </span>
         }
       </div>
 
@@ -44,36 +40,32 @@
     <!-- Content -->
     <div class="product-card__content">
       <!-- Category -->
-      <span class="product-card__category">{{ product().category.name }}</span>
+      @if (categoryName) {
+      <span class="product-card__category">{{ categoryName }}</span>
+      }
 
       <!-- Name -->
-      <h3 class="product-card__name">{{ product().name }}</h3>
+      <h3 class="product-card__name">{{ productName }}</h3>
 
       <!-- Condition -->
       <div class="product-card__meta">
-        <span class="product-card__condition">
-          {{ getConditionLabel(product().condition) }}
-        </span>
-        @if (product().year) {
-        <span class="product-card__year">{{ product().year }}</span>
+        @if (conditionLabel) {
+        <span class="product-card__condition">{{ conditionLabel }}</span>
         }
       </div>
 
       <!-- Rating -->
-      @if (product().rating) {
+      @if (averageRating) {
       <div class="product-card__rating">
         <div class="product-card__stars">
           @for (star of [1, 2, 3, 4, 5]; track star) {
           <i
             class="pi"
-            [class.pi-star-fill]="star <= (product().rating || 0)"
-            [class.pi-star]="star > (product().rating || 0)"
+            [class.pi-star-fill]="star <= averageRating"
+            [class.pi-star]="star > averageRating"
           ></i>
           }
         </div>
-        @if (product().reviewCount) {
-        <span class="product-card__review-count">({{ product().reviewCount }})</span>
-        }
       </div>
       }
 
@@ -92,12 +84,8 @@
   </a>
 
   <!-- Add to Cart Button -->
-  <button
-    class="product-card__cart-btn"
-    [disabled]="!product().inStock"
-    (click)="onAddToCart($event)"
-  >
-    @if (product().inStock) {
+  <button class="product-card__cart-btn" [disabled]="!isInStock" (click)="onAddToCart($event)">
+    @if (isInStock) {
     <i class="pi pi-shopping-cart"></i>
     <span>Add to Cart</span>
     } @else {

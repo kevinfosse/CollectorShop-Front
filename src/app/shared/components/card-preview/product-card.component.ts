@@ -2,6 +2,10 @@ import { Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { Product } from '../../../features/catalog/models/product.model';
+import { ProductListDto, ProductConditionLabels, ProductCondition } from '../../../core/models';
+
+// Union type to support both legacy and API product models
+export type ProductInput = Product | ProductListDto;
 
 @Component({
   selector: 'app-product-card',
@@ -10,13 +14,13 @@ import { Product } from '../../../features/catalog/models/product.model';
   styleUrl: './product-card.component.scss',
 })
 export class ProductCardComponent {
-  product = input.required<Product>();
+  product = input.required<ProductInput>();
   showQuickView = input<boolean>(true);
   showWishlist = input<boolean>(true);
 
-  addToCart = output<Product>();
-  addToWishlist = output<Product>();
-  quickView = output<Product>();
+  addToCart = output<ProductInput>();
+  addToWishlist = output<ProductInput>();
+  quickView = output<ProductInput>();
 
   get discountPercentage(): number | null {
     const prod = this.product();
@@ -27,13 +31,81 @@ export class ProductCardComponent {
   }
 
   get primaryImage(): string {
-    const images = this.product().images;
-    const primary = images.find((img) => img.isPrimary);
-    return primary?.url || images[0]?.url || '/assets/images/placeholder.jpg';
+    const prod = this.product();
+    // Check if it's a ProductListDto (has primaryImageUrl)
+    if ('primaryImageUrl' in prod && prod.primaryImageUrl) {
+      return prod.primaryImageUrl;
+    }
+    // Legacy Product model with images array
+    if ('images' in prod && prod.images) {
+      const primary = prod.images.find((img) => img.isPrimary);
+      return primary?.url || prod.images[0]?.url || '/assets/images/placeholder.jpg';
+    }
+    return '/assets/images/placeholder.jpg';
   }
 
   get productUrl(): string {
-    return `/product/${this.product().slug}`;
+    const prod = this.product();
+    // Check if it's a legacy Product with slug
+    if ('slug' in prod && prod.slug) {
+      return `/product/${prod.slug}`;
+    }
+    // API ProductListDto uses id
+    return `/product/${prod.id}`;
+  }
+
+  get productName(): string {
+    return this.product().name;
+  }
+
+  get categoryName(): string | null {
+    const prod = this.product();
+    // API ProductListDto has categoryName
+    if ('categoryName' in prod && prod.categoryName) {
+      return prod.categoryName;
+    }
+    // Legacy Product has category object
+    if ('category' in prod && prod.category) {
+      return prod.category.name;
+    }
+    return null;
+  }
+
+  get averageRating(): number {
+    const prod = this.product();
+    // API ProductListDto has averageRating
+    if ('averageRating' in prod) {
+      return prod.averageRating;
+    }
+    // Legacy Product has rating
+    if ('rating' in prod && prod.rating) {
+      return prod.rating;
+    }
+    return 0;
+  }
+
+  get isInStock(): boolean {
+    const prod = this.product();
+    if ('inStock' in prod) {
+      return prod.inStock;
+    }
+    if ('availableQuantity' in prod) {
+      return prod.availableQuantity > 0;
+    }
+    return true;
+  }
+
+  get conditionLabel(): string {
+    const prod = this.product();
+    if ('condition' in prod) {
+      // Check if it's the enum (number) from API
+      if (typeof prod.condition === 'number') {
+        return ProductConditionLabels[prod.condition as ProductCondition] || 'Unknown';
+      }
+      // Legacy string condition
+      return this.getConditionLabel(prod.condition as string);
+    }
+    return '';
   }
 
   onAddToCart(event: Event): void {

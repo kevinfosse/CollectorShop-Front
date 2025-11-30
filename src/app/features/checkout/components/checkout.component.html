@@ -2,80 +2,241 @@
   <div class="container">
     <h1>Checkout</h1>
 
+    @if (error()) {
+    <div class="alert alert-error">{{ error() }}</div>
+    }
+
     <div class="checkout__layout">
       <!-- Forms -->
       <div class="checkout__forms">
+        <!-- Saved Addresses -->
+        @if (savedAddresses().length > 0) {
+        <div class="checkout__section">
+          <h2>Saved Addresses</h2>
+          <div class="saved-addresses">
+            @for (address of savedAddresses(); track address.id) {
+            <button type="button" class="saved-address" (click)="selectSavedAddress(address)">
+              <strong>{{ address.label }}</strong>
+              <span
+                >{{ address.street }}, {{ address.city }}, {{ address.state }}
+                {{ address.zipCode }}</span
+              >
+            </button>
+            }
+          </div>
+        </div>
+        }
+
         <!-- Shipping -->
         <div class="checkout__section">
           <h2>Shipping Information</h2>
           <div class="form-grid">
-            <div class="form-group">
-              <label>First Name</label>
-              <input type="text" placeholder="John" />
-            </div>
-            <div class="form-group">
-              <label>Last Name</label>
-              <input type="text" placeholder="Doe" />
-            </div>
             <div class="form-group full-width">
-              <label>Email</label>
-              <input type="email" placeholder="john@example.com" />
-            </div>
-            <div class="form-group full-width">
-              <label>Address</label>
-              <input type="text" placeholder="123 Main St" />
+              <label for="street">Address</label>
+              <input
+                type="text"
+                id="street"
+                name="street"
+                [(ngModel)]="shippingAddress.street"
+                placeholder="123 Main St"
+                [disabled]="loading()"
+              />
             </div>
             <div class="form-group">
-              <label>City</label>
-              <input type="text" placeholder="New York" />
+              <label for="city">City</label>
+              <input
+                type="text"
+                id="city"
+                name="city"
+                [(ngModel)]="shippingAddress.city"
+                placeholder="New York"
+                [disabled]="loading()"
+              />
             </div>
             <div class="form-group">
-              <label>Postal Code</label>
-              <input type="text" placeholder="10001" />
+              <label for="state">State</label>
+              <input
+                type="text"
+                id="state"
+                name="state"
+                [(ngModel)]="shippingAddress.state"
+                placeholder="NY"
+                [disabled]="loading()"
+              />
             </div>
-            <div class="form-group full-width">
-              <label>Country</label>
-              <select>
+            <div class="form-group">
+              <label for="zipCode">Postal Code</label>
+              <input
+                type="text"
+                id="zipCode"
+                name="zipCode"
+                [(ngModel)]="shippingAddress.zipCode"
+                placeholder="10001"
+                [disabled]="loading()"
+              />
+            </div>
+            <div class="form-group">
+              <label for="country">Country</label>
+              <select
+                id="country"
+                name="country"
+                [(ngModel)]="shippingAddress.country"
+                [disabled]="loading()"
+              >
                 <option>United States</option>
                 <option>Canada</option>
                 <option>United Kingdom</option>
+                <option>France</option>
+                <option>Germany</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="checkbox" style="margin-top: 1rem">
+            <input type="checkbox" [(ngModel)]="sameAsShipping" />
+            <span>Billing address same as shipping</span>
+          </label>
+        </div>
+
+        <!-- Billing Address (if different) -->
+        @if (!sameAsShipping) {
+        <div class="checkout__section">
+          <h2>Billing Information</h2>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="billingStreet">Address</label>
+              <input
+                type="text"
+                id="billingStreet"
+                name="billingStreet"
+                [(ngModel)]="billingAddress.street"
+                placeholder="123 Main St"
+                [disabled]="loading()"
+              />
+            </div>
+            <div class="form-group">
+              <label for="billingCity">City</label>
+              <input
+                type="text"
+                id="billingCity"
+                name="billingCity"
+                [(ngModel)]="billingAddress.city"
+                placeholder="New York"
+                [disabled]="loading()"
+              />
+            </div>
+            <div class="form-group">
+              <label for="billingState">State</label>
+              <input
+                type="text"
+                id="billingState"
+                name="billingState"
+                [(ngModel)]="billingAddress.state"
+                placeholder="NY"
+                [disabled]="loading()"
+              />
+            </div>
+            <div class="form-group">
+              <label for="billingZipCode">Postal Code</label>
+              <input
+                type="text"
+                id="billingZipCode"
+                name="billingZipCode"
+                [(ngModel)]="billingAddress.zipCode"
+                placeholder="10001"
+                [disabled]="loading()"
+              />
+            </div>
+            <div class="form-group">
+              <label for="billingCountry">Country</label>
+              <select
+                id="billingCountry"
+                name="billingCountry"
+                [(ngModel)]="billingAddress.country"
+                [disabled]="loading()"
+              >
+                <option>United States</option>
+                <option>Canada</option>
+                <option>United Kingdom</option>
+                <option>France</option>
+                <option>Germany</option>
               </select>
             </div>
           </div>
         </div>
+        }
 
         <!-- Payment -->
         <div class="checkout__section">
           <h2>Payment Method</h2>
           <div class="payment-methods">
             <label class="payment-option">
-              <input type="radio" name="payment" checked />
+              <input
+                type="radio"
+                name="payment"
+                [value]="PaymentMethod.CreditCard"
+                [(ngModel)]="selectedPaymentMethod"
+              />
               <span class="payment-option__content">
                 <i class="pi pi-credit-card"></i>
-                Credit Card
+                {{ PaymentMethodLabels[PaymentMethod.CreditCard] }}
               </span>
             </label>
             <label class="payment-option">
-              <input type="radio" name="payment" />
+              <input
+                type="radio"
+                name="payment"
+                [value]="PaymentMethod.PayPal"
+                [(ngModel)]="selectedPaymentMethod"
+              />
               <span class="payment-option__content">
                 <i class="pi pi-paypal"></i>
-                PayPal
+                {{ PaymentMethodLabels[PaymentMethod.PayPal] }}
+              </span>
+            </label>
+            <label class="payment-option">
+              <input
+                type="radio"
+                name="payment"
+                [value]="PaymentMethod.BankTransfer"
+                [(ngModel)]="selectedPaymentMethod"
+              />
+              <span class="payment-option__content">
+                <i class="pi pi-building"></i>
+                {{ PaymentMethodLabels[PaymentMethod.BankTransfer] }}
               </span>
             </label>
           </div>
+
+          @if (selectedPaymentMethod === PaymentMethod.CreditCard) {
           <div class="form-grid" style="margin-top: 1.5rem">
             <div class="form-group full-width">
               <label>Card Number</label>
-              <input type="text" placeholder="1234 5678 9012 3456" />
+              <input type="text" placeholder="1234 5678 9012 3456" [disabled]="loading()" />
             </div>
             <div class="form-group">
               <label>Expiry Date</label>
-              <input type="text" placeholder="MM/YY" />
+              <input type="text" placeholder="MM/YY" [disabled]="loading()" />
             </div>
             <div class="form-group">
               <label>CVV</label>
-              <input type="text" placeholder="123" />
+              <input type="text" placeholder="123" [disabled]="loading()" />
             </div>
+          </div>
+          }
+        </div>
+
+        <!-- Order Notes -->
+        <div class="checkout__section">
+          <h2>Order Notes (Optional)</h2>
+          <div class="form-group">
+            <textarea
+              name="orderNotes"
+              [(ngModel)]="orderNotes"
+              placeholder="Any special instructions for your order..."
+              rows="3"
+              [disabled]="loading()"
+            ></textarea>
           </div>
         </div>
       </div>
@@ -84,40 +245,90 @@
       <div class="checkout__summary">
         <h2>Order Summary</h2>
         <div class="order-items">
+          @for (item of cart()?.items; track item.id) {
           <div class="order-item">
-            <img src="https://placehold.co/60x60/1a1a1a/c9a962?text=1" alt="Product" />
+            <img
+              [src]="item.productImageUrl || 'https://placehold.co/60x60/1a1a1a/c9a962?text=P'"
+              [alt]="item.productName"
+            />
             <div class="order-item__info">
-              <span class="name">Charizard Holo</span>
-              <span class="qty">Qty: 1</span>
+              <span class="name">{{ item.productName }}</span>
+              <span class="qty">Qty: {{ item.quantity }}</span>
             </div>
-            <span class="price">$15,000</span>
+            <span class="price">{{ item.totalPrice | currency : item.currency }}</span>
           </div>
-          <div class="order-item">
-            <img src="https://placehold.co/60x60/1a1a1a/c9a962?text=2" alt="Product" />
-            <div class="order-item__info">
-              <span class="name">Pikachu Plush</span>
-              <span class="qty">Qty: 2</span>
-            </div>
-            <span class="price">$300</span>
-          </div>
+          }
         </div>
+
+        <!-- Coupon -->
+        <div class="coupon-form">
+          <input
+            type="text"
+            [(ngModel)]="couponCode"
+            placeholder="Coupon code"
+            [disabled]="loading()"
+          />
+          <button
+            type="button"
+            class="btn-secondary"
+            (click)="validateCoupon()"
+            [disabled]="loading() || !couponCode"
+          >
+            Apply
+          </button>
+        </div>
+        @if (couponResult()) {
+        <div
+          class="coupon-result"
+          [class.valid]="couponResult()?.isValid"
+          [class.invalid]="!couponResult()?.isValid"
+        >
+          @if (couponResult()?.isValid) { Discount: -{{
+            couponResult()?.discountAmount | currency : cart()?.currency
+          }}
+          } @else {
+          {{ couponResult()?.message }}
+          }
+        </div>
+        }
+
         <div class="summary-row">
           <span>Subtotal</span>
-          <span>$15,300.00</span>
+          <span>{{ cart()?.totalAmount | currency : cart()?.currency }}</span>
         </div>
+        @if (couponResult()?.isValid) {
+        <div class="summary-row discount">
+          <span>Discount</span>
+          <span>-{{ couponResult()?.discountAmount | currency : cart()?.currency }}</span>
+        </div>
+        }
         <div class="summary-row">
           <span>Shipping</span>
-          <span>$25.00</span>
+          <span>{{ 25 | currency : cart()?.currency }}</span>
         </div>
         <div class="summary-row">
-          <span>Tax</span>
-          <span>$1,226.00</span>
+          <span>Tax (8%)</span>
+          <span>{{ (cart()?.totalAmount ?? 0) * 0.08 | currency : cart()?.currency }}</span>
         </div>
         <div class="summary-row total">
           <span>Total</span>
-          <span>$16,551.00</span>
+          <span>{{ finalTotal | currency : cart()?.currency }}</span>
         </div>
-        <button class="btn-accent btn-lg" style="width: 100%">Place Order</button>
+        <button
+          class="btn-accent btn-lg"
+          style="width: 100%"
+          (click)="placeOrder()"
+          [disabled]="loading()"
+        >
+          @if (loading()) { Processing... } @else { Place Order }
+        </button>
+        <a
+          routerLink="/cart"
+          class="btn-text"
+          style="width: 100%; margin-top: 0.5rem; text-align: center"
+        >
+          ← Back to Cart
+        </a>
       </div>
     </div>
   </div>

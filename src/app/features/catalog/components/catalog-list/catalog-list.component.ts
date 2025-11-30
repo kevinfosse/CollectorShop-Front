@@ -1,7 +1,17 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { ProductCardComponent } from '../../../../shared/components/card-preview/product-card.component';
-import { Product } from '../../models/product.model';
+import {
+  ProductCardComponent,
+  ProductInput,
+} from '../../../../shared/components/card-preview/product-card.component';
+import {
+  ProductService,
+  CartService,
+  WishlistService,
+  CategoryService,
+  AuthService,
+} from '../../../../core/services';
+import { ProductListDto, ProductFilterRequest, CategoryListDto } from '../../../../core/models';
 
 @Component({
   selector: 'app-catalog-list',
@@ -9,207 +19,187 @@ import { Product } from '../../models/product.model';
   templateUrl: './catalog-list.component.html',
   styleUrl: './catalog-list.component.scss',
 })
-export class CatalogListComponent {
-  private route = inject(ActivatedRoute);
+export class CatalogListComponent implements OnInit {
+  private readonly route = inject(ActivatedRoute);
+  private readonly productService = inject(ProductService);
+  private readonly cartService = inject(CartService);
+  private readonly wishlistService = inject(WishlistService);
+  private readonly categoryService = inject(CategoryService);
+  private readonly authService = inject(AuthService);
 
-  protected currentCategory = this.route.snapshot.paramMap.get('category') || 'All Products';
+  // State signals
+  protected readonly products = signal<ProductListDto[]>([]);
+  protected readonly categories = signal<CategoryListDto[]>([]);
+  protected readonly loading = signal(false);
+  protected readonly error = signal<string | null>(null);
+  protected readonly totalCount = signal(0);
+  protected readonly currentPage = signal(1);
+  protected readonly pageSize = signal(12);
 
-  // Mock products - will be replaced with API
-  protected products: Product[] = [
-    {
-      id: '1',
-      name: 'Charizard Holo 1st Edition',
-      slug: 'charizard-holo-1st-edition',
-      description: 'Base Set 1st Edition Charizard Holographic',
-      price: 15000,
-      compareAtPrice: 18000,
-      currency: 'USD',
-      images: [
-        {
-          id: '1',
-          url: 'https://placehold.co/400x400/1a1a1a/c9a962?text=Charizard',
-          alt: 'Charizard Holo',
-          isPrimary: true,
-          order: 1,
-        },
-      ],
-      category: { id: '1', name: 'Trading Cards', slug: 'trading-cards' },
-      tags: ['pokemon', 'holographic', 'rare'],
-      condition: 'near-mint',
-      rarity: 'legendary',
-      inStock: true,
-      stockQuantity: 1,
-      sku: 'PKM-001',
-      brand: 'Pokemon',
-      year: 1999,
-      rating: 5,
-      reviewCount: 24,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: '2',
-      name: 'Black Lotus Alpha Edition',
-      slug: 'black-lotus-alpha',
-      description: 'Magic: The Gathering Alpha Black Lotus',
-      price: 45000,
-      currency: 'USD',
-      images: [
-        {
-          id: '2',
-          url: 'https://placehold.co/400x400/1a1a1a/c9a962?text=Black+Lotus',
-          alt: 'Black Lotus',
-          isPrimary: true,
-          order: 1,
-        },
-      ],
-      category: { id: '1', name: 'Trading Cards', slug: 'trading-cards' },
-      tags: ['mtg', 'alpha', 'power-nine'],
-      condition: 'excellent',
-      rarity: 'legendary',
-      inStock: true,
-      stockQuantity: 1,
-      sku: 'MTG-001',
-      brand: 'Magic: The Gathering',
-      year: 1993,
-      rating: 5,
-      reviewCount: 12,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: '3',
-      name: 'Vintage Star Wars Boba Fett',
-      slug: 'vintage-boba-fett',
-      description: '1979 Kenner Boba Fett Action Figure',
-      price: 2500,
-      currency: 'USD',
-      images: [
-        {
-          id: '3',
-          url: 'https://placehold.co/400x400/1a1a1a/c9a962?text=Boba+Fett',
-          alt: 'Boba Fett Figure',
-          isPrimary: true,
-          order: 1,
-        },
-      ],
-      category: { id: '2', name: 'Figurines', slug: 'figurines' },
-      tags: ['star-wars', 'vintage', 'kenner'],
-      condition: 'good',
-      rarity: 'rare',
-      inStock: true,
-      stockQuantity: 2,
-      sku: 'SW-001',
-      brand: 'Kenner',
-      year: 1979,
-      rating: 4,
-      reviewCount: 8,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: '4',
-      name: 'Limited Edition Pikachu Plush',
-      slug: 'limited-pikachu-plush',
-      description: 'Pokemon Center 25th Anniversary Pikachu',
-      price: 150,
-      compareAtPrice: 200,
-      currency: 'USD',
-      images: [
-        {
-          id: '4',
-          url: 'https://placehold.co/400x400/1a1a1a/c9a962?text=Pikachu',
-          alt: 'Pikachu Plush',
-          isPrimary: true,
-          order: 1,
-        },
-      ],
-      category: { id: '3', name: 'Plush Toys', slug: 'plush-toys' },
-      tags: ['pokemon', 'anniversary', 'limited'],
-      condition: 'mint',
-      rarity: 'uncommon',
-      inStock: true,
-      stockQuantity: 5,
-      sku: 'PLU-001',
-      brand: 'Pokemon Center',
-      year: 2021,
-      rating: 5,
-      reviewCount: 45,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: '5',
-      name: 'Mewtwo GX Full Art',
-      slug: 'mewtwo-gx-full-art',
-      description: 'Shining Legends Mewtwo GX Full Art',
-      price: 85,
-      currency: 'USD',
-      images: [
-        {
-          id: '5',
-          url: 'https://placehold.co/400x400/1a1a1a/c9a962?text=Mewtwo',
-          alt: 'Mewtwo GX',
-          isPrimary: true,
-          order: 1,
-        },
-      ],
-      category: { id: '1', name: 'Trading Cards', slug: 'trading-cards' },
-      tags: ['pokemon', 'gx', 'full-art'],
-      condition: 'mint',
-      rarity: 'ultra-rare',
-      inStock: true,
-      stockQuantity: 3,
-      sku: 'PKM-005',
-      brand: 'Pokemon',
-      year: 2017,
-      rating: 5,
-      reviewCount: 18,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: '6',
-      name: 'Darth Vader Vintage Figure',
-      slug: 'darth-vader-vintage',
-      description: '1977 Original Kenner Darth Vader',
-      price: 1800,
-      currency: 'USD',
-      images: [
-        {
-          id: '6',
-          url: 'https://placehold.co/400x400/1a1a1a/c9a962?text=Darth+Vader',
-          alt: 'Darth Vader',
-          isPrimary: true,
-          order: 1,
-        },
-      ],
-      category: { id: '2', name: 'Figurines', slug: 'figurines' },
-      tags: ['star-wars', 'vintage', 'kenner'],
-      condition: 'excellent',
-      rarity: 'rare',
-      inStock: false,
-      stockQuantity: 0,
-      sku: 'SW-002',
-      brand: 'Kenner',
-      year: 1977,
-      rating: 5,
-      reviewCount: 6,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-  ];
+  // Filter state
+  protected readonly selectedCategoryId = signal<string | null>(null);
+  protected readonly searchTerm = signal('');
+  protected readonly minPrice = signal<number | undefined>(undefined);
+  protected readonly maxPrice = signal<number | undefined>(undefined);
+  protected readonly sortBy = signal('createdAt');
+  protected readonly sortDescending = signal(true);
 
-  onAddToCart(product: Product): void {
-    console.log('Add to cart:', product);
+  protected readonly currentCategory = computed(() => {
+    const categorySlug = this.route.snapshot.paramMap.get('category');
+    if (!categorySlug) return 'All Products';
+    return this.formatCategoryName(categorySlug);
+  });
+
+  protected readonly totalPages = computed(() => Math.ceil(this.totalCount() / this.pageSize()));
+  protected readonly isAuthenticated = this.authService.isAuthenticated;
+
+  ngOnInit(): void {
+    this.loadCategories();
+    this.loadProducts();
+
+    // Watch for route parameter changes
+    this.route.paramMap.subscribe((params) => {
+      const categorySlug = params.get('category');
+      if (categorySlug) {
+        this.findCategoryBySlug(categorySlug);
+      } else {
+        this.selectedCategoryId.set(null);
+      }
+      this.currentPage.set(1);
+      this.loadProducts();
+    });
   }
 
-  onAddToWishlist(product: Product): void {
-    console.log('Add to wishlist:', product);
+  private loadCategories(): void {
+    this.categoryService.getCategories().subscribe({
+      next: (categories) => this.categories.set(categories),
+      error: (err) => console.error('Failed to load categories', err),
+    });
   }
 
-  onQuickView(product: Product): void {
+  private findCategoryBySlug(slug: string): void {
+    const category = this.categories().find((c) => c.slug === slug);
+    if (category) {
+      this.selectedCategoryId.set(category.id);
+    }
+  }
+
+  protected loadProducts(): void {
+    this.loading.set(true);
+    this.error.set(null);
+
+    const filter: ProductFilterRequest = {
+      pageNumber: this.currentPage(),
+      pageSize: this.pageSize(),
+      categoryId: this.selectedCategoryId() ?? undefined,
+      searchTerm: this.searchTerm() || undefined,
+      minPrice: this.minPrice(),
+      maxPrice: this.maxPrice(),
+      sortBy: this.sortBy(),
+      sortDescending: this.sortDescending(),
+    };
+
+    this.productService.getProducts(filter).subscribe({
+      next: (response) => {
+        this.products.set(response.items as ProductListDto[]);
+        this.totalCount.set(response.totalCount);
+        this.loading.set(false);
+      },
+      error: (err) => {
+        this.error.set(err.message || 'Failed to load products');
+        this.loading.set(false);
+      },
+    });
+  }
+
+  protected onSearch(term: string): void {
+    this.searchTerm.set(term);
+    this.currentPage.set(1);
+    this.loadProducts();
+  }
+
+  protected onSortChange(sortBy: string): void {
+    this.sortBy.set(sortBy);
+    this.loadProducts();
+  }
+
+  protected onPageChange(page: number): void {
+    this.currentPage.set(page);
+    this.loadProducts();
+  }
+
+  protected getPageNumbers(): (number | string)[] {
+    const total = this.totalPages();
+    const current = this.currentPage();
+    const pages: (number | string)[] = [];
+
+    if (total <= 7) {
+      // Show all pages if 7 or fewer
+      for (let i = 1; i <= total; i++) {
+        pages.push(i);
+      }
+    } else {
+      // Always show first page
+      pages.push(1);
+
+      if (current > 3) {
+        pages.push('...');
+      }
+
+      // Show pages around current
+      const start = Math.max(2, current - 1);
+      const end = Math.min(total - 1, current + 1);
+
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+
+      if (current < total - 2) {
+        pages.push('...');
+      }
+
+      // Always show last page
+      pages.push(total);
+    }
+
+    return pages;
+  }
+
+  onAddToCart(product: ProductInput): void {
+    if (!this.isAuthenticated()) {
+      // Could show a toast or redirect to login
+      console.log('Please login to add items to cart');
+      return;
+    }
+
+    this.cartService.addToCart({ productId: product.id, quantity: 1 }).subscribe({
+      next: () => console.log('Added to cart:', product.name),
+      error: (err) => console.error('Failed to add to cart', err),
+    });
+  }
+
+  onAddToWishlist(product: ProductInput): void {
+    if (!this.isAuthenticated()) {
+      console.log('Please login to add items to wishlist');
+      return;
+    }
+
+    if (this.wishlistService.isInWishlist(product.id)) {
+      this.wishlistService.removeFromWishlist(product.id).subscribe({
+        next: () => console.log('Removed from wishlist:', product.name),
+        error: (err) => console.error('Failed to remove from wishlist', err),
+      });
+    } else {
+      this.wishlistService.addToWishlist({ productId: product.id }).subscribe({
+        next: () => console.log('Added to wishlist:', product.name),
+        error: (err) => console.error('Failed to add to wishlist', err),
+      });
+    }
+  }
+
+  onQuickView(product: ProductInput): void {
     console.log('Quick view:', product);
+    // Could open a modal with product details
   }
 
   formatCategoryName(slug: string): string {

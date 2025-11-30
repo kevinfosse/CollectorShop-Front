@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './shared/components/layout/layout.component';
+import { authGuard, guestGuard } from './core/guards';
 
 export const routes: Routes = [
   {
@@ -28,15 +29,18 @@ export const routes: Routes = [
       },
       {
         path: 'checkout',
+        canActivate: [authGuard],
         loadChildren: () =>
           import('./features/checkout/checkout.routes').then((m) => m.CHECKOUT_ROUTES),
       },
       {
         path: 'account',
+        canActivate: [authGuard],
         loadChildren: () => import('./features/user/user.routes').then((m) => m.USER_ROUTES),
       },
       {
         path: 'auth',
+        canActivate: [guestGuard],
         loadChildren: () => import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES),
       },
     ],

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ProductCardComponent } from '../../../shared/components/card-preview/product-card.component';
+import {
+  ProductCardComponent,
+  ProductInput,
+} from '../../../shared/components/card-preview/product-card.component';
 import { Product } from '../../catalog/models/product.model';
 
 @Component({
@@ -163,17 +166,17 @@ export class HomeComponent {
     },
   ];
 
-  onAddToCart(product: Product): void {
+  onAddToCart(product: ProductInput): void {
     console.log('Add to cart:', product);
     // TODO: Implement cart service
   }
 
-  onAddToWishlist(product: Product): void {
+  onAddToWishlist(product: ProductInput): void {
     console.log('Add to wishlist:', product);
     // TODO: Implement wishlist service
   }
 
-  onQuickView(product: Product): void {
+  onQuickView(product: ProductInput): void {
     console.log('Quick view:', product);
     // TODO: Implement quick view modal
   }
