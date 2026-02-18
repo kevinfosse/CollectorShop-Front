@@ -1,6 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, tap, catchError, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { WishlistItemDto, AddToWishlistRequest } from '../models';
 
@@ -24,13 +24,19 @@ export class WishlistService {
   loadWishlist(): Observable<WishlistItemDto[]> {
     this._loading.set(true);
     return this.http.get<WishlistItemDto[]>(this.apiUrl).pipe(
-      tap({
-        next: (items) => {
-          this._items.set(items);
-          this._loading.set(false);
-        },
-        error: () => this._loading.set(false),
-      })
+      tap((items) => {
+        this._items.set(items);
+        this._loading.set(false);
+      }),
+      catchError((err: HttpErrorResponse) => {
+        this._loading.set(false);
+        // 404 means no customer profile yet — treat as empty wishlist
+        if (err.status === 404) {
+          this._items.set([]);
+          return of([] as WishlistItemDto[]);
+        }
+        throw err;
+      }),
     );
   }
 
@@ -38,7 +44,7 @@ export class WishlistService {
     return this.http.post<WishlistItemDto>(this.apiUrl, request).pipe(
       tap((item) => {
         this._items.update((items) => [...items, item]);
-      })
+      }),
     );
   }
 
@@ -46,7 +52,7 @@ export class WishlistService {
     return this.http.delete<void>(`${this.apiUrl}/${productId}`).pipe(
       tap(() => {
         this._items.update((items) => items.filter((i) => i.productId !== productId));
-      })
+      }),
     );
   }
 

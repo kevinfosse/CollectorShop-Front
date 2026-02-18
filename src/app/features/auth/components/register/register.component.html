@@ -6,7 +6,7 @@
     </div>
 
     @if (error()) {
-    <div class="alert alert-error">{{ error() }}</div>
+      <div class="alert alert-error">{{ error() }}</div>
     }
 
     <form class="auth-form" (ngSubmit)="onSubmit()">
@@ -60,6 +60,9 @@
           required
           minlength="8"
         />
+        <p class="password-hint">
+          Min. 8 characters with uppercase, lowercase, digit &amp; special character
+        </p>
       </div>
       <div class="form-group">
         <label for="confirmPassword">Confirm Password</label>
@@ -80,8 +83,12 @@
           <a href="/privacy">Privacy Policy</a>
         </span>
       </label>
-      <button type="submit" class="btn-primary btn-lg" style="width: 100%" [disabled]="loading()">
-        @if (loading()) { Creating Account... } @else { Create Account }
+      <button type="submit" class="btn-primary btn-lg" [disabled]="loading()">
+        @if (loading()) {
+          Creating Account...
+        } @else {
+          Create Account
+        }
       </button>
     </form>
 

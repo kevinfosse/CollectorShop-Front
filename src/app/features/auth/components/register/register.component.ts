@@ -40,8 +40,9 @@ export class RegisterComponent {
       return;
     }
 
-    if (this.password.length < 8) {
-      this.error.set('Password must be at least 8 characters');
+    const passwordErrors = this.validatePassword(this.password);
+    if (passwordErrors.length > 0) {
+      this.error.set(passwordErrors.join('. '));
       return;
     }
 
@@ -70,5 +71,16 @@ export class RegisterComponent {
         this.error.set(err.message || 'Registration failed. Please try again.');
       },
     });
+  }
+
+  private validatePassword(password: string): string[] {
+    const errors: string[] = [];
+    if (password.length < 8) errors.push('Password must be at least 8 characters');
+    if (!/[A-Z]/.test(password)) errors.push('Password must contain at least one uppercase letter');
+    if (!/[a-z]/.test(password)) errors.push('Password must contain at least one lowercase letter');
+    if (!/[0-9]/.test(password)) errors.push('Password must contain at least one digit');
+    if (!/[^a-zA-Z0-9]/.test(password))
+      errors.push('Password must contain at least one special character');
+    return errors;
   }
 }

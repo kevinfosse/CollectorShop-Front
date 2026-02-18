@@ -1,6 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, tap, catchError, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { CartDto, AddToCartRequest, UpdateCartItemRequest } from '../models';
 
@@ -25,13 +25,19 @@ export class CartService {
   loadCart(): Observable<CartDto> {
     this._loading.set(true);
     return this.http.get<CartDto>(this.apiUrl).pipe(
-      tap({
-        next: (cart) => {
-          this._cart.set(cart);
-          this._loading.set(false);
-        },
-        error: () => this._loading.set(false),
-      })
+      tap((cart) => {
+        this._cart.set(cart);
+        this._loading.set(false);
+      }),
+      catchError((err: HttpErrorResponse) => {
+        this._loading.set(false);
+        // 404 means no customer profile yet — treat as empty cart
+        if (err.status === 404) {
+          this._cart.set(null);
+          return of(null as unknown as CartDto);
+        }
+        throw err;
+      }),
     );
   }
 
@@ -44,7 +50,7 @@ export class CartService {
           this._loading.set(false);
         },
         error: () => this._loading.set(false),
-      })
+      }),
     );
   }
 
@@ -57,7 +63,7 @@ export class CartService {
           this._loading.set(false);
         },
         error: () => this._loading.set(false),
-      })
+      }),
     );
   }
 
@@ -70,7 +76,7 @@ export class CartService {
           this._loading.set(false);
         },
         error: () => this._loading.set(false),
-      })
+      }),
     );
   }
 
@@ -83,7 +89,7 @@ export class CartService {
           this._loading.set(false);
         },
         error: () => this._loading.set(false),
-      })
+      }),
     );
   }
 

@@ -6,7 +6,7 @@
     </div>
 
     @if (error()) {
-    <div class="alert alert-error">{{ error() }}</div>
+      <div class="alert alert-error">{{ error() }}</div>
     }
 
     <form class="auth-form" (ngSubmit)="onSubmit()">
@@ -41,8 +41,12 @@
         </label>
         <a routerLink="/auth/forgot-password" class="link">Forgot password?</a>
       </div>
-      <button type="submit" class="btn-primary btn-lg" style="width: 100%" [disabled]="loading()">
-        @if (loading()) { Signing in... } @else { Sign In }
+      <button type="submit" class="btn-primary btn-lg" [disabled]="loading()">
+        @if (loading()) {
+          Signing in...
+        } @else {
+          Sign In
+        }
       </button>
     </form>
 
