@@ -28,16 +28,6 @@
             'NAV.SHOP' | translate
           }}</a>
         </li>
-        @for (cat of categories(); track cat.id) {
-          <li>
-            <a
-              [routerLink]="['/catalog', cat.slug]"
-              class="header__nav-link"
-              (click)="closeMenu()"
-              >{{ cat.name }}</a
-            >
-          </li>
-        }
       </ul>
     </nav>
 

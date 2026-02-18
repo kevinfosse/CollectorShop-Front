@@ -29,18 +29,131 @@
   &__layout {
     display: grid;
     gap: $spacing-8;
+    position: relative;
 
     @include lg {
       grid-template-columns: 280px 1fr;
     }
   }
 
-  // Sidebar
-  &__sidebar {
-    display: none;
+  // Mobile filter toggle button
+  &__filter-toggle {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: $spacing-3 $spacing-4;
+    background-color: $color-white;
+    border: $border-width solid $border-color;
+    border-radius: $border-radius-base;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-gray-700;
+    cursor: pointer;
+    transition: all $transition-fast;
+    width: fit-content;
+
+    &:hover {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    .pi {
+      font-size: $font-size-base;
+    }
 
     @include lg {
+      display: none;
+    }
+  }
+
+  // Mobile filter overlay
+  &__filter-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($color-primary, 0.5);
+    z-index: $z-modal-backdrop;
+
+    @include lg {
+      display: none;
+    }
+  }
+
+  // Sidebar
+  &__sidebar {
+    // Mobile: slide-in drawer from left
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100vh;
+    background-color: $color-white;
+    z-index: $z-modal;
+    transform: translateX(-100%);
+    transition: transform $transition-slow;
+    display: flex;
+    flex-direction: column;
+
+    &--open {
+      transform: translateX(0);
+    }
+
+    @include lg {
+      position: static;
+      width: auto;
+      height: auto;
+      transform: none;
+      z-index: auto;
       display: block;
+    }
+  }
+
+  &__sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-4 $spacing-6;
+    border-bottom: $border-width solid $border-color;
+
+    @include lg {
+      display: none;
+    }
+  }
+
+  &__sidebar-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $color-gray-900;
+    margin: 0;
+  }
+
+  &__sidebar-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    color: $color-gray-500;
+    font-size: $font-size-lg;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: $spacing-6;
+
+    @include lg {
+      padding: 0;
+      overflow: visible;
     }
   }
 
@@ -150,6 +263,13 @@
     align-items: center;
     gap: $spacing-2;
   }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+    margin-top: $spacing-4;
+  }
 }
 
 .filter-link {
@@ -160,6 +280,11 @@
 
   &:hover {
     color: $color-primary;
+  }
+
+  &--active {
+    color: $color-primary;
+    font-weight: $font-weight-medium;
   }
 }
 
@@ -175,6 +300,7 @@
     width: 16px;
     height: 16px;
     cursor: pointer;
+    accent-color: $color-primary;
   }
 }
 
@@ -188,6 +314,42 @@
   &:focus {
     outline: none;
     border-color: $color-primary;
+  }
+}
+
+// Buttons
+.btn-primary {
+  width: 100%;
+  padding: $spacing-3 $spacing-4;
+  background-color: $color-primary;
+  color: $color-white;
+  border: none;
+  border-radius: $border-radius-base;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.btn-outline {
+  width: 100%;
+  padding: $spacing-3 $spacing-4;
+  background-color: transparent;
+  color: $color-gray-700;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius-base;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: $color-primary;
+    color: $color-primary;
   }
 }
 

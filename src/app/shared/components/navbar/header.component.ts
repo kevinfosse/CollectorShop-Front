@@ -1,8 +1,7 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { AuthService, CartService, WishlistService, CategoryService } from '../../../core/services';
-import { CategoryListDto } from '../../../core/models';
+import { AuthService, CartService, WishlistService } from '../../../core/services';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +14,6 @@ export class HeaderComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly cartService = inject(CartService);
   private readonly wishlistService = inject(WishlistService);
-  private readonly categoryService = inject(CategoryService);
   private readonly router = inject(Router);
 
   protected isMenuOpen = false;
@@ -28,8 +26,6 @@ export class HeaderComponent implements OnInit {
   protected readonly user = this.authService.user;
   protected readonly cartItemCount = this.cartService.itemCount;
   protected readonly wishlistCount = this.wishlistService.count;
-  protected readonly categories = signal<CategoryListDto[]>([]);
-
   protected languages = [
     { code: 'en', name: 'English', flag: '🇬🇧' },
     { code: 'fr', name: 'Français', flag: '🇫🇷' },
@@ -44,12 +40,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Load categories for nav
-    this.categoryService.getCategories().subscribe({
-      next: (cats) => this.categories.set(cats),
-      error: (err) => console.error('Failed to load categories for nav', err),
-    });
-
     // Load cart and wishlist if authenticated
     if (this.isAuthenticated()) {
       this.cartService.loadCart().subscribe();

@@ -1,6 +1,7 @@
-import { Component, inject, signal, computed, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 import { ProductCardComponent } from '../../../../shared/components/card-preview/product-card.component';
 import {
   ProductService,
@@ -9,7 +10,12 @@ import {
   CategoryService,
   AuthService,
 } from '../../../../core/services';
-import { ProductListDto, ProductFilterRequest, CategoryListDto } from '../../../../core/models';
+import {
+  ProductListDto,
+  ProductFilterRequest,
+  ProductCondition,
+  CategoryListDto,
+} from '../../../../core/models';
 
 @Component({
   selector: 'app-catalog-list',
@@ -17,13 +23,14 @@ import { ProductListDto, ProductFilterRequest, CategoryListDto } from '../../../
   templateUrl: './catalog-list.component.html',
   styleUrl: './catalog-list.component.scss',
 })
-export class CatalogListComponent implements OnInit {
+export class CatalogListComponent implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly productService = inject(ProductService);
   private readonly cartService = inject(CartService);
   private readonly wishlistService = inject(WishlistService);
   private readonly categoryService = inject(CategoryService);
   private readonly authService = inject(AuthService);
+  private routeSub?: Subscription;
 
   // State signals
   protected readonly products = signal<ProductListDto[]>([]);
@@ -36,28 +43,43 @@ export class CatalogListComponent implements OnInit {
 
   // Filter state
   protected readonly selectedCategoryId = signal<string | null>(null);
+  protected readonly selectedCategorySlug = signal<string | null>(null);
   protected readonly searchTerm = signal('');
   protected readonly minPrice = signal<number | undefined>(undefined);
   protected readonly maxPrice = signal<number | undefined>(undefined);
   protected readonly sortBy = signal('createdAt');
   protected readonly sortDescending = signal(true);
+  protected readonly selectedCondition = signal<ProductCondition | undefined>(undefined);
+
+  // Mobile filter drawer
+  protected isFilterDrawerOpen = false;
 
   protected readonly currentCategory = computed(() => {
-    const categorySlug = this.route.snapshot.paramMap.get('category');
-    if (!categorySlug) return 'All Products';
-    return this.formatCategoryName(categorySlug);
+    const slug = this.selectedCategorySlug();
+    if (!slug) return 'All Products';
+    const cat = this.categories().find((c) => c.slug === slug);
+    if (cat) return cat.name;
+    return this.formatCategoryName(slug);
   });
 
   protected readonly totalPages = computed(() => Math.ceil(this.totalCount() / this.pageSize()));
   protected readonly isAuthenticated = this.authService.isAuthenticated;
 
+  // Condition options for the filter UI
+  protected readonly conditionOptions = [
+    { value: ProductCondition.New, labelKey: 'CATALOG.CONDITIONS.MINT' },
+    { value: ProductCondition.LikeNew, labelKey: 'CATALOG.CONDITIONS.NEAR_MINT' },
+    { value: ProductCondition.Excellent, labelKey: 'CATALOG.CONDITIONS.EXCELLENT' },
+    { value: ProductCondition.Good, labelKey: 'CATALOG.CONDITIONS.GOOD' },
+  ];
+
   ngOnInit(): void {
     this.loadCategories();
-    this.loadProducts();
 
     // Watch for route parameter changes
-    this.route.paramMap.subscribe((params) => {
+    this.routeSub = this.route.paramMap.subscribe((params) => {
       const categorySlug = params.get('category');
+      this.selectedCategorySlug.set(categorySlug);
       if (categorySlug) {
         this.findCategoryBySlug(categorySlug);
       } else {
@@ -68,12 +90,16 @@ export class CatalogListComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.routeSub?.unsubscribe();
+  }
+
   private loadCategories(): void {
     this.categoryService.getCategories().subscribe({
       next: (categories) => {
         this.categories.set(categories);
         // Re-check route param now that categories are loaded
-        const categorySlug = this.route.snapshot.paramMap.get('category');
+        const categorySlug = this.selectedCategorySlug();
         if (categorySlug) {
           this.findCategoryBySlug(categorySlug);
           this.loadProducts();
@@ -101,6 +127,7 @@ export class CatalogListComponent implements OnInit {
       searchTerm: this.searchTerm() || undefined,
       minPrice: this.minPrice(),
       maxPrice: this.maxPrice(),
+      condition: this.selectedCondition(),
       sortBy: this.sortBy(),
       sortDescending: this.sortDescending(),
     };
@@ -152,6 +179,41 @@ export class CatalogListComponent implements OnInit {
     this.maxPrice.set(maxStr ? +maxStr : undefined);
     this.currentPage.set(1);
     this.loadProducts();
+  }
+
+  protected onConditionChange(condition: ProductCondition, checked: boolean): void {
+    if (checked) {
+      this.selectedCondition.set(condition);
+    } else if (this.selectedCondition() === condition) {
+      this.selectedCondition.set(undefined);
+    }
+    this.currentPage.set(1);
+    this.loadProducts();
+  }
+
+  protected applyAllFilters(minStr: string, maxStr: string): void {
+    this.minPrice.set(minStr ? +minStr : undefined);
+    this.maxPrice.set(maxStr ? +maxStr : undefined);
+    this.currentPage.set(1);
+    this.loadProducts();
+    this.closeFilterDrawer();
+  }
+
+  protected resetFilters(): void {
+    this.minPrice.set(undefined);
+    this.maxPrice.set(undefined);
+    this.selectedCondition.set(undefined);
+    this.currentPage.set(1);
+    this.loadProducts();
+    this.closeFilterDrawer();
+  }
+
+  protected toggleFilterDrawer(): void {
+    this.isFilterDrawerOpen = !this.isFilterDrawerOpen;
+  }
+
+  protected closeFilterDrawer(): void {
+    this.isFilterDrawerOpen = false;
   }
 
   protected onPageChange(page: number): void {

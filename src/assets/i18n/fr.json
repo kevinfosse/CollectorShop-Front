@@ -105,11 +105,11 @@
     "CATEGORIES": "Catégories",
     "ALL_PRODUCTS": "Tous les produits",
     "CONDITION": "État",
-    "RARITY": "Rareté",
     "PRICE_RANGE": "Fourchette de prix",
     "MIN": "Min",
     "MAX": "Max",
     "APPLY_FILTERS": "Appliquer les filtres",
+    "RESET_FILTERS": "Réinitialiser les filtres",
     "CLEAR_FILTERS": "Effacer les filtres",
     "SHOWING": "Affichage de",
     "PRODUCTS": "produits",
@@ -119,12 +119,6 @@
       "NEAR_MINT": "Quasi neuf",
       "EXCELLENT": "Excellent",
       "GOOD": "Bon"
-    },
-    "RARITIES": {
-      "LEGENDARY": "Légendaire",
-      "ULTRA_RARE": "Ultra Rare",
-      "RARE": "Rare",
-      "UNCOMMON": "Peu commun"
     }
   },
   "PRODUCT": {

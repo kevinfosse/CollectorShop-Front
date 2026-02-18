@@ -105,11 +105,11 @@
     "CATEGORIES": "Categories",
     "ALL_PRODUCTS": "All Products",
     "CONDITION": "Condition",
-    "RARITY": "Rarity",
     "PRICE_RANGE": "Price Range",
     "MIN": "Min",
     "MAX": "Max",
     "APPLY_FILTERS": "Apply Filters",
+    "RESET_FILTERS": "Reset Filters",
     "CLEAR_FILTERS": "Clear Filters",
     "SHOWING": "Showing",
     "PRODUCTS": "products",
@@ -119,12 +119,6 @@
       "NEAR_MINT": "Near Mint",
       "EXCELLENT": "Excellent",
       "GOOD": "Good"
-    },
-    "RARITIES": {
-      "LEGENDARY": "Legendary",
-      "ULTRA_RARE": "Ultra Rare",
-      "RARE": "Rare",
-      "UNCOMMON": "Uncommon"
     }
   },
   "PRODUCT": {
