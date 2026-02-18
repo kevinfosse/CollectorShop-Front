@@ -9,6 +9,7 @@ import {
   WishlistService,
   CategoryService,
   AuthService,
+  ToastService,
 } from '../../../../core/services';
 import {
   ProductListDto,
@@ -16,6 +17,7 @@ import {
   ProductCondition,
   CategoryListDto,
 } from '../../../../core/models';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-catalog-list',
@@ -30,7 +32,10 @@ export class CatalogListComponent implements OnInit, OnDestroy {
   private readonly wishlistService = inject(WishlistService);
   private readonly categoryService = inject(CategoryService);
   private readonly authService = inject(AuthService);
+  private readonly toastService = inject(ToastService);
+  private readonly translateService = inject(TranslateService);
   private routeSub?: Subscription;
+  private querySub?: Subscription;
 
   // State signals
   protected readonly products = signal<ProductListDto[]>([]);
@@ -88,10 +93,21 @@ export class CatalogListComponent implements OnInit, OnDestroy {
       this.currentPage.set(1);
       this.loadProducts();
     });
+
+    // Watch for query parameter changes (search)
+    this.querySub = this.route.queryParamMap.subscribe((queryParams) => {
+      const search = queryParams.get('search') || '';
+      if (search !== this.searchTerm()) {
+        this.searchTerm.set(search);
+        this.currentPage.set(1);
+        this.loadProducts();
+      }
+    });
   }
 
   ngOnDestroy(): void {
     this.routeSub?.unsubscribe();
+    this.querySub?.unsubscribe();
   }
 
   private loadCategories(): void {
@@ -266,8 +282,8 @@ export class CatalogListComponent implements OnInit, OnDestroy {
     }
 
     this.cartService.addToCart({ productId: product.id, quantity: 1 }).subscribe({
-      next: () => console.log('Added to cart:', product.name),
-      error: (err) => console.error('Failed to add to cart', err),
+      next: () => this.toastService.show(this.translateService.instant('TOAST.ADDED_TO_CART'), 'success'),
+      error: () => this.toastService.show(this.translateService.instant('TOAST.CART_ERROR'), 'error'),
     });
   }
 

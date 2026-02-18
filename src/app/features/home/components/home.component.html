@@ -16,10 +16,9 @@
         </div>
       </div>
       <div class="hero__image">
-        <img
-          src="https://placehold.co/600x600/1a1a1a/c9a962?text=Hero+Image"
-          [alt]="'HOME.FEATURED_ALT' | translate"
-        />
+        <div class="hero__image-visual" [attr.aria-label]="'HOME.FEATURED_ALT' | translate" role="img">
+          <i class="pi pi-box"></i>
+        </div>
       </div>
     </div>
   </section>
@@ -38,10 +37,13 @@
         @for (category of categories(); track category.id) {
           <a [routerLink]="['/catalog', category.slug]" class="category-card">
             <div class="category-card__image">
-              <img
-                [src]="category.imageUrl || '/assets/images/placeholder.jpg'"
-                [alt]="category.name"
-              />
+              @if (category.imageUrl) {
+              <img [src]="category.imageUrl" [alt]="category.name" />
+            } @else {
+              <div class="category-card__placeholder">
+                <i class="pi pi-tag"></i>
+              </div>
+            }
             </div>
             <div class="category-card__content">
               <h3 class="category-card__name">{{ category.name }}</h3>
@@ -118,9 +120,15 @@
   <section class="cta">
     <div class="container">
       <div class="cta__content">
-        <h2 class="cta__title">{{ 'HOME.CTA.TITLE' | translate }}</h2>
-        <p class="cta__text">{{ 'HOME.CTA.TEXT' | translate }}</p>
-        <a routerLink="/register" class="btn-accent btn-lg">{{ 'HOME.CTA.BUTTON' | translate }}</a>
+        @if (isAuthenticated()) {
+          <h2 class="cta__title">{{ 'HOME.CTA.TITLE_LOGGED_IN' | translate }}</h2>
+          <p class="cta__text">{{ 'HOME.CTA.TEXT_LOGGED_IN' | translate }}</p>
+          <a routerLink="/catalog" class="btn-accent btn-lg">{{ 'HOME.CTA.BUTTON_LOGGED_IN' | translate }}</a>
+        } @else {
+          <h2 class="cta__title">{{ 'HOME.CTA.TITLE' | translate }}</h2>
+          <p class="cta__text">{{ 'HOME.CTA.TEXT' | translate }}</p>
+          <a routerLink="/register" class="btn-accent btn-lg">{{ 'HOME.CTA.BUTTON' | translate }}</a>
+        }
       </div>
     </div>
   </section>

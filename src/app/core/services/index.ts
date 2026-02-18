@@ -9,3 +9,4 @@ export * from './review.service';
 export * from './customer.service';
 export * from './wishlist.service';
 export * from './coupon.service';
+export * from './toast.service';

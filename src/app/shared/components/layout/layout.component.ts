@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../navbar/header.component';
 import { FooterComponent } from '../footer/footer.component';
+import { ToastComponent } from '../../ui/toast/toast.component';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, ToastComponent],
   template: `
     <div class="layout">
       <app-header />
@@ -13,6 +14,7 @@ import { FooterComponent } from '../footer/footer.component';
         <router-outlet />
       </main>
       <app-footer />
+      <app-toast />
     </div>
   `,
   styles: `

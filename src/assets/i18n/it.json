@@ -51,6 +51,12 @@
     "DISCOUNT": "Sconto",
     "PROCESSING": "Elaborazione in corso..."
   },
+  "TOAST": {
+    "ADDED_TO_CART": "Articolo aggiunto al carrello con successo!",
+    "MOVED_TO_CART": "Articolo spostato nel carrello!",
+    "CART_ERROR": "Impossibile aggiungere l'articolo al carrello.",
+    "LOGIN_REQUIRED": "Accedi per continuare."
+  },
   "HOME": {
     "HERO_TITLE": "Scopri Oggetti da Collezione Rari",
     "HERO_SUBTITLE": "Carte collezionabili premium, giocattoli vintage e memorabilia esclusivi per collezionisti appassionati",
@@ -89,7 +95,10 @@
     "CTA": {
       "TITLE": "Inizia la Tua Collezione Oggi",
       "TEXT": "Unisciti a migliaia di collezionisti e scopri oggetti rari da tutto il mondo.",
-      "BUTTON": "Crea un Account Gratuito"
+      "BUTTON": "Crea un Account Gratuito",
+      "TITLE_LOGGED_IN": "Scopri Nuovi Tesori",
+      "TEXT_LOGGED_IN": "Esplora i nostri ultimi arrivi e trova la prossima gemma per la tua collezione.",
+      "BUTTON_LOGGED_IN": "Sfoglia la Collezione"
     }
   },
   "CATALOG": {

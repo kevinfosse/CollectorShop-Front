@@ -88,4 +88,11 @@ export class HeaderComponent implements OnInit {
     this.isUserMenuOpen = false;
     this.router.navigate(['/']);
   }
+
+  onSearch(term: string): void {
+    const trimmed = term.trim();
+    if (!trimmed) return;
+    this.isSearchOpen = false;
+    this.router.navigate(['/catalog'], { queryParams: { search: trimmed } });
+  }
 }

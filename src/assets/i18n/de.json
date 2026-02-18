@@ -51,6 +51,12 @@
     "DISCOUNT": "Rabatt",
     "PROCESSING": "Wird verarbeitet..."
   },
+  "TOAST": {
+    "ADDED_TO_CART": "Artikel erfolgreich zum Warenkorb hinzugefügt!",
+    "MOVED_TO_CART": "Artikel in den Warenkorb verschoben!",
+    "CART_ERROR": "Artikel konnte nicht zum Warenkorb hinzugefügt werden.",
+    "LOGIN_REQUIRED": "Bitte melden Sie sich an, um fortzufahren."
+  },
   "HOME": {
     "HERO_TITLE": "Entdecken Sie Seltene Sammlerstücke",
     "HERO_SUBTITLE": "Premium-Sammelkarten, Vintage-Spielzeug und exklusive Memorabilia für leidenschaftliche Sammler",
@@ -89,7 +95,10 @@
     "CTA": {
       "TITLE": "Starten Sie Heute Ihre Sammlung",
       "TEXT": "Schließen Sie sich Tausenden von Sammlern an und entdecken Sie seltene Artikel aus aller Welt.",
-      "BUTTON": "Kostenloses Konto erstellen"
+      "BUTTON": "Kostenloses Konto erstellen",
+      "TITLE_LOGGED_IN": "Entdecken Sie Neue Schätze",
+      "TEXT_LOGGED_IN": "Durchstöbern Sie unsere neuesten Artikel und finden Sie das nächste Juwel für Ihre Sammlung.",
+      "BUTTON_LOGGED_IN": "Sammlung Durchsuchen"
     }
   },
   "CATALOG": {

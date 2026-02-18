@@ -51,6 +51,12 @@
     "DISCOUNT": "Discount",
     "PROCESSING": "Processing..."
   },
+  "TOAST": {
+    "ADDED_TO_CART": "Item added to cart successfully!",
+    "MOVED_TO_CART": "Item moved to cart!",
+    "CART_ERROR": "Failed to add item to cart.",
+    "LOGIN_REQUIRED": "Please sign in to continue."
+  },
   "HOME": {
     "HERO_TITLE": "Discover Rare Collectibles",
     "HERO_SUBTITLE": "Premium trading cards, vintage toys, and exclusive memorabilia for passionate collectors",
@@ -89,7 +95,10 @@
     "CTA": {
       "TITLE": "Start Your Collection Today",
       "TEXT": "Join thousands of collectors and discover rare items from around the world.",
-      "BUTTON": "Create Free Account"
+      "BUTTON": "Create Free Account",
+      "TITLE_LOGGED_IN": "Discover New Treasures",
+      "TEXT_LOGGED_IN": "Explore our latest arrivals and find the next gem for your collection.",
+      "BUTTON_LOGGED_IN": "Browse Collection"
     }
   },
   "CATALOG": {

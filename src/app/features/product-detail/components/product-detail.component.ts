@@ -2,7 +2,8 @@ import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { ProductService, CartService, AuthService, WishlistService } from '../../../core/services';
+import { ProductService, CartService, AuthService, WishlistService, ToastService } from '../../../core/services';
+import { TranslateService } from '@ngx-translate/core';
 import { ProductDto, ProductConditionLabels, ProductCondition } from '../../../core/models';
 
 @Component({
@@ -17,6 +18,8 @@ export class ProductDetailComponent implements OnInit {
   private readonly cartService = inject(CartService);
   private readonly authService = inject(AuthService);
   private readonly wishlistService = inject(WishlistService);
+  private readonly toastService = inject(ToastService);
+  private readonly translateService = inject(TranslateService);
 
   protected readonly product = signal<ProductDto | null>(null);
   protected readonly loading = signal(true);
@@ -100,8 +103,8 @@ export class ProductDetailComponent implements OnInit {
     }
 
     this.cartService.addToCart({ productId, quantity: this.quantity() }).subscribe({
-      next: () => console.log('Added to cart successfully'),
-      error: (err) => console.error('Failed to add to cart', err),
+      next: () => this.toastService.show(this.translateService.instant('TOAST.ADDED_TO_CART'), 'success'),
+      error: () => this.toastService.show(this.translateService.instant('TOAST.CART_ERROR'), 'error'),
     });
   }
 

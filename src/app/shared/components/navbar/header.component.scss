@@ -304,8 +304,10 @@
     right: 0;
     background-color: $color-white;
     border-bottom: $border-width solid $border-color;
+    box-shadow: $shadow-md;
     padding: $spacing-4;
-    animation: slideUp $transition-base;
+    z-index: $z-dropdown;
+    animation: fadeIn $transition-base;
   }
 
   &__search-container {
@@ -317,8 +319,9 @@
 
   &__search-icon {
     position: absolute;
-    left: $spacing-4;
+    left: $spacing-1;
     color: $color-gray-400;
+    pointer-events: none;
   }
 
   &__search-input {
@@ -340,7 +343,7 @@
 
   &__search-close {
     position: absolute;
-    right: $spacing-4;
+    right: $spacing-1;
     background: none;
     border: none;
     color: $color-gray-500;

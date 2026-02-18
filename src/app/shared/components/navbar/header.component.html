@@ -136,6 +136,8 @@
           type="search"
           class="header__search-input"
           [placeholder]="'NAV.SEARCH' | translate"
+          #searchInput
+          (keyup.enter)="onSearch(searchInput.value)"
           autofocus
         />
         <button class="header__search-close" (click)="toggleSearch()" aria-label="Close search">
