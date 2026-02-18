@@ -2,7 +2,7 @@
   <div class="product-detail section">
     <div class="container">
       <div class="product-detail__loading">
-        <p>Loading product...</p>
+        <p>{{ 'PRODUCT.LOADING' | translate }}</p>
       </div>
     </div>
   </div>
@@ -11,7 +11,7 @@
     <div class="container">
       <div class="product-detail__error">
         <p>{{ error() }}</p>
-        <a routerLink="/catalog" class="btn-primary">Back to Catalog</a>
+        <a routerLink="/catalog" class="btn-primary">{{ 'PRODUCT.BACK_TO_CATALOG' | translate }}</a>
       </div>
     </div>
   </div>
@@ -19,9 +19,9 @@
   <div class="product-detail section">
     <div class="container">
       <nav class="breadcrumb">
-        <a routerLink="/">Home</a>
+        <a routerLink="/">{{ 'NAV.HOME' | translate }}</a>
         <i class="pi pi-angle-right"></i>
-        <a routerLink="/catalog">Shop</a>
+        <a routerLink="/catalog">{{ 'NAV.SHOP' | translate }}</a>
         <i class="pi pi-angle-right"></i>
         @if (p.categoryName) {
           <a [routerLink]="['/catalog']">{{ p.categoryName }}</a>
@@ -69,7 +69,7 @@
                   ></i>
                 }
               </div>
-              <span>({{ p.reviewCount }} reviews)</span>
+              <span>({{ p.reviewCount }} {{ 'PRODUCT.REVIEWS' | translate }})</span>
             </div>
           }
 
@@ -85,24 +85,26 @@
 
           <div class="product-info__meta">
             <div class="meta-item">
-              <span class="label">Condition:</span>
+              <span class="label">{{ 'COMMON.CONDITION' | translate }}:</span>
               <span class="value">{{ conditionLabel() }}</span>
             </div>
             @if (p.brandName) {
               <div class="meta-item">
-                <span class="label">Brand:</span>
+                <span class="label">{{ 'COMMON.BRAND' | translate }}:</span>
                 <span class="value">{{ p.brandName }}</span>
               </div>
             }
             <div class="meta-item">
-              <span class="label">SKU:</span>
+              <span class="label">{{ 'COMMON.SKU' | translate }}:</span>
               <span class="value">{{ p.sku }}</span>
             </div>
             <div class="meta-item">
-              <span class="label">Availability:</span>
-              <span class="value" [class.in-stock]="isInStock()">{{
-                isInStock() ? 'In Stock (' + p.availableQuantity + ')' : 'Out of Stock'
-              }}</span>
+              <span class="label">{{ 'COMMON.AVAILABILITY' | translate }}:</span>
+              <span class="value" [class.in-stock]="isInStock()">@if (isInStock()) {
+                {{ 'COMMON.IN_STOCK' | translate }} ({{ p.availableQuantity }})
+              } @else {
+                {{ 'COMMON.OUT_OF_STOCK' | translate }}
+              }</span>
             </div>
             @for (attr of p.attributes; track attr.id) {
               <div class="meta-item">
@@ -127,7 +129,7 @@
             </div>
             <button class="btn-primary btn-lg" [disabled]="!isInStock()" (click)="addToCart()">
               <i class="pi pi-shopping-cart"></i>
-              Add to Cart
+              {{ 'COMMON.ADD_TO_CART' | translate }}
             </button>
             <button class="btn-secondary">
               <i class="pi pi-heart"></i>

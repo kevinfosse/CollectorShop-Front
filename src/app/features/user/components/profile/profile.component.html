@@ -15,26 +15,26 @@
             [routerLinkActiveOptions]="{ exact: true }"
             class="account-nav__link"
           >
-            <i class="pi pi-user"></i> My Profile
+            <i class="pi pi-user"></i> {{ 'ACCOUNT.MY_PROFILE' | translate }}
           </a>
           <a routerLink="/account/orders" routerLinkActive="active" class="account-nav__link">
-            <i class="pi pi-box"></i> Orders
+            <i class="pi pi-box"></i> {{ 'ACCOUNT.ORDERS' | translate }}
           </a>
           <a routerLink="/account/wishlist" routerLinkActive="active" class="account-nav__link">
-            <i class="pi pi-heart"></i> Wishlist
+            <i class="pi pi-heart"></i> {{ 'ACCOUNT.WISHLIST' | translate }}
           </a>
           <a routerLink="/account/settings" routerLinkActive="active" class="account-nav__link">
-            <i class="pi pi-cog"></i> Settings
+            <i class="pi pi-cog"></i> {{ 'ACCOUNT.SETTINGS' | translate }}
           </a>
           <button (click)="onLogout()" class="account-nav__link logout">
-            <i class="pi pi-sign-out"></i> Sign Out
+            <i class="pi pi-sign-out"></i> {{ 'ACCOUNT.SIGN_OUT' | translate }}
           </button>
         </nav>
       </aside>
 
       <!-- Main Content -->
       <main class="account__main">
-        <h1>My Profile</h1>
+        <h1>{{ 'ACCOUNT.MY_PROFILE' | translate }}</h1>
 
         @if (error()) {
           <div class="alert alert--error">{{ error() }}</div>
@@ -46,28 +46,28 @@
 
         @if (loading()) {
           <div class="profile-card">
-            <p>Loading profile...</p>
+            <p>{{ 'ACCOUNT.LOADING_PROFILE' | translate }}</p>
           </div>
         } @else {
           <div class="profile-card">
-            <h2>Personal Information</h2>
+            <h2>{{ 'ACCOUNT.PERSONAL_INFO' | translate }}</h2>
             <form class="profile-form" [formGroup]="profileForm" (ngSubmit)="onSave()">
               <div class="form-row">
                 <div class="form-group">
-                  <label for="firstName">First Name</label>
+                  <label for="firstName">{{ 'ACCOUNT.FIRST_NAME' | translate }}</label>
                   <input id="firstName" type="text" formControlName="firstName" />
                 </div>
                 <div class="form-group">
-                  <label for="lastName">Last Name</label>
+                  <label for="lastName">{{ 'ACCOUNT.LAST_NAME' | translate }}</label>
                   <input id="lastName" type="text" formControlName="lastName" />
                 </div>
               </div>
               <div class="form-group">
-                <label>Email</label>
+                <label>{{ 'ACCOUNT.EMAIL' | translate }}</label>
                 <input type="email" [value]="email" disabled />
               </div>
               <div class="form-group">
-                <label for="phoneNumber">Phone</label>
+                <label for="phoneNumber">{{ 'ACCOUNT.PHONE' | translate }}</label>
                 <input
                   id="phoneNumber"
                   type="tel"
@@ -80,7 +80,7 @@
                 class="btn-primary"
                 [disabled]="profileForm.invalid || saving()"
               >
-                {{ saving() ? 'Saving...' : 'Save Changes' }}
+                {{ saving() ? ('ACCOUNT.SAVING' | translate) : ('COMMON.SAVE' | translate) }}
               </button>
             </form>
           </div>

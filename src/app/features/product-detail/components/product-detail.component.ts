@@ -1,12 +1,13 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { ProductService } from '../../../core/services';
 import { ProductDto, ProductConditionLabels, ProductCondition } from '../../../core/models';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [RouterLink, CurrencyPipe],
+  imports: [RouterLink, CurrencyPipe, TranslateModule],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss',
 })

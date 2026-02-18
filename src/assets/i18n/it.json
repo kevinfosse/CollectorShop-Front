@@ -8,6 +8,7 @@
     "SEARCH": "Cerca...",
     "CART": "Carrello",
     "ACCOUNT": "Account",
+    "ORDERS": "I miei ordini",
     "LOGIN": "Accedi",
     "REGISTER": "Registrati",
     "LOGOUT": "Esci"
@@ -18,7 +19,7 @@
     "VIEW_DETAILS": "Vedi dettagli",
     "LEARN_MORE": "Scopri di più",
     "CONTINUE_SHOPPING": "Continua lo shopping",
-    "PROCEED_TO_CHECKOUT": "Vai alla cassa",
+    "PROCEED_TO_CHECKOUT": "Procedi al pagamento",
     "SUBMIT": "Invia",
     "SAVE": "Salva",
     "CANCEL": "Annulla",
@@ -29,25 +30,34 @@
     "ERROR": "Si è verificato un errore",
     "SUCCESS": "Successo",
     "IN_STOCK": "Disponibile",
-    "OUT_OF_STOCK": "Esaurito",
+    "OUT_OF_STOCK": "Non disponibile",
     "CONDITION": "Condizione",
+    "BRAND": "Marca",
     "YEAR": "Anno",
-    "SKU": "Cod. Art.",
+    "SKU": "Cod.",
     "AVAILABILITY": "Disponibilità",
     "PRICE": "Prezzo",
     "QUANTITY": "Quantità",
     "SUBTOTAL": "Subtotale",
     "SHIPPING": "Spedizione",
     "TAX": "Tasse",
-    "TOTAL": "Totale"
+    "TOTAL": "Totale",
+    "QUICK_VIEW": "Anteprima rapida",
+    "ADD_TO_WISHLIST": "Aggiungi ai preferiti",
+    "ITEMS": "articoli",
+    "EACH": "ciascuno",
+    "QTY": "Qtà",
+    "APPLY": "Applica",
+    "DISCOUNT": "Sconto",
+    "PROCESSING": "Elaborazione in corso..."
   },
   "HOME": {
     "HERO_TITLE": "Scopri Oggetti da Collezione Rari",
-    "HERO_SUBTITLE": "Carte collezionabili premium, giocattoli vintage e memorabilia esclusiva per collezionisti appassionati",
+    "HERO_SUBTITLE": "Carte collezionabili premium, giocattoli vintage e memorabilia esclusivi per collezionisti appassionati",
     "SHOP_NOW": "Acquista ora",
     "BROWSE_CATEGORIES": "Sfoglia le categorie",
     "FEATURED_PRODUCTS": "Prodotti in evidenza",
-    "VIEW_ALL": "Vedi tutto",
+    "VIEW_ALL": "Vedi tutti",
     "CATEGORIES": {
       "TRADING_CARDS": "Carte collezionabili",
       "VINTAGE_TOYS": "Giocattoli vintage",
@@ -56,11 +66,31 @@
     },
     "WHY_CHOOSE_US": "Perché sceglierci",
     "AUTHENTIC_ITEMS": "Articoli autentici",
-    "AUTHENTIC_DESC": "Ogni articolo è verificato per autenticità",
+    "AUTHENTIC_DESC": "Ogni articolo è verificato per la sua autenticità",
     "SECURE_SHIPPING": "Spedizione sicura",
-    "SECURE_DESC": "Spedizione assicurata e tracciata in tutto il mondo",
+    "SECURE_DESC": "Consegna assicurata e tracciata in tutto il mondo",
     "EXPERT_GRADING": "Valutazione esperta",
-    "EXPERT_DESC": "Valutazione professionale delle condizioni"
+    "EXPERT_DESC": "Valutazione professionale delle condizioni",
+    "HERO_BADGE": "Nuova Collezione",
+    "NEW_ARRIVALS": "Novità",
+    "FEATURED_ALT": "Oggetti da collezione in evidenza",
+    "SHOP_BY_CATEGORY": "Acquista per categoria",
+    "FEATURED_COLLECTIBLES": "Oggetti da Collezione in Evidenza",
+    "USP": {
+      "AUTHENTICITY_TITLE": "100% Autentico",
+      "AUTHENTICITY_DESC": "Ogni articolo è verificato per la sua autenticità dal nostro team di esperti",
+      "PACKAGING_TITLE": "Imballaggio Sicuro",
+      "PACKAGING_DESC": "I tuoi oggetti da collezione arrivano in sicurezza con imballaggio protettivo premium",
+      "SHIPPING_TITLE": "Spedizione Veloce",
+      "SHIPPING_DESC": "Consegna mondiale con tracciamento completo e assicurazione",
+      "RETURNS_TITLE": "Resi Facili",
+      "RETURNS_DESC": "Politica di reso senza problemi di 30 giorni su tutti gli articoli"
+    },
+    "CTA": {
+      "TITLE": "Inizia la Tua Collezione Oggi",
+      "TEXT": "Unisciti a migliaia di collezionisti e scopri oggetti rari da tutto il mondo.",
+      "BUTTON": "Crea un Account Gratuito"
+    }
   },
   "CATALOG": {
     "TITLE": "Negozio",
@@ -68,15 +98,34 @@
     "SORT_BY": "Ordina per",
     "PRICE_LOW_HIGH": "Prezzo: crescente",
     "PRICE_HIGH_LOW": "Prezzo: decrescente",
-    "NEWEST": "Più recenti",
+    "NEWEST": "Più recente",
     "BEST_SELLING": "Più venduti",
+    "NAME_A_Z": "Nome: A-Z",
     "CATEGORY": "Categoria",
+    "CATEGORIES": "Categorie",
+    "ALL_PRODUCTS": "Tutti i prodotti",
     "CONDITION": "Condizione",
+    "RARITY": "Rarità",
     "PRICE_RANGE": "Fascia di prezzo",
-    "CLEAR_FILTERS": "Cancella filtri",
-    "SHOWING": "Mostra",
+    "MIN": "Min",
+    "MAX": "Max",
+    "APPLY_FILTERS": "Applica filtri",
+    "CLEAR_FILTERS": "Azzera filtri",
+    "SHOWING": "Mostrando",
     "PRODUCTS": "prodotti",
-    "OF": "di"
+    "OF": "di",
+    "CONDITIONS": {
+      "MINT": "Nuovo",
+      "NEAR_MINT": "Quasi nuovo",
+      "EXCELLENT": "Eccellente",
+      "GOOD": "Buono"
+    },
+    "RARITIES": {
+      "LEGENDARY": "Leggendario",
+      "ULTRA_RARE": "Ultra Raro",
+      "RARE": "Raro",
+      "UNCOMMON": "Non comune"
+    }
   },
   "PRODUCT": {
     "REVIEWS": "recensioni",
@@ -84,19 +133,26 @@
     "SPECIFICATIONS": "Specifiche",
     "RELATED_PRODUCTS": "Prodotti correlati",
     "ADD_TO_WISHLIST": "Aggiungi ai preferiti",
-    "SHARE": "Condividi"
+    "SHARE": "Condividi",
+    "BACK_TO_CATALOG": "Torna al catalogo",
+    "LOADING": "Caricamento prodotto..."
   },
   "CART": {
     "TITLE": "Carrello",
     "EMPTY": "Il tuo carrello è vuoto",
-    "START_SHOPPING": "Inizia lo shopping",
+    "START_SHOPPING": "Inizia a fare acquisti",
     "REMOVE": "Rimuovi",
     "ORDER_SUMMARY": "Riepilogo ordine",
-    "CALCULATED_AT_CHECKOUT": "Calcolato alla cassa",
-    "FREE_SHIPPING": "Spedizione gratuita per ordini superiori a 100€"
+    "CALCULATED_AT_CHECKOUT": "Calcolato al momento del pagamento",
+    "FREE_SHIPPING": "Spedizione gratuita per ordini superiori a 100€",
+    "LOADING": "Caricamento carrello...",
+    "SIGN_IN_TO_VIEW": "Per favore",
+    "SIGN_IN_LINK": "accedi",
+    "SIGN_IN_SUFFIX": "per vedere il tuo carrello.",
+    "CLEAR_CART": "Svuota carrello"
   },
   "CHECKOUT": {
-    "TITLE": "Checkout",
+    "TITLE": "Pagamento",
     "SHIPPING_INFO": "Informazioni di spedizione",
     "PAYMENT_METHOD": "Metodo di pagamento",
     "FIRST_NAME": "Nome",
@@ -112,7 +168,23 @@
     "EXPIRY_DATE": "Data di scadenza",
     "CVV": "CVV",
     "PLACE_ORDER": "Effettua ordine",
-    "ORDER_SUMMARY": "Riepilogo ordine"
+    "ORDER_SUMMARY": "Riepilogo ordine",
+    "SAVED_ADDRESSES": "Indirizzi salvati",
+    "STATE": "Provincia / Regione",
+    "COUNTRIES": {
+      "US": "Stati Uniti",
+      "CA": "Canada",
+      "UK": "Regno Unito",
+      "FR": "Francia",
+      "DE": "Germania"
+    },
+    "BILLING_SAME_AS_SHIPPING": "Indirizzo di fatturazione uguale a quello di spedizione",
+    "BILLING_INFO": "Informazioni di fatturazione",
+    "ORDER_NOTES": "Note sull'ordine",
+    "ORDER_NOTES_PLACEHOLDER": "Istruzioni speciali per il tuo ordine...",
+    "COUPON_PLACEHOLDER": "Inserisci codice coupon",
+    "TAX_PERCENT": "Tasse (8%)",
+    "BACK_TO_CART": "Torna al carrello"
   },
   "AUTH": {
     "LOGIN": {
@@ -123,11 +195,12 @@
       "REMEMBER_ME": "Ricordami",
       "FORGOT_PASSWORD": "Password dimenticata?",
       "SIGN_IN": "Accedi",
+      "SIGNING_IN": "Accesso in corso...",
       "NO_ACCOUNT": "Non hai un account?",
       "SIGN_UP": "Registrati"
     },
     "REGISTER": {
-      "TITLE": "Crea account",
+      "TITLE": "Crea un account",
       "SUBTITLE": "Unisciti alla nostra comunità di collezionisti",
       "FIRST_NAME": "Nome",
       "LAST_NAME": "Cognome",
@@ -137,17 +210,19 @@
       "AGREE_TERMS": "Accetto i",
       "TERMS": "Termini di servizio",
       "AND": "e la",
-      "PRIVACY": "Privacy Policy",
+      "PRIVACY": "Informativa sulla privacy",
       "CREATE_ACCOUNT": "Crea account",
+      "CREATING_ACCOUNT": "Creazione account...",
+      "PASSWORD_HINT": "Deve contenere almeno 8 caratteri",
       "ALREADY_ACCOUNT": "Hai già un account?",
       "SIGN_IN": "Accedi"
     },
     "FORGOT_PASSWORD": {
       "TITLE": "Reimposta password",
-      "SUBTITLE": "Inserisci la tua email e ti invieremo un link di reset",
+      "SUBTITLE": "Inserisci la tua email e ti invieremo un link per reimpostare la password",
       "EMAIL": "Email",
       "SEND_LINK": "Invia link",
-      "REMEMBER_PASSWORD": "Ricordi la password?",
+      "REMEMBER_PASSWORD": "Ricordi la tua password?",
       "SIGN_IN": "Accedi"
     }
   },
@@ -162,13 +237,18 @@
     "LAST_NAME": "Cognome",
     "EMAIL": "Email",
     "PHONE": "Telefono",
+    "LOADING_PROFILE": "Caricamento profilo...",
+    "SAVING": "Salvataggio...",
+    "PROFILE_UPDATED": "Profilo aggiornato con successo",
+    "FAILED_LOAD_PROFILE": "Impossibile caricare il profilo",
+    "FAILED_UPDATE_PROFILE": "Impossibile aggiornare il profilo",
     "ORDER_HISTORY": {
-      "TITLE": "Cronologia ordini",
+      "TITLE": "Storico ordini",
       "EMPTY": "I tuoi ordini passati appariranno qui."
     },
     "WISHLIST_PAGE": {
       "TITLE": "I miei preferiti",
-      "EMPTY": "Gli articoli salvati appariranno qui."
+      "EMPTY": "I tuoi articoli salvati appariranno qui."
     },
     "SETTINGS_PAGE": {
       "TITLE": "Impostazioni account",
@@ -176,24 +256,45 @@
     }
   },
   "FOOTER": {
-    "ABOUT": "Chi è CollectorShop",
-    "ABOUT_TEXT": "La tua fonte affidabile per oggetti da collezione premium, carte collezionabili e memorabilia rara dal 2020.",
-    "QUICK_LINKS": "Link rapidi",
-    "CUSTOMER_SERVICE": "Servizio clienti",
-    "FAQ": "FAQ",
-    "SHIPPING_INFO": "Info spedizione",
-    "RETURNS": "Resi",
-    "TRACK_ORDER": "Traccia ordine",
-    "CONNECT": "Seguici",
-    "NEWSLETTER": "Iscriviti alla newsletter",
-    "SUBSCRIBE": "Iscriviti",
-    "EMAIL_PLACEHOLDER": "La tua email",
-    "COPYRIGHT": "© 2024 CollectorShop. Tutti i diritti riservati."
+    "TAGLINE": "La tua destinazione per oggetti da collezione rari e unici. Dalle carte collezionabili ai tesori vintage.",
+    "NEWSLETTER_TITLE": "Iscriviti alla newsletter",
+    "EMAIL_PLACEHOLDER": "Inserisci la tua email",
+    "SHOP": "Negozio",
+    "SUPPORT": "Supporto",
+    "COMPANY": "Azienda",
+    "COPYRIGHT": "Tutti i diritti riservati.",
+    "LINKS": {
+      "ALL_PRODUCTS": "Tutti i prodotti",
+      "TRADING_CARDS": "Carte collezionabili",
+      "FIGURINES": "Action figure",
+      "VINTAGE_ITEMS": "Articoli vintage",
+      "NEW_ARRIVALS": "Novità",
+      "CONTACT_US": "Contattaci",
+      "FAQS": "FAQ",
+      "SHIPPING_INFO": "Info spedizione",
+      "RETURNS": "Resi",
+      "TRACK_ORDER": "Traccia ordine",
+      "ABOUT_US": "Chi siamo",
+      "BLOG": "Blog",
+      "CAREERS": "Carriere",
+      "PRESS": "Stampa",
+      "PRIVACY_POLICY": "Informativa sulla privacy",
+      "TERMS_OF_SERVICE": "Termini di servizio",
+      "COOKIE_POLICY": "Politica sui cookie"
+    }
   },
   "LANGUAGES": {
     "EN": "English",
     "FR": "Français",
     "DE": "Deutsch",
     "IT": "Italiano"
+  },
+  "WISHLIST": {
+    "LOADING": "Caricamento preferiti...",
+    "SIGN_IN_TO_VIEW": "Per favore",
+    "SIGN_IN_LINK": "accedi",
+    "SIGN_IN_SUFFIX": "per vedere i tuoi preferiti.",
+    "BROWSE_PRODUCTS": "Sfoglia i prodotti",
+    "MOVE_TO_CART": "Sposta nel carrello"
   }
 }

@@ -1,6 +1,67 @@
-<div class="section">
+<div class="wishlist section">
   <div class="container">
-    <h1>My Wishlist</h1>
-    <p>Your saved items will appear here.</p>
+    <h1>{{ 'ACCOUNT.WISHLIST_PAGE.TITLE' | translate }}</h1>
+
+    @if (loading()) {
+      <div class="loading-spinner">{{ 'WISHLIST.LOADING' | translate }}</div>
+    } @else if (!isAuthenticated()) {
+      <div class="wishlist__empty">
+        <p>
+          {{ 'WISHLIST.SIGN_IN_TO_VIEW' | translate }}
+          <a routerLink="/auth/login">{{ 'WISHLIST.SIGN_IN_LINK' | translate }}</a>
+          {{ 'WISHLIST.SIGN_IN_SUFFIX' | translate }}
+        </p>
+      </div>
+    } @else if (isEmpty()) {
+      <div class="wishlist__empty">
+        <i class="pi pi-heart"></i>
+        <p>{{ 'ACCOUNT.WISHLIST_PAGE.EMPTY' | translate }}</p>
+        <a routerLink="/catalog" class="btn-primary">{{ 'WISHLIST.BROWSE_PRODUCTS' | translate }}</a>
+      </div>
+    } @else {
+      <div class="wishlist__grid">
+        @for (item of items(); track item.id) {
+          <div class="wishlist-item">
+            <a [routerLink]="'/product/' + item.productId" class="wishlist-item__image-link">
+              <img
+                [src]="item.imageUrl || 'https://placehold.co/200x200/1a1a1a/c9a962?text=Product'"
+                [alt]="item.productName"
+                class="wishlist-item__image"
+              />
+              @if (!item.isInStock) {
+                <span class="wishlist-item__badge wishlist-item__badge--out-of-stock">
+                  {{ 'COMMON.OUT_OF_STOCK' | translate }}
+                </span>
+              }
+            </a>
+            <div class="wishlist-item__info">
+              <a [routerLink]="'/product/' + item.productId" class="wishlist-item__name">
+                {{ item.productName }}
+              </a>
+              <p class="wishlist-item__meta">{{ 'COMMON.SKU' | translate }}: {{ item.productSku }}</p>
+              <p class="wishlist-item__price">{{ item.price | currency: item.currency }}</p>
+            </div>
+            <div class="wishlist-item__actions">
+              <button
+                class="btn-primary btn-sm"
+                (click)="moveToCart(item.productId)"
+                [disabled]="loading() || !item.isInStock"
+              >
+                <i class="pi pi-shopping-cart"></i>
+                {{ 'WISHLIST.MOVE_TO_CART' | translate }}
+              </button>
+              <button
+                class="btn-text btn-sm wishlist-item__remove"
+                (click)="removeItem(item.productId)"
+                [disabled]="loading()"
+              >
+                <i class="pi pi-trash"></i>
+                {{ 'COMMON.CANCEL' | translate }}
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
   </div>
 </div>

@@ -16,6 +16,7 @@
 
     @include lg {
       height: $header-height-desktop;
+      gap: $spacing-6;
     }
   }
 
@@ -85,7 +86,7 @@
       height: auto;
       transform: none;
       padding: 0;
-      overflow: visible;
+      overflow: hidden;
       display: flex;
       justify-content: center;
     }
@@ -102,6 +103,12 @@
       align-items: center;
       gap: $spacing-6;
       flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 

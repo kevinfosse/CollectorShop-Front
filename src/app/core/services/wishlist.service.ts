@@ -40,10 +40,17 @@ export class WishlistService {
     );
   }
 
-  addToWishlist(request: AddToWishlistRequest): Observable<WishlistItemDto> {
+  addToWishlist(request: AddToWishlistRequest): Observable<WishlistItemDto | null> {
     return this.http.post<WishlistItemDto>(this.apiUrl, request).pipe(
       tap((item) => {
         this._items.update((items) => [...items, item]);
+      }),
+      catchError((err: HttpErrorResponse) => {
+        // 400 or 409 means item already in wishlist — not a real error
+        if (err.status === 400 || err.status === 409) {
+          return of(null);
+        }
+        throw err;
       }),
     );
   }
@@ -58,6 +65,14 @@ export class WishlistService {
 
   isInWishlist(productId: string): boolean {
     return this._items().some((item) => item.productId === productId);
+  }
+
+  moveToCart(productId: string): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/${productId}/move-to-cart`, {}).pipe(
+      tap(() => {
+        this._items.update((items) => items.filter((i) => i.productId !== productId));
+      }),
+    );
   }
 
   // Clear local wishlist state (e.g., on logout)

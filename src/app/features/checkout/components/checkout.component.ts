@@ -2,6 +2,7 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { CartService, OrderService, CustomerService, CouponService } from '../../../core/services';
 import {
   CreateOrderRequest,
@@ -14,7 +15,7 @@ import {
 
 @Component({
   selector: 'app-checkout',
-  imports: [FormsModule, CurrencyPipe, RouterLink],
+  imports: [FormsModule, CurrencyPipe, RouterLink, TranslateModule],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss',
 })

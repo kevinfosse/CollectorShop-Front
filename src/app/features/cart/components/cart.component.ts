@@ -1,12 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { CartService, AuthService } from '../../../core/services';
 import { CartItemDto } from '../../../core/models';
 
 @Component({
   selector: 'app-cart',
-  imports: [RouterLink, CurrencyPipe],
+  imports: [RouterLink, CurrencyPipe, TranslateModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })

@@ -1,5 +1,6 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { ProductCardComponent } from '../../../../shared/components/card-preview/product-card.component';
 import {
   ProductService,
@@ -12,7 +13,7 @@ import { ProductListDto, ProductFilterRequest, CategoryListDto } from '../../../
 
 @Component({
   selector: 'app-catalog-list',
-  imports: [RouterLink, ProductCardComponent],
+  imports: [RouterLink, TranslateModule, ProductCardComponent],
   templateUrl: './catalog-list.component.html',
   styleUrl: './catalog-list.component.scss',
 })

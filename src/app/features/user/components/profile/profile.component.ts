@@ -1,13 +1,14 @@
 import { Component, OnInit, signal, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { CustomerService } from '../../../../core/services/customer.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { CustomerDto } from '../../../../core/models';
 
 @Component({
   selector: 'app-profile',
-  imports: [RouterLink, RouterLinkActive, ReactiveFormsModule],
+  imports: [RouterLink, RouterLinkActive, ReactiveFormsModule, TranslateModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })

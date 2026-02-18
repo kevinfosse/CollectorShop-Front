@@ -1,8 +1,8 @@
 <div class="auth-page">
   <div class="auth-card">
     <div class="auth-card__header">
-      <h1>Welcome Back</h1>
-      <p>Sign in to your account to continue</p>
+      <h1>{{ 'AUTH.LOGIN.TITLE' | translate }}</h1>
+      <p>{{ 'AUTH.LOGIN.SUBTITLE' | translate }}</p>
     </div>
 
     @if (error()) {
@@ -11,7 +11,7 @@
 
     <form class="auth-form" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="email">Email</label>
+        <label for="email">{{ 'AUTH.LOGIN.EMAIL' | translate }}</label>
         <input
           type="email"
           id="email"
@@ -23,7 +23,7 @@
         />
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password">{{ 'AUTH.LOGIN.PASSWORD' | translate }}</label>
         <input
           type="password"
           id="password"
@@ -37,21 +37,21 @@
       <div class="form-row">
         <label class="checkbox">
           <input type="checkbox" name="rememberMe" [(ngModel)]="rememberMe" />
-          <span>Remember me</span>
+          <span>{{ 'AUTH.LOGIN.REMEMBER_ME' | translate }}</span>
         </label>
-        <a routerLink="/auth/forgot-password" class="link">Forgot password?</a>
+        <a routerLink="/auth/forgot-password" class="link">{{ 'AUTH.LOGIN.FORGOT_PASSWORD' | translate }}</a>
       </div>
       <button type="submit" class="btn-primary btn-lg" [disabled]="loading()">
         @if (loading()) {
-          Signing in...
+          {{ 'AUTH.LOGIN.SIGNING_IN' | translate }}
         } @else {
-          Sign In
+          {{ 'AUTH.LOGIN.SIGN_IN' | translate }}
         }
       </button>
     </form>
 
     <div class="auth-card__footer">
-      <p>Don't have an account? <a routerLink="/auth/register">Sign up</a></p>
+      <p>{{ 'AUTH.LOGIN.NO_ACCOUNT' | translate }} <a routerLink="/auth/register">{{ 'AUTH.LOGIN.SIGN_UP' | translate }}</a></p>
     </div>
   </div>
 </div>

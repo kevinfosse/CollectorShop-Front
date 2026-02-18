@@ -5,7 +5,7 @@ export interface WishlistItemDto {
   productId: string;
   productName: string;
   productSku: string;
-  productImageUrl?: string;
+  imageUrl?: string;
   price: number;
   currency: string;
   isInStock: boolean;

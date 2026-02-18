@@ -32,6 +32,7 @@
     "IN_STOCK": "En stock",
     "OUT_OF_STOCK": "Rupture de stock",
     "CONDITION": "État",
+    "BRAND": "Marque",
     "YEAR": "Année",
     "SKU": "Réf.",
     "AVAILABILITY": "Disponibilité",
@@ -40,7 +41,15 @@
     "SUBTOTAL": "Sous-total",
     "SHIPPING": "Livraison",
     "TAX": "Taxes",
-    "TOTAL": "Total"
+    "TOTAL": "Total",
+    "QUICK_VIEW": "Aperçu rapide",
+    "ADD_TO_WISHLIST": "Ajouter aux favoris",
+    "ITEMS": "articles",
+    "EACH": "chacun",
+    "QTY": "Qté",
+    "APPLY": "Appliquer",
+    "DISCOUNT": "Réduction",
+    "PROCESSING": "Traitement en cours..."
   },
   "HOME": {
     "HERO_TITLE": "Découvrez des Objets de Collection Rares",
@@ -61,23 +70,62 @@
     "SECURE_SHIPPING": "Livraison sécurisée",
     "SECURE_DESC": "Livraison assurée et suivie dans le monde entier",
     "EXPERT_GRADING": "Évaluation experte",
-    "EXPERT_DESC": "Évaluation professionnelle de l'état"
+    "EXPERT_DESC": "Évaluation professionnelle de l'état",
+    "HERO_BADGE": "Nouvelle Collection",
+    "NEW_ARRIVALS": "Nouveautés",
+    "FEATURED_ALT": "Objets de collection en vedette",
+    "SHOP_BY_CATEGORY": "Acheter par catégorie",
+    "FEATURED_COLLECTIBLES": "Objets de Collection en Vedette",
+    "USP": {
+      "AUTHENTICITY_TITLE": "100% Authentique",
+      "AUTHENTICITY_DESC": "Chaque article est vérifié pour son authenticité par notre équipe d'experts",
+      "PACKAGING_TITLE": "Emballage Sécurisé",
+      "PACKAGING_DESC": "Vos objets de collection arrivent en toute sécurité avec un emballage protecteur premium",
+      "SHIPPING_TITLE": "Livraison Rapide",
+      "SHIPPING_DESC": "Livraison mondiale avec suivi complet et assurance",
+      "RETURNS_TITLE": "Retours Faciles",
+      "RETURNS_DESC": "Politique de retour sans tracas de 30 jours sur tous les articles"
+    },
+    "CTA": {
+      "TITLE": "Commencez Votre Collection Aujourd'hui",
+      "TEXT": "Rejoignez des milliers de collectionneurs et découvrez des objets rares du monde entier.",
+      "BUTTON": "Créer un Compte Gratuit"
+    }
   },
   "CATALOG": {
     "TITLE": "Boutique",
     "FILTERS": "Filtres",
     "SORT_BY": "Trier par",
-    "PRICE_LOW_HIGH": "Prix: croissant",
-    "PRICE_HIGH_LOW": "Prix: décroissant",
+    "PRICE_LOW_HIGH": "Prix : croissant",
+    "PRICE_HIGH_LOW": "Prix : décroissant",
     "NEWEST": "Plus récent",
     "BEST_SELLING": "Meilleures ventes",
+    "NAME_A_Z": "Nom : A-Z",
     "CATEGORY": "Catégorie",
+    "CATEGORIES": "Catégories",
+    "ALL_PRODUCTS": "Tous les produits",
     "CONDITION": "État",
+    "RARITY": "Rareté",
     "PRICE_RANGE": "Fourchette de prix",
+    "MIN": "Min",
+    "MAX": "Max",
+    "APPLY_FILTERS": "Appliquer les filtres",
     "CLEAR_FILTERS": "Effacer les filtres",
     "SHOWING": "Affichage de",
     "PRODUCTS": "produits",
-    "OF": "sur"
+    "OF": "sur",
+    "CONDITIONS": {
+      "MINT": "Neuf",
+      "NEAR_MINT": "Quasi neuf",
+      "EXCELLENT": "Excellent",
+      "GOOD": "Bon"
+    },
+    "RARITIES": {
+      "LEGENDARY": "Légendaire",
+      "ULTRA_RARE": "Ultra Rare",
+      "RARE": "Rare",
+      "UNCOMMON": "Peu commun"
+    }
   },
   "PRODUCT": {
     "REVIEWS": "avis",
@@ -85,7 +133,9 @@
     "SPECIFICATIONS": "Spécifications",
     "RELATED_PRODUCTS": "Produits similaires",
     "ADD_TO_WISHLIST": "Ajouter aux favoris",
-    "SHARE": "Partager"
+    "SHARE": "Partager",
+    "BACK_TO_CATALOG": "Retour au catalogue",
+    "LOADING": "Chargement du produit..."
   },
   "CART": {
     "TITLE": "Panier",
@@ -94,7 +144,12 @@
     "REMOVE": "Supprimer",
     "ORDER_SUMMARY": "Récapitulatif de la commande",
     "CALCULATED_AT_CHECKOUT": "Calculé à la caisse",
-    "FREE_SHIPPING": "Livraison gratuite pour les commandes de plus de 100€"
+    "FREE_SHIPPING": "Livraison gratuite pour les commandes de plus de 100€",
+    "LOADING": "Chargement du panier...",
+    "SIGN_IN_TO_VIEW": "Veuillez",
+    "SIGN_IN_LINK": "vous connecter",
+    "SIGN_IN_SUFFIX": "pour voir votre panier.",
+    "CLEAR_CART": "Vider le panier"
   },
   "CHECKOUT": {
     "TITLE": "Paiement",
@@ -113,7 +168,23 @@
     "EXPIRY_DATE": "Date d'expiration",
     "CVV": "CVV",
     "PLACE_ORDER": "Passer la commande",
-    "ORDER_SUMMARY": "Récapitulatif de la commande"
+    "ORDER_SUMMARY": "Récapitulatif de la commande",
+    "SAVED_ADDRESSES": "Adresses enregistrées",
+    "STATE": "Province / Région",
+    "COUNTRIES": {
+      "US": "États-Unis",
+      "CA": "Canada",
+      "UK": "Royaume-Uni",
+      "FR": "France",
+      "DE": "Allemagne"
+    },
+    "BILLING_SAME_AS_SHIPPING": "Adresse de facturation identique à la livraison",
+    "BILLING_INFO": "Informations de facturation",
+    "ORDER_NOTES": "Notes de commande",
+    "ORDER_NOTES_PLACEHOLDER": "Instructions spéciales pour votre commande...",
+    "COUPON_PLACEHOLDER": "Entrer un code promo",
+    "TAX_PERCENT": "Taxes (8%)",
+    "BACK_TO_CART": "Retour au panier"
   },
   "AUTH": {
     "LOGIN": {
@@ -124,6 +195,7 @@
       "REMEMBER_ME": "Se souvenir de moi",
       "FORGOT_PASSWORD": "Mot de passe oublié ?",
       "SIGN_IN": "Se connecter",
+      "SIGNING_IN": "Connexion en cours...",
       "NO_ACCOUNT": "Pas encore de compte ?",
       "SIGN_UP": "S'inscrire"
     },
@@ -140,6 +212,8 @@
       "AND": "et la",
       "PRIVACY": "Politique de confidentialité",
       "CREATE_ACCOUNT": "Créer un compte",
+      "CREATING_ACCOUNT": "Création du compte...",
+      "PASSWORD_HINT": "Doit contenir au moins 8 caractères",
       "ALREADY_ACCOUNT": "Déjà un compte ?",
       "SIGN_IN": "Se connecter"
     },
@@ -163,6 +237,11 @@
     "LAST_NAME": "Nom",
     "EMAIL": "Email",
     "PHONE": "Téléphone",
+    "LOADING_PROFILE": "Chargement du profil...",
+    "SAVING": "Enregistrement...",
+    "PROFILE_UPDATED": "Profil mis à jour avec succès",
+    "FAILED_LOAD_PROFILE": "Échec du chargement du profil",
+    "FAILED_UPDATE_PROFILE": "Échec de la mise à jour du profil",
     "ORDER_HISTORY": {
       "TITLE": "Historique des commandes",
       "EMPTY": "Vos commandes passées apparaîtront ici."
@@ -177,24 +256,45 @@
     }
   },
   "FOOTER": {
-    "ABOUT": "À propos de CollectorShop",
-    "ABOUT_TEXT": "Votre source de confiance pour les objets de collection premium, les cartes à collectionner et les souvenirs rares depuis 2020.",
-    "QUICK_LINKS": "Liens rapides",
-    "CUSTOMER_SERVICE": "Service client",
-    "FAQ": "FAQ",
-    "SHIPPING_INFO": "Infos livraison",
-    "RETURNS": "Retours",
-    "TRACK_ORDER": "Suivre ma commande",
-    "CONNECT": "Suivez-nous",
-    "NEWSLETTER": "Inscrivez-vous à notre newsletter",
-    "SUBSCRIBE": "S'inscrire",
-    "EMAIL_PLACEHOLDER": "Votre email",
-    "COPYRIGHT": "© 2024 CollectorShop. Tous droits réservés."
+    "TAGLINE": "Votre destination pour des objets de collection rares et uniques. Des cartes à collectionner aux trésors vintage.",
+    "NEWSLETTER_TITLE": "Rejoignez notre newsletter",
+    "EMAIL_PLACEHOLDER": "Entrez votre email",
+    "SHOP": "Boutique",
+    "SUPPORT": "Support",
+    "COMPANY": "Entreprise",
+    "COPYRIGHT": "Tous droits réservés.",
+    "LINKS": {
+      "ALL_PRODUCTS": "Tous les produits",
+      "TRADING_CARDS": "Cartes à collectionner",
+      "FIGURINES": "Figurines",
+      "VINTAGE_ITEMS": "Articles vintage",
+      "NEW_ARRIVALS": "Nouveautés",
+      "CONTACT_US": "Nous contacter",
+      "FAQS": "FAQ",
+      "SHIPPING_INFO": "Infos livraison",
+      "RETURNS": "Retours",
+      "TRACK_ORDER": "Suivre ma commande",
+      "ABOUT_US": "À propos",
+      "BLOG": "Blog",
+      "CAREERS": "Carrières",
+      "PRESS": "Presse",
+      "PRIVACY_POLICY": "Politique de confidentialité",
+      "TERMS_OF_SERVICE": "Conditions d'utilisation",
+      "COOKIE_POLICY": "Politique de cookies"
+    }
   },
   "LANGUAGES": {
     "EN": "English",
     "FR": "Français",
     "DE": "Deutsch",
     "IT": "Italiano"
+  },
+  "WISHLIST": {
+    "LOADING": "Chargement des favoris...",
+    "SIGN_IN_TO_VIEW": "Veuillez",
+    "SIGN_IN_LINK": "vous connecter",
+    "SIGN_IN_SUFFIX": "pour voir vos favoris.",
+    "BROWSE_PRODUCTS": "Parcourir les produits",
+    "MOVE_TO_CART": "Ajouter au panier"
   }
 }

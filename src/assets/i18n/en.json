@@ -32,6 +32,7 @@
     "IN_STOCK": "In Stock",
     "OUT_OF_STOCK": "Out of Stock",
     "CONDITION": "Condition",
+    "BRAND": "Brand",
     "YEAR": "Year",
     "SKU": "SKU",
     "AVAILABILITY": "Availability",
@@ -40,7 +41,15 @@
     "SUBTOTAL": "Subtotal",
     "SHIPPING": "Shipping",
     "TAX": "Tax",
-    "TOTAL": "Total"
+    "TOTAL": "Total",
+    "QUICK_VIEW": "Quick view",
+    "ADD_TO_WISHLIST": "Add to wishlist",
+    "ITEMS": "items",
+    "EACH": "each",
+    "QTY": "Qty",
+    "APPLY": "Apply",
+    "DISCOUNT": "Discount",
+    "PROCESSING": "Processing..."
   },
   "HOME": {
     "HERO_TITLE": "Discover Rare Collectibles",
@@ -61,7 +70,27 @@
     "SECURE_SHIPPING": "Secure Shipping",
     "SECURE_DESC": "Insured and tracked worldwide delivery",
     "EXPERT_GRADING": "Expert Grading",
-    "EXPERT_DESC": "Professional condition assessment"
+    "EXPERT_DESC": "Professional condition assessment",
+    "HERO_BADGE": "New Collection",
+    "NEW_ARRIVALS": "New Arrivals",
+    "FEATURED_ALT": "Featured collectibles",
+    "SHOP_BY_CATEGORY": "Shop by Category",
+    "FEATURED_COLLECTIBLES": "Featured Collectibles",
+    "USP": {
+      "AUTHENTICITY_TITLE": "100% Authentic",
+      "AUTHENTICITY_DESC": "Every item is verified for authenticity by our expert team",
+      "PACKAGING_TITLE": "Secure Packaging",
+      "PACKAGING_DESC": "Your collectibles arrive safely with premium protective packaging",
+      "SHIPPING_TITLE": "Fast Shipping",
+      "SHIPPING_DESC": "Worldwide delivery with full tracking and insurance",
+      "RETURNS_TITLE": "Easy Returns",
+      "RETURNS_DESC": "30-day hassle-free return policy on all items"
+    },
+    "CTA": {
+      "TITLE": "Start Your Collection Today",
+      "TEXT": "Join thousands of collectors and discover rare items from around the world.",
+      "BUTTON": "Create Free Account"
+    }
   },
   "CATALOG": {
     "TITLE": "Shop",
@@ -71,13 +100,32 @@
     "PRICE_HIGH_LOW": "Price: High to Low",
     "NEWEST": "Newest",
     "BEST_SELLING": "Best Selling",
+    "NAME_A_Z": "Name: A-Z",
     "CATEGORY": "Category",
+    "CATEGORIES": "Categories",
+    "ALL_PRODUCTS": "All Products",
     "CONDITION": "Condition",
+    "RARITY": "Rarity",
     "PRICE_RANGE": "Price Range",
+    "MIN": "Min",
+    "MAX": "Max",
+    "APPLY_FILTERS": "Apply Filters",
     "CLEAR_FILTERS": "Clear Filters",
     "SHOWING": "Showing",
     "PRODUCTS": "products",
-    "OF": "of"
+    "OF": "of",
+    "CONDITIONS": {
+      "MINT": "Mint",
+      "NEAR_MINT": "Near Mint",
+      "EXCELLENT": "Excellent",
+      "GOOD": "Good"
+    },
+    "RARITIES": {
+      "LEGENDARY": "Legendary",
+      "ULTRA_RARE": "Ultra Rare",
+      "RARE": "Rare",
+      "UNCOMMON": "Uncommon"
+    }
   },
   "PRODUCT": {
     "REVIEWS": "reviews",
@@ -85,7 +133,9 @@
     "SPECIFICATIONS": "Specifications",
     "RELATED_PRODUCTS": "Related Products",
     "ADD_TO_WISHLIST": "Add to Wishlist",
-    "SHARE": "Share"
+    "SHARE": "Share",
+    "BACK_TO_CATALOG": "Back to Catalog",
+    "LOADING": "Loading product..."
   },
   "CART": {
     "TITLE": "Shopping Cart",
@@ -94,7 +144,12 @@
     "REMOVE": "Remove",
     "ORDER_SUMMARY": "Order Summary",
     "CALCULATED_AT_CHECKOUT": "Calculated at checkout",
-    "FREE_SHIPPING": "Free shipping on orders over $100"
+    "FREE_SHIPPING": "Free shipping on orders over $100",
+    "LOADING": "Loading cart...",
+    "SIGN_IN_TO_VIEW": "Please",
+    "SIGN_IN_LINK": "sign in",
+    "SIGN_IN_SUFFIX": "to view your cart.",
+    "CLEAR_CART": "Clear Cart"
   },
   "CHECKOUT": {
     "TITLE": "Checkout",
@@ -113,7 +168,23 @@
     "EXPIRY_DATE": "Expiry Date",
     "CVV": "CVV",
     "PLACE_ORDER": "Place Order",
-    "ORDER_SUMMARY": "Order Summary"
+    "ORDER_SUMMARY": "Order Summary",
+    "SAVED_ADDRESSES": "Saved Addresses",
+    "STATE": "State/Province",
+    "COUNTRIES": {
+      "US": "United States",
+      "CA": "Canada",
+      "UK": "United Kingdom",
+      "FR": "France",
+      "DE": "Germany"
+    },
+    "BILLING_SAME_AS_SHIPPING": "Billing address same as shipping",
+    "BILLING_INFO": "Billing Information",
+    "ORDER_NOTES": "Order Notes",
+    "ORDER_NOTES_PLACEHOLDER": "Special instructions for your order...",
+    "COUPON_PLACEHOLDER": "Enter coupon code",
+    "TAX_PERCENT": "Tax (8%)",
+    "BACK_TO_CART": "Back to Cart"
   },
   "AUTH": {
     "LOGIN": {
@@ -124,6 +195,7 @@
       "REMEMBER_ME": "Remember me",
       "FORGOT_PASSWORD": "Forgot password?",
       "SIGN_IN": "Sign In",
+      "SIGNING_IN": "Signing in...",
       "NO_ACCOUNT": "Don't have an account?",
       "SIGN_UP": "Sign up"
     },
@@ -140,6 +212,8 @@
       "AND": "and",
       "PRIVACY": "Privacy Policy",
       "CREATE_ACCOUNT": "Create Account",
+      "CREATING_ACCOUNT": "Creating account...",
+      "PASSWORD_HINT": "Must be at least 8 characters",
       "ALREADY_ACCOUNT": "Already have an account?",
       "SIGN_IN": "Sign in"
     },
@@ -163,6 +237,11 @@
     "LAST_NAME": "Last Name",
     "EMAIL": "Email",
     "PHONE": "Phone",
+    "LOADING_PROFILE": "Loading profile...",
+    "SAVING": "Saving...",
+    "PROFILE_UPDATED": "Profile updated successfully",
+    "FAILED_LOAD_PROFILE": "Failed to load profile",
+    "FAILED_UPDATE_PROFILE": "Failed to update profile",
     "ORDER_HISTORY": {
       "TITLE": "Order History",
       "EMPTY": "Your past orders will appear here."
@@ -177,24 +256,45 @@
     }
   },
   "FOOTER": {
-    "ABOUT": "About CollectorShop",
-    "ABOUT_TEXT": "Your trusted source for premium collectibles, trading cards, and rare memorabilia since 2020.",
-    "QUICK_LINKS": "Quick Links",
-    "CUSTOMER_SERVICE": "Customer Service",
-    "FAQ": "FAQ",
-    "SHIPPING_INFO": "Shipping Info",
-    "RETURNS": "Returns",
-    "TRACK_ORDER": "Track Order",
-    "CONNECT": "Connect With Us",
-    "NEWSLETTER": "Subscribe to our newsletter",
-    "SUBSCRIBE": "Subscribe",
-    "EMAIL_PLACEHOLDER": "Your email",
-    "COPYRIGHT": "© 2024 CollectorShop. All rights reserved."
+    "TAGLINE": "Your destination for rare and unique collectibles. From trading cards to vintage treasures.",
+    "NEWSLETTER_TITLE": "Join Our Newsletter",
+    "EMAIL_PLACEHOLDER": "Enter your email",
+    "SHOP": "Shop",
+    "SUPPORT": "Support",
+    "COMPANY": "Company",
+    "COPYRIGHT": "All rights reserved.",
+    "LINKS": {
+      "ALL_PRODUCTS": "All Products",
+      "TRADING_CARDS": "Trading Cards",
+      "FIGURINES": "Figurines",
+      "VINTAGE_ITEMS": "Vintage Items",
+      "NEW_ARRIVALS": "New Arrivals",
+      "CONTACT_US": "Contact Us",
+      "FAQS": "FAQs",
+      "SHIPPING_INFO": "Shipping Info",
+      "RETURNS": "Returns",
+      "TRACK_ORDER": "Track Order",
+      "ABOUT_US": "About Us",
+      "BLOG": "Blog",
+      "CAREERS": "Careers",
+      "PRESS": "Press",
+      "PRIVACY_POLICY": "Privacy Policy",
+      "TERMS_OF_SERVICE": "Terms of Service",
+      "COOKIE_POLICY": "Cookie Policy"
+    }
   },
   "LANGUAGES": {
     "EN": "English",
     "FR": "Français",
     "DE": "Deutsch",
     "IT": "Italiano"
+  },
+  "WISHLIST": {
+    "LOADING": "Loading wishlist...",
+    "SIGN_IN_TO_VIEW": "Please",
+    "SIGN_IN_LINK": "sign in",
+    "SIGN_IN_SUFFIX": "to view your wishlist.",
+    "BROWSE_PRODUCTS": "Browse Products",
+    "MOVE_TO_CART": "Move to Cart"
   }
 }

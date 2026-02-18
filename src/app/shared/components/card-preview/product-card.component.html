@@ -11,7 +11,7 @@
           -{{ discountPercentage }}%
         </span>
         } @if (!isInStock) {
-        <span class="product-card__badge product-card__badge--out-of-stock"> Out of Stock </span>
+        <span class="product-card__badge product-card__badge--out-of-stock"> {{ 'COMMON.OUT_OF_STOCK' | translate }} </span>
         }
       </div>
 
@@ -21,7 +21,7 @@
         <button
           class="product-card__action-btn"
           (click)="onAddToWishlist($event)"
-          aria-label="Add to wishlist"
+          [attr.aria-label]="'COMMON.ADD_TO_WISHLIST' | translate"
         >
           <i class="pi pi-heart"></i>
         </button>
@@ -29,7 +29,7 @@
         <button
           class="product-card__action-btn"
           (click)="onQuickView($event)"
-          aria-label="Quick view"
+          [attr.aria-label]="'COMMON.QUICK_VIEW' | translate"
         >
           <i class="pi pi-eye"></i>
         </button>
@@ -87,9 +87,9 @@
   <button class="product-card__cart-btn" [disabled]="!isInStock" (click)="onAddToCart($event)">
     @if (isInStock) {
     <i class="pi pi-shopping-cart"></i>
-    <span>Add to Cart</span>
+    <span>{{ 'COMMON.ADD_TO_CART' | translate }}</span>
     } @else {
-    <span>Out of Stock</span>
+    <span>{{ 'COMMON.OUT_OF_STOCK' | translate }}</span>
     }
   </button>
 </article>

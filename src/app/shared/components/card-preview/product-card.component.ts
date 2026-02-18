@@ -1,11 +1,12 @@
 import { Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { ProductListDto, ProductConditionLabels, ProductCondition } from '../../../core/models';
 
 @Component({
   selector: 'app-product-card',
-  imports: [RouterLink, CurrencyPipe],
+  imports: [RouterLink, CurrencyPipe, TranslateModule],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss',
 })

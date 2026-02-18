@@ -8,6 +8,7 @@
     "SEARCH": "Suchen...",
     "CART": "Warenkorb",
     "ACCOUNT": "Konto",
+    "ORDERS": "Meine Bestellungen",
     "LOGIN": "Anmelden",
     "REGISTER": "Registrieren",
     "LOGOUT": "Abmelden"
@@ -15,7 +16,7 @@
   "COMMON": {
     "ADD_TO_CART": "In den Warenkorb",
     "BUY_NOW": "Jetzt kaufen",
-    "VIEW_DETAILS": "Details anzeigen",
+    "VIEW_DETAILS": "Details ansehen",
     "LEARN_MORE": "Mehr erfahren",
     "CONTINUE_SHOPPING": "Weiter einkaufen",
     "PROCEED_TO_CHECKOUT": "Zur Kasse",
@@ -29,8 +30,9 @@
     "ERROR": "Ein Fehler ist aufgetreten",
     "SUCCESS": "Erfolg",
     "IN_STOCK": "Auf Lager",
-    "OUT_OF_STOCK": "Ausverkauft",
+    "OUT_OF_STOCK": "Nicht auf Lager",
     "CONDITION": "Zustand",
+    "BRAND": "Marke",
     "YEAR": "Jahr",
     "SKU": "Art.-Nr.",
     "AVAILABILITY": "Verfügbarkeit",
@@ -39,28 +41,56 @@
     "SUBTOTAL": "Zwischensumme",
     "SHIPPING": "Versand",
     "TAX": "Steuern",
-    "TOTAL": "Gesamt"
+    "TOTAL": "Gesamt",
+    "QUICK_VIEW": "Schnellansicht",
+    "ADD_TO_WISHLIST": "Zur Wunschliste",
+    "ITEMS": "Artikel",
+    "EACH": "pro Stück",
+    "QTY": "Anz.",
+    "APPLY": "Anwenden",
+    "DISCOUNT": "Rabatt",
+    "PROCESSING": "Wird verarbeitet..."
   },
   "HOME": {
     "HERO_TITLE": "Entdecken Sie Seltene Sammlerstücke",
-    "HERO_SUBTITLE": "Premium-Sammelkarten, Vintage-Spielzeug und exklusive Erinnerungsstücke für leidenschaftliche Sammler",
-    "SHOP_NOW": "Jetzt einkaufen",
+    "HERO_SUBTITLE": "Premium-Sammelkarten, Vintage-Spielzeug und exklusive Memorabilia für leidenschaftliche Sammler",
+    "SHOP_NOW": "Jetzt kaufen",
     "BROWSE_CATEGORIES": "Kategorien durchsuchen",
     "FEATURED_PRODUCTS": "Ausgewählte Produkte",
-    "VIEW_ALL": "Alle anzeigen",
+    "VIEW_ALL": "Alle ansehen",
     "CATEGORIES": {
       "TRADING_CARDS": "Sammelkarten",
       "VINTAGE_TOYS": "Vintage-Spielzeug",
-      "MEMORABILIA": "Erinnerungsstücke",
+      "MEMORABILIA": "Memorabilia",
       "COMICS": "Comics"
     },
-    "WHY_CHOOSE_US": "Warum uns wählen",
+    "WHY_CHOOSE_US": "Warum wir",
     "AUTHENTIC_ITEMS": "Authentische Artikel",
     "AUTHENTIC_DESC": "Jeder Artikel wird auf Echtheit geprüft",
     "SECURE_SHIPPING": "Sicherer Versand",
-    "SECURE_DESC": "Versicherter und verfolgter weltweiter Versand",
-    "EXPERT_GRADING": "Experten-Bewertung",
-    "EXPERT_DESC": "Professionelle Zustandsbewertung"
+    "SECURE_DESC": "Versicherter und verfolgbarer weltweiter Versand",
+    "EXPERT_GRADING": "Expertenbewertung",
+    "EXPERT_DESC": "Professionelle Zustandsbewertung",
+    "HERO_BADGE": "Neue Kollektion",
+    "NEW_ARRIVALS": "Neuheiten",
+    "FEATURED_ALT": "Ausgewählte Sammlerstücke",
+    "SHOP_BY_CATEGORY": "Nach Kategorie einkaufen",
+    "FEATURED_COLLECTIBLES": "Ausgewählte Sammlerstücke",
+    "USP": {
+      "AUTHENTICITY_TITLE": "100% Authentisch",
+      "AUTHENTICITY_DESC": "Jeder Artikel wird von unserem Expertenteam auf Echtheit geprüft",
+      "PACKAGING_TITLE": "Sichere Verpackung",
+      "PACKAGING_DESC": "Ihre Sammlerstücke kommen sicher mit Premium-Schutzverpackung an",
+      "SHIPPING_TITLE": "Schneller Versand",
+      "SHIPPING_DESC": "Weltweite Lieferung mit vollständiger Sendungsverfolgung und Versicherung",
+      "RETURNS_TITLE": "Einfache Rückgabe",
+      "RETURNS_DESC": "30-tägiges unkompliziertes Rückgaberecht auf alle Artikel"
+    },
+    "CTA": {
+      "TITLE": "Starten Sie Heute Ihre Sammlung",
+      "TEXT": "Schließen Sie sich Tausenden von Sammlern an und entdecken Sie seltene Artikel aus aller Welt.",
+      "BUTTON": "Kostenloses Konto erstellen"
+    }
   },
   "CATALOG": {
     "TITLE": "Shop",
@@ -70,13 +100,32 @@
     "PRICE_HIGH_LOW": "Preis: absteigend",
     "NEWEST": "Neueste",
     "BEST_SELLING": "Bestseller",
+    "NAME_A_Z": "Name: A-Z",
     "CATEGORY": "Kategorie",
+    "CATEGORIES": "Kategorien",
+    "ALL_PRODUCTS": "Alle Produkte",
     "CONDITION": "Zustand",
-    "PRICE_RANGE": "Preisbereich",
-    "CLEAR_FILTERS": "Filter löschen",
-    "SHOWING": "Zeige",
+    "RARITY": "Seltenheit",
+    "PRICE_RANGE": "Preisspanne",
+    "MIN": "Min",
+    "MAX": "Max",
+    "APPLY_FILTERS": "Filter anwenden",
+    "CLEAR_FILTERS": "Filter zurücksetzen",
+    "SHOWING": "Anzeige von",
     "PRODUCTS": "Produkte",
-    "OF": "von"
+    "OF": "von",
+    "CONDITIONS": {
+      "MINT": "Neuwertig",
+      "NEAR_MINT": "Fast neuwertig",
+      "EXCELLENT": "Ausgezeichnet",
+      "GOOD": "Gut"
+    },
+    "RARITIES": {
+      "LEGENDARY": "Legendär",
+      "ULTRA_RARE": "Ultra Selten",
+      "RARE": "Selten",
+      "UNCOMMON": "Ungewöhnlich"
+    }
   },
   "PRODUCT": {
     "REVIEWS": "Bewertungen",
@@ -84,16 +133,23 @@
     "SPECIFICATIONS": "Spezifikationen",
     "RELATED_PRODUCTS": "Ähnliche Produkte",
     "ADD_TO_WISHLIST": "Zur Wunschliste hinzufügen",
-    "SHARE": "Teilen"
+    "SHARE": "Teilen",
+    "BACK_TO_CATALOG": "Zurück zum Katalog",
+    "LOADING": "Produkt wird geladen..."
   },
   "CART": {
     "TITLE": "Warenkorb",
     "EMPTY": "Ihr Warenkorb ist leer",
-    "START_SHOPPING": "Jetzt einkaufen",
+    "START_SHOPPING": "Einkaufen beginnen",
     "REMOVE": "Entfernen",
     "ORDER_SUMMARY": "Bestellübersicht",
     "CALCULATED_AT_CHECKOUT": "Wird an der Kasse berechnet",
-    "FREE_SHIPPING": "Kostenloser Versand ab 100€"
+    "FREE_SHIPPING": "Kostenloser Versand ab 100€",
+    "LOADING": "Warenkorb wird geladen...",
+    "SIGN_IN_TO_VIEW": "Bitte",
+    "SIGN_IN_LINK": "melden Sie sich an",
+    "SIGN_IN_SUFFIX": "um Ihren Warenkorb zu sehen.",
+    "CLEAR_CART": "Warenkorb leeren"
   },
   "CHECKOUT": {
     "TITLE": "Kasse",
@@ -112,7 +168,23 @@
     "EXPIRY_DATE": "Ablaufdatum",
     "CVV": "CVV",
     "PLACE_ORDER": "Bestellung aufgeben",
-    "ORDER_SUMMARY": "Bestellübersicht"
+    "ORDER_SUMMARY": "Bestellübersicht",
+    "SAVED_ADDRESSES": "Gespeicherte Adressen",
+    "STATE": "Bundesland",
+    "COUNTRIES": {
+      "US": "Vereinigte Staaten",
+      "CA": "Kanada",
+      "UK": "Vereinigtes Königreich",
+      "FR": "Frankreich",
+      "DE": "Deutschland"
+    },
+    "BILLING_SAME_AS_SHIPPING": "Rechnungsadresse entspricht Lieferadresse",
+    "BILLING_INFO": "Rechnungsinformationen",
+    "ORDER_NOTES": "Bestellhinweise",
+    "ORDER_NOTES_PLACEHOLDER": "Besondere Anweisungen für Ihre Bestellung...",
+    "COUPON_PLACEHOLDER": "Gutscheincode eingeben",
+    "TAX_PERCENT": "Steuern (8%)",
+    "BACK_TO_CART": "Zurück zum Warenkorb"
   },
   "AUTH": {
     "LOGIN": {
@@ -123,28 +195,31 @@
       "REMEMBER_ME": "Angemeldet bleiben",
       "FORGOT_PASSWORD": "Passwort vergessen?",
       "SIGN_IN": "Anmelden",
+      "SIGNING_IN": "Anmeldung läuft...",
       "NO_ACCOUNT": "Noch kein Konto?",
       "SIGN_UP": "Registrieren"
     },
     "REGISTER": {
       "TITLE": "Konto erstellen",
-      "SUBTITLE": "Werden Sie Teil unserer Sammler-Community",
+      "SUBTITLE": "Treten Sie unserer Sammlergemeinschaft bei",
       "FIRST_NAME": "Vorname",
       "LAST_NAME": "Nachname",
       "EMAIL": "E-Mail",
       "PASSWORD": "Passwort",
       "CONFIRM_PASSWORD": "Passwort bestätigen",
-      "AGREE_TERMS": "Ich stimme den",
+      "AGREE_TERMS": "Ich akzeptiere die",
       "TERMS": "Nutzungsbedingungen",
-      "AND": "und der",
+      "AND": "und die",
       "PRIVACY": "Datenschutzrichtlinie",
       "CREATE_ACCOUNT": "Konto erstellen",
+      "CREATING_ACCOUNT": "Konto wird erstellt...",
+      "PASSWORD_HINT": "Muss mindestens 8 Zeichen lang sein",
       "ALREADY_ACCOUNT": "Bereits ein Konto?",
       "SIGN_IN": "Anmelden"
     },
     "FORGOT_PASSWORD": {
       "TITLE": "Passwort zurücksetzen",
-      "SUBTITLE": "Geben Sie Ihre E-Mail ein und wir senden Ihnen einen Link",
+      "SUBTITLE": "Geben Sie Ihre E-Mail ein und wir senden Ihnen einen Link zum Zurücksetzen",
       "EMAIL": "E-Mail",
       "SEND_LINK": "Link senden",
       "REMEMBER_PASSWORD": "Passwort eingefallen?",
@@ -162,13 +237,18 @@
     "LAST_NAME": "Nachname",
     "EMAIL": "E-Mail",
     "PHONE": "Telefon",
+    "LOADING_PROFILE": "Profil wird geladen...",
+    "SAVING": "Wird gespeichert...",
+    "PROFILE_UPDATED": "Profil erfolgreich aktualisiert",
+    "FAILED_LOAD_PROFILE": "Profil konnte nicht geladen werden",
+    "FAILED_UPDATE_PROFILE": "Profil konnte nicht aktualisiert werden",
     "ORDER_HISTORY": {
       "TITLE": "Bestellverlauf",
-      "EMPTY": "Ihre vergangenen Bestellungen erscheinen hier."
+      "EMPTY": "Ihre bisherigen Bestellungen werden hier angezeigt."
     },
     "WISHLIST_PAGE": {
       "TITLE": "Meine Wunschliste",
-      "EMPTY": "Ihre gespeicherten Artikel erscheinen hier."
+      "EMPTY": "Ihre gespeicherten Artikel werden hier angezeigt."
     },
     "SETTINGS_PAGE": {
       "TITLE": "Kontoeinstellungen",
@@ -176,24 +256,45 @@
     }
   },
   "FOOTER": {
-    "ABOUT": "Über CollectorShop",
-    "ABOUT_TEXT": "Ihre vertrauenswürdige Quelle für Premium-Sammlerstücke, Sammelkarten und seltene Erinnerungsstücke seit 2020.",
-    "QUICK_LINKS": "Schnelllinks",
-    "CUSTOMER_SERVICE": "Kundenservice",
-    "FAQ": "FAQ",
-    "SHIPPING_INFO": "Versandinfos",
-    "RETURNS": "Rückgaben",
-    "TRACK_ORDER": "Bestellung verfolgen",
-    "CONNECT": "Folgen Sie uns",
-    "NEWSLETTER": "Newsletter abonnieren",
-    "SUBSCRIBE": "Abonnieren",
-    "EMAIL_PLACEHOLDER": "Ihre E-Mail",
-    "COPYRIGHT": "© 2024 CollectorShop. Alle Rechte vorbehalten."
+    "TAGLINE": "Ihr Ziel für seltene und einzigartige Sammlerstücke. Von Sammelkarten bis zu Vintage-Schätzen.",
+    "NEWSLETTER_TITLE": "Newsletter abonnieren",
+    "EMAIL_PLACEHOLDER": "E-Mail eingeben",
+    "SHOP": "Shop",
+    "SUPPORT": "Support",
+    "COMPANY": "Unternehmen",
+    "COPYRIGHT": "Alle Rechte vorbehalten.",
+    "LINKS": {
+      "ALL_PRODUCTS": "Alle Produkte",
+      "TRADING_CARDS": "Sammelkarten",
+      "FIGURINES": "Figuren",
+      "VINTAGE_ITEMS": "Vintage-Artikel",
+      "NEW_ARRIVALS": "Neuheiten",
+      "CONTACT_US": "Kontakt",
+      "FAQS": "FAQ",
+      "SHIPPING_INFO": "Versandinfo",
+      "RETURNS": "Rückgabe",
+      "TRACK_ORDER": "Bestellung verfolgen",
+      "ABOUT_US": "Über uns",
+      "BLOG": "Blog",
+      "CAREERS": "Karriere",
+      "PRESS": "Presse",
+      "PRIVACY_POLICY": "Datenschutzrichtlinie",
+      "TERMS_OF_SERVICE": "Nutzungsbedingungen",
+      "COOKIE_POLICY": "Cookie-Richtlinie"
+    }
   },
   "LANGUAGES": {
     "EN": "English",
     "FR": "Français",
     "DE": "Deutsch",
     "IT": "Italiano"
+  },
+  "WISHLIST": {
+    "LOADING": "Wunschliste wird geladen...",
+    "SIGN_IN_TO_VIEW": "Bitte",
+    "SIGN_IN_LINK": "melden Sie sich an",
+    "SIGN_IN_SUFFIX": "um Ihre Wunschliste zu sehen.",
+    "BROWSE_PRODUCTS": "Produkte durchsuchen",
+    "MOVE_TO_CART": "In den Warenkorb"
   }
 }
