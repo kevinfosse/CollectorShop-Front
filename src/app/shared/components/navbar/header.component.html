@@ -28,21 +28,16 @@
             'NAV.SHOP' | translate
           }}</a>
         </li>
-        <li>
-          <a routerLink="/catalog/trading-cards" class="header__nav-link" (click)="closeMenu()">{{
-            'HOME.CATEGORIES.TRADING_CARDS' | translate
-          }}</a>
-        </li>
-        <li>
-          <a routerLink="/catalog/figurines" class="header__nav-link" (click)="closeMenu()">{{
-            'HOME.CATEGORIES.VINTAGE_TOYS' | translate
-          }}</a>
-        </li>
-        <li>
-          <a routerLink="/catalog/vintage" class="header__nav-link" (click)="closeMenu()">{{
-            'HOME.CATEGORIES.MEMORABILIA' | translate
-          }}</a>
-        </li>
+        @for (cat of categories(); track cat.id) {
+          <li>
+            <a
+              [routerLink]="['/catalog', cat.slug]"
+              class="header__nav-link"
+              (click)="closeMenu()"
+              >{{ cat.name }}</a
+            >
+          </li>
+        }
       </ul>
     </nav>
 
@@ -63,19 +58,19 @@
           ></i>
         </button>
         @if (isLangMenuOpen) {
-        <div class="header__lang-menu">
-          @for (lang of languages; track lang.code) {
-          <button
-            class="header__lang-option"
-            [class.header__lang-option--active]="lang.code === currentLang.code"
-            (click)="switchLanguage(lang.code)"
-          >
-            <span class="header__lang-flag">{{ lang.flag }}</span>
-            <span>{{ lang.name }}</span>
-          </button>
-          }
-        </div>
-        <div class="header__lang-overlay" (click)="closeLangMenu()"></div>
+          <div class="header__lang-menu">
+            @for (lang of languages; track lang.code) {
+              <button
+                class="header__lang-option"
+                [class.header__lang-option--active]="lang.code === currentLang.code"
+                (click)="switchLanguage(lang.code)"
+              >
+                <span class="header__lang-flag">{{ lang.flag }}</span>
+                <span>{{ lang.name }}</span>
+              </button>
+            }
+          </div>
+          <div class="header__lang-overlay" (click)="closeLangMenu()"></div>
         }
       </div>
 
@@ -86,36 +81,38 @@
 
       <!-- User Account / Auth -->
       @if (isAuthenticated()) {
-      <div class="header__user-menu-container">
-        <button class="header__action-btn" (click)="toggleUserMenu()" aria-label="User menu">
-          <i class="pi pi-user"></i>
-        </button>
-        @if (isUserMenuOpen) {
-        <div class="header__user-menu">
-          <div class="header__user-info">
-            <span class="header__user-name">{{ user()?.firstName }} {{ user()?.lastName }}</span>
-            <span class="header__user-email">{{ user()?.email }}</span>
-          </div>
-          <a routerLink="/account" class="header__user-option" (click)="closeUserMenu()">
+        <div class="header__user-menu-container">
+          <button class="header__action-btn" (click)="toggleUserMenu()" aria-label="User menu">
             <i class="pi pi-user"></i>
-            <span>{{ 'NAV.ACCOUNT' | translate }}</span>
-          </a>
-          <a routerLink="/account/orders" class="header__user-option" (click)="closeUserMenu()">
-            <i class="pi pi-list"></i>
-            <span>{{ 'NAV.ORDERS' | translate }}</span>
-          </a>
-          <button class="header__user-option header__user-option--logout" (click)="logout()">
-            <i class="pi pi-sign-out"></i>
-            <span>{{ 'NAV.LOGOUT' | translate }}</span>
           </button>
+          @if (isUserMenuOpen) {
+            <div class="header__user-menu">
+              <div class="header__user-info">
+                <span class="header__user-name"
+                  >{{ user()?.firstName }} {{ user()?.lastName }}</span
+                >
+                <span class="header__user-email">{{ user()?.email }}</span>
+              </div>
+              <a routerLink="/account" class="header__user-option" (click)="closeUserMenu()">
+                <i class="pi pi-user"></i>
+                <span>{{ 'NAV.ACCOUNT' | translate }}</span>
+              </a>
+              <a routerLink="/account/orders" class="header__user-option" (click)="closeUserMenu()">
+                <i class="pi pi-list"></i>
+                <span>{{ 'NAV.ORDERS' | translate }}</span>
+              </a>
+              <button class="header__user-option header__user-option--logout" (click)="logout()">
+                <i class="pi pi-sign-out"></i>
+                <span>{{ 'NAV.LOGOUT' | translate }}</span>
+              </button>
+            </div>
+            <div class="header__user-overlay" (click)="closeUserMenu()"></div>
+          }
         </div>
-        <div class="header__user-overlay" (click)="closeUserMenu()"></div>
-        }
-      </div>
       } @else {
-      <a routerLink="/auth/login" class="header__action-btn" aria-label="Login">
-        <i class="pi pi-sign-in"></i>
-      </a>
+        <a routerLink="/auth/login" class="header__action-btn" aria-label="Login">
+          <i class="pi pi-sign-in"></i>
+        </a>
       }
 
       <!-- Wishlist -->
@@ -126,7 +123,7 @@
       >
         <i class="pi pi-heart"></i>
         @if (wishlistCount() > 0) {
-        <span class="header__wishlist-badge">{{ wishlistCount() }}</span>
+          <span class="header__wishlist-badge">{{ wishlistCount() }}</span>
         }
       </a>
 
@@ -134,7 +131,7 @@
       <a routerLink="/cart" class="header__action-btn header__cart-btn" aria-label="Cart">
         <i class="pi pi-shopping-cart"></i>
         @if (cartItemCount() > 0) {
-        <span class="header__cart-badge">{{ cartItemCount() }}</span>
+          <span class="header__cart-badge">{{ cartItemCount() }}</span>
         }
       </a>
     </div>
@@ -142,24 +139,24 @@
 
   <!-- Search Bar (Expandable) -->
   @if (isSearchOpen) {
-  <div class="header__search">
-    <div class="header__search-container">
-      <i class="pi pi-search header__search-icon"></i>
-      <input
-        type="search"
-        class="header__search-input"
-        [placeholder]="'NAV.SEARCH' | translate"
-        autofocus
-      />
-      <button class="header__search-close" (click)="toggleSearch()" aria-label="Close search">
-        <i class="pi pi-times"></i>
-      </button>
+    <div class="header__search">
+      <div class="header__search-container">
+        <i class="pi pi-search header__search-icon"></i>
+        <input
+          type="search"
+          class="header__search-input"
+          [placeholder]="'NAV.SEARCH' | translate"
+          autofocus
+        />
+        <button class="header__search-close" (click)="toggleSearch()" aria-label="Close search">
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
     </div>
-  </div>
   }
 
   <!-- Mobile Menu Overlay -->
   @if (isMenuOpen) {
-  <div class="header__overlay" (click)="closeMenu()"></div>
+    <div class="header__overlay" (click)="closeMenu()"></div>
   }
 </header>

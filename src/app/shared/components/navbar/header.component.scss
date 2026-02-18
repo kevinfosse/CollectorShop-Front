@@ -12,6 +12,7 @@
     @include container;
     @include flex-between;
     height: $header-height-mobile;
+    gap: $spacing-4;
 
     @include lg {
       height: $header-height-desktop;
@@ -20,6 +21,7 @@
 
   // Logo
   &__logo {
+    flex-shrink: 0;
     font-size: $font-size-xl;
     font-weight: $font-weight-bold;
     color: $color-primary;
@@ -77,11 +79,15 @@
 
     @include lg {
       position: static;
+      flex: 1;
+      min-width: 0;
       width: auto;
       height: auto;
       transform: none;
       padding: 0;
       overflow: visible;
+      display: flex;
+      justify-content: center;
     }
   }
 
@@ -94,7 +100,8 @@
     @include lg {
       flex-direction: row;
       align-items: center;
-      gap: $spacing-8;
+      gap: $spacing-6;
+      flex-wrap: nowrap;
     }
   }
 
@@ -107,15 +114,20 @@
     text-decoration: none;
     transition: color $transition-fast;
     border-bottom: $border-width solid $border-color;
+    white-space: nowrap;
 
     @include lg {
       padding: $spacing-2 0;
-      border-bottom: none;
+      border-bottom: 2px solid transparent;
       font-size: $font-size-sm;
     }
 
     &:hover {
       color: $color-primary;
+
+      @include lg {
+        border-bottom-color: $color-accent;
+      }
     }
   }
 
@@ -123,6 +135,7 @@
   &__actions {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
     gap: $spacing-1;
 
     @include lg {
@@ -176,6 +189,99 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  // Wishlist badge
+  &__wishlist-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    background-color: $color-error;
+    color: $color-white;
+    font-size: 10px;
+    font-weight: $font-weight-bold;
+    border-radius: $border-radius-full;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  // User menu dropdown
+  &__user-menu-container {
+    position: relative;
+  }
+
+  &__user-menu {
+    position: absolute;
+    top: calc(100% + $spacing-2);
+    right: 0;
+    background: $color-white;
+    border: $border-width solid $border-color;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-lg;
+    min-width: 220px;
+    z-index: $z-dropdown;
+    overflow: hidden;
+    animation: fadeIn 0.15s ease-out;
+  }
+
+  &__user-info {
+    display: flex;
+    flex-direction: column;
+    padding: $spacing-4;
+    border-bottom: $border-width solid $border-color;
+  }
+
+  &__user-name {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-gray-900;
+  }
+
+  &__user-email {
+    font-size: $font-size-xs;
+    color: $color-gray-500;
+    margin-top: $spacing-1;
+  }
+
+  &__user-option {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    width: 100%;
+    padding: $spacing-3 $spacing-4;
+    background: none;
+    border: none;
+    font-size: $font-size-sm;
+    color: $color-gray-700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background-color: $color-gray-50;
+    }
+
+    &--logout {
+      color: $color-error;
+      border-top: $border-width solid $border-color;
+
+      &:hover {
+        background-color: rgba($color-error, 0.05);
+      }
+    }
+  }
+
+  &__user-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: $z-dropdown - 1;
   }
 
   // Search bar

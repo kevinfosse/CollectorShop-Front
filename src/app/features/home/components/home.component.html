@@ -33,16 +33,19 @@
       </div>
 
       <div class="categories__grid">
-        @for (category of categories; track category.slug) {
-        <a [routerLink]="['/catalog', category.slug]" class="category-card">
-          <div class="category-card__image">
-            <img [src]="category.image" [alt]="category.name" />
-          </div>
-          <div class="category-card__content">
-            <h3 class="category-card__name">{{ category.name }}</h3>
-            <span class="category-card__count">{{ category.count }} items</span>
-          </div>
-        </a>
+        @for (category of categories(); track category.id) {
+          <a [routerLink]="['/catalog', category.slug]" class="category-card">
+            <div class="category-card__image">
+              <img
+                [src]="category.imageUrl || '/assets/images/placeholder.jpg'"
+                [alt]="category.name"
+              />
+            </div>
+            <div class="category-card__content">
+              <h3 class="category-card__name">{{ category.name }}</h3>
+              <span class="category-card__count">{{ category.productCount }} items</span>
+            </div>
+          </a>
         }
       </div>
     </div>
@@ -59,13 +62,13 @@
       </div>
 
       <div class="featured__grid">
-        @for (product of featuredProducts; track product.id) {
-        <app-product-card
-          [product]="product"
-          (addToCart)="onAddToCart($event)"
-          (addToWishlist)="onAddToWishlist($event)"
-          (quickView)="onQuickView($event)"
-        />
+        @for (product of featuredProducts(); track product.id) {
+          <app-product-card
+            [product]="product"
+            (addToCart)="onAddToCart($event)"
+            (addToWishlist)="onAddToWishlist($event)"
+            (quickView)="onQuickView($event)"
+          />
         }
       </div>
     </div>

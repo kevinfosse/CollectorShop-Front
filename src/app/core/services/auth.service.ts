@@ -47,12 +47,15 @@ export class AuthService {
   }
 
   logout(): void {
+    const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
     this.clearAuth();
-    // Optionally call backend logout endpoint
-    this.http
-      .post(`${this.apiUrl}/logout`, {})
-      .pipe(catchError(() => of(null)))
-      .subscribe();
+    // Revoke the refresh token on the backend
+    if (refreshToken) {
+      this.http
+        .post(`${this.apiUrl}/revoke-token`, { refreshToken })
+        .pipe(catchError(() => of(null)))
+        .subscribe();
+    }
   }
 
   refreshToken(): Observable<AuthResponse | null> {
@@ -74,7 +77,7 @@ export class AuthService {
       catchError(() => {
         this.clearAuth();
         return of(null);
-      })
+      }),
     );
   }
 

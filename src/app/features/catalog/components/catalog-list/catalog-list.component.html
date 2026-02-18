@@ -13,20 +13,33 @@
         <div class="filter-section">
           <h3 class="filter-section__title">Categories</h3>
           <ul class="filter-section__list">
-            <li><a routerLink="/catalog" class="filter-link">All Products</a></li>
-            <li><a routerLink="/catalog/trading-cards" class="filter-link">Trading Cards</a></li>
-            <li><a routerLink="/catalog/figurines" class="filter-link">Figurines</a></li>
-            <li><a routerLink="/catalog/vintage" class="filter-link">Vintage</a></li>
-            <li><a routerLink="/catalog/sealed" class="filter-link">Sealed Products</a></li>
+            <li>
+              <a
+                routerLink="/catalog"
+                class="filter-link"
+                [class.filter-link--active]="!selectedCategoryId()"
+                >All Products</a
+              >
+            </li>
+            @for (cat of categories(); track cat.id) {
+              <li>
+                <a
+                  [routerLink]="['/catalog', cat.slug]"
+                  class="filter-link"
+                  [class.filter-link--active]="selectedCategoryId() === cat.id"
+                  >{{ cat.name }} ({{ cat.productCount }})</a
+                >
+              </li>
+            }
           </ul>
         </div>
 
         <div class="filter-section">
           <h3 class="filter-section__title">Price Range</h3>
           <div class="filter-section__price">
-            <input type="number" placeholder="Min" class="filter-input" />
+            <input type="number" placeholder="Min" class="filter-input" #minPriceInput />
             <span>-</span>
-            <input type="number" placeholder="Max" class="filter-input" />
+            <input type="number" placeholder="Max" class="filter-input" #maxPriceInput />
           </div>
         </div>
 
@@ -90,7 +103,13 @@
           </ul>
         </div>
 
-        <button class="btn-primary" style="width: 100%">Apply Filters</button>
+        <button
+          class="btn-primary"
+          style="width: 100%"
+          (click)="applyPriceFilter(minPriceInput.value, maxPriceInput.value)"
+        >
+          Apply Filters
+        </button>
       </aside>
 
       <!-- Main Content -->
@@ -99,13 +118,12 @@
         <div class="catalog__header">
           <h1>{{ currentCategory() }}</h1>
           <div class="catalog__controls">
-            <span class="catalog__count">{{ products().length }} products</span>
-            <select class="catalog__sort">
-              <option value="newest">Newest</option>
+            <span class="catalog__count">{{ totalCount() }} products</span>
+            <select class="catalog__sort" (change)="onSortChange($any($event.target).value)">
+              <option value="created-desc">Newest</option>
               <option value="price-asc">Price: Low to High</option>
               <option value="price-desc">Price: High to Low</option>
               <option value="name-asc">Name: A to Z</option>
-              <option value="rating">Best Rating</option>
             </select>
           </div>
         </div>
@@ -113,46 +131,48 @@
         <!-- Products Grid -->
         <div class="catalog__grid">
           @for (product of products(); track product.id) {
-          <app-product-card
-            [product]="product"
-            (addToCart)="onAddToCart($event)"
-            (addToWishlist)="onAddToWishlist($event)"
-            (quickView)="onQuickView($event)"
-          />
+            <app-product-card
+              [product]="product"
+              (addToCart)="onAddToCart($event)"
+              (addToWishlist)="onAddToWishlist($event)"
+              (quickView)="onQuickView($event)"
+            />
           }
         </div>
 
         <!-- Pagination -->
         @if (totalPages() > 1) {
-        <div class="catalog__pagination">
-          <button
-            class="pagination__btn"
-            [disabled]="currentPage() === 1"
-            (click)="onPageChange(currentPage() - 1)"
-          >
-            <i class="pi pi-angle-left"></i>
-          </button>
+          <div class="catalog__pagination">
+            <button
+              class="pagination__btn"
+              [disabled]="currentPage() === 1"
+              (click)="onPageChange(currentPage() - 1)"
+            >
+              <i class="pi pi-angle-left"></i>
+            </button>
 
-          @for (page of getPageNumbers(); track page) { @if (page === '...') {
-          <span class="pagination__dots">...</span>
-          } @else {
-          <button
-            class="pagination__btn"
-            [class.pagination__btn--active]="currentPage() === page"
-            (click)="onPageChange(+page)"
-          >
-            {{ page }}
-          </button>
-          } }
+            @for (page of getPageNumbers(); track page) {
+              @if (page === '...') {
+                <span class="pagination__dots">...</span>
+              } @else {
+                <button
+                  class="pagination__btn"
+                  [class.pagination__btn--active]="currentPage() === page"
+                  (click)="onPageChange(+page)"
+                >
+                  {{ page }}
+                </button>
+              }
+            }
 
-          <button
-            class="pagination__btn"
-            [disabled]="currentPage() === totalPages()"
-            (click)="onPageChange(currentPage() + 1)"
-          >
-            <i class="pi pi-angle-right"></i>
-          </button>
-        </div>
+            <button
+              class="pagination__btn"
+              [disabled]="currentPage() === totalPages()"
+              (click)="onPageChange(currentPage() + 1)"
+            >
+              <i class="pi pi-angle-right"></i>
+            </button>
+          </div>
         }
       </main>
     </div>

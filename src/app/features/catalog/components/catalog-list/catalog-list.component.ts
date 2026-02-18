@@ -1,9 +1,6 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import {
-  ProductCardComponent,
-  ProductInput,
-} from '../../../../shared/components/card-preview/product-card.component';
+import { ProductCardComponent } from '../../../../shared/components/card-preview/product-card.component';
 import {
   ProductService,
   CartService,
@@ -72,7 +69,15 @@ export class CatalogListComponent implements OnInit {
 
   private loadCategories(): void {
     this.categoryService.getCategories().subscribe({
-      next: (categories) => this.categories.set(categories),
+      next: (categories) => {
+        this.categories.set(categories);
+        // Re-check route param now that categories are loaded
+        const categorySlug = this.route.snapshot.paramMap.get('category');
+        if (categorySlug) {
+          this.findCategoryBySlug(categorySlug);
+          this.loadProducts();
+        }
+      },
       error: (err) => console.error('Failed to load categories', err),
     });
   }
@@ -118,8 +123,33 @@ export class CatalogListComponent implements OnInit {
     this.loadProducts();
   }
 
-  protected onSortChange(sortBy: string): void {
-    this.sortBy.set(sortBy);
+  protected onSortChange(sortValue: string): void {
+    switch (sortValue) {
+      case 'price-asc':
+        this.sortBy.set('price');
+        this.sortDescending.set(false);
+        break;
+      case 'price-desc':
+        this.sortBy.set('price');
+        this.sortDescending.set(true);
+        break;
+      case 'name-asc':
+        this.sortBy.set('name');
+        this.sortDescending.set(false);
+        break;
+      default: // created-desc
+        this.sortBy.set('createdAt');
+        this.sortDescending.set(true);
+        break;
+    }
+    this.currentPage.set(1);
+    this.loadProducts();
+  }
+
+  protected applyPriceFilter(minStr: string, maxStr: string): void {
+    this.minPrice.set(minStr ? +minStr : undefined);
+    this.maxPrice.set(maxStr ? +maxStr : undefined);
+    this.currentPage.set(1);
     this.loadProducts();
   }
 
@@ -165,7 +195,7 @@ export class CatalogListComponent implements OnInit {
     return pages;
   }
 
-  onAddToCart(product: ProductInput): void {
+  onAddToCart(product: ProductListDto): void {
     if (!this.isAuthenticated()) {
       // Could show a toast or redirect to login
       console.log('Please login to add items to cart');
@@ -178,7 +208,7 @@ export class CatalogListComponent implements OnInit {
     });
   }
 
-  onAddToWishlist(product: ProductInput): void {
+  onAddToWishlist(product: ProductListDto): void {
     if (!this.isAuthenticated()) {
       console.log('Please login to add items to wishlist');
       return;
@@ -197,7 +227,7 @@ export class CatalogListComponent implements OnInit {
     }
   }
 
-  onQuickView(product: ProductInput): void {
+  onQuickView(product: ProductListDto): void {
     console.log('Quick view:', product);
     // Could open a modal with product details
   }

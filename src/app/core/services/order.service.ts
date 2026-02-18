@@ -56,14 +56,10 @@ export class OrderService {
 
   // Admin methods
   updateOrderStatus(id: string, request: UpdateOrderStatusRequest): Observable<OrderDto> {
-    return this.http.patch<OrderDto>(`${this.apiUrl}/${id}/status`, request);
+    return this.http.put<OrderDto>(`${this.apiUrl}/${id}/status`, request);
   }
 
   shipOrder(id: string, request: ShipOrderRequest): Observable<OrderDto> {
     return this.http.post<OrderDto>(`${this.apiUrl}/${id}/ship`, request);
-  }
-
-  markAsDelivered(id: string): Observable<OrderDto> {
-    return this.http.post<OrderDto>(`${this.apiUrl}/${id}/deliver`, {});
   }
 }

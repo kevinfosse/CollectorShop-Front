@@ -22,10 +22,6 @@ export class CouponService {
     return this.http.post<ValidateCouponResponse>(`${this.apiUrl}/validate`, request);
   }
 
-  getCouponByCode(code: string): Observable<CouponDto> {
-    return this.http.get<CouponDto>(`${this.apiUrl}/code/${code}`);
-  }
-
   // Admin methods
   getCoupons(): Observable<CouponDto[]> {
     return this.http.get<CouponDto[]>(this.apiUrl);

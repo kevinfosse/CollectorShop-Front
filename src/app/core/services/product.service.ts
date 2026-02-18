@@ -56,24 +56,6 @@ export class ProductService {
     });
   }
 
-  getNewArrivals(count: number = 8): Observable<ProductListDto[]> {
-    return this.http.get<ProductListDto[]>(`${this.apiUrl}/new-arrivals`, {
-      params: new HttpParams().set('count', count.toString()),
-    });
-  }
-
-  getRelatedProducts(productId: string, count: number = 4): Observable<ProductListDto[]> {
-    return this.http.get<ProductListDto[]>(`${this.apiUrl}/${productId}/related`, {
-      params: new HttpParams().set('count', count.toString()),
-    });
-  }
-
-  searchProducts(query: string, limit: number = 10): Observable<ProductListDto[]> {
-    return this.http.get<ProductListDto[]>(`${this.apiUrl}/search`, {
-      params: new HttpParams().set('query', query).set('limit', limit.toString()),
-    });
-  }
-
   // Admin methods
   createProduct(request: CreateProductRequest): Observable<ProductDto> {
     return this.http.post<ProductDto>(this.apiUrl, request);
@@ -88,6 +70,6 @@ export class ProductService {
   }
 
   updateStock(id: string, quantity: number): Observable<void> {
-    return this.http.patch<void>(`${this.apiUrl}/${id}/stock`, { quantity });
+    return this.http.patch<void>(`${this.apiUrl}/${id}/stock`, quantity);
   }
 }
