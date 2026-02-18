@@ -1,0 +1,72 @@
+stages:
+  - lint
+  - build
+  - security
+  - sonar
+
+variables:
+  NODE_VERSION: "25"
+  PROJECT_NAME: "my-angular-app"
+  NODE_OPTIONS: "--max_old_space_size=4096"
+
+default:
+  image: node:25-alpine
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+  before_script:
+    - npm ci
+
+lint:format:
+  stage: lint
+  script:
+    - npm run lint
+    - npx run format:check
+  allow_failure: false
+
+build:
+  stage: build
+  script:
+    - npx ng build --configuration=production
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 hour
+  allow_failure: false
+
+security:audit:
+  stage: security
+  script:
+    - npm audit --audit-level=critical 2>&1 | tee audit.txt
+    - |
+      if grep -q "found [1-9]" audit.txt; then
+        echo "⚠️ Vulnerable packages found!"
+        cat audit.txt
+        exit 1
+      fi
+  allow_failure: false
+
+sonar:analysis:
+  stage: sonar
+  image: sonarsource/sonar-scanner-cli:latest
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    GIT_DEPTH: "0"
+  cache:
+    key: sonar-cache
+    paths:
+      - .sonar/cache
+  script:
+    - sonar-scanner
+        -Dsonar.projectKey="maalsi-cube3_CollectorShop-Front"
+        -Dsonar.organization="maalsi-cube3"
+        -Dsonar.token="${SONAR_TOKEN}"
+        -Dsonar.host.url="${SONAR_HOST_URL}"
+        -Dsonar.sources="src"
+        -Dsonar.exclusions="**/node_modules/**,**/dist/**,**/*.spec.ts"
+        -Dsonar.javascript.lcov.reportPaths="coverage/lcov.info"
+  only:
+    - main
+    - master
+    - merge_requests
