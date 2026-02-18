@@ -131,8 +131,8 @@
               <i class="pi pi-shopping-cart"></i>
               {{ 'COMMON.ADD_TO_CART' | translate }}
             </button>
-            <button class="btn-secondary">
-              <i class="pi pi-heart"></i>
+            <button class="btn-secondary" (click)="toggleWishlist()">
+              <i class="pi" [class.pi-heart]="!isInWishlist()" [class.pi-heart-fill]="isInWishlist()"></i>
             </button>
           </div>
         </div>

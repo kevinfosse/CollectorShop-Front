@@ -107,6 +107,11 @@
       transform: none;
       z-index: auto;
       display: block;
+      background-color: $color-white;
+      border: $border-width solid $border-color;
+      border-radius: $border-radius-lg;
+      padding: $spacing-6;
+      align-self: start;
     }
   }
 

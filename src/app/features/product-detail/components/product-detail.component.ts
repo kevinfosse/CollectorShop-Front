@@ -2,7 +2,7 @@ import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { ProductService } from '../../../core/services';
+import { ProductService, CartService, AuthService, WishlistService } from '../../../core/services';
 import { ProductDto, ProductConditionLabels, ProductCondition } from '../../../core/models';
 
 @Component({
@@ -14,6 +14,9 @@ import { ProductDto, ProductConditionLabels, ProductCondition } from '../../../c
 export class ProductDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly productService = inject(ProductService);
+  private readonly cartService = inject(CartService);
+  private readonly authService = inject(AuthService);
+  private readonly wishlistService = inject(WishlistService);
 
   protected readonly product = signal<ProductDto | null>(null);
   protected readonly loading = signal(true);
@@ -88,6 +91,38 @@ export class ProductDetailComponent implements OnInit {
   }
 
   protected addToCart(): void {
-    console.log('Add to cart:', this.product()?.id, 'qty:', this.quantity());
+    const productId = this.product()?.id;
+    if (!productId) return;
+
+    if (!this.authService.isAuthenticated()) {
+      console.log('Please login to add items to cart');
+      return;
+    }
+
+    this.cartService.addToCart({ productId, quantity: this.quantity() }).subscribe({
+      next: () => console.log('Added to cart successfully'),
+      error: (err) => console.error('Failed to add to cart', err),
+    });
+  }
+
+  protected toggleWishlist(): void {
+    const productId = this.product()?.id;
+    if (!productId) return;
+
+    if (!this.authService.isAuthenticated()) {
+      console.log('Please login to manage wishlist');
+      return;
+    }
+
+    if (this.wishlistService.isInWishlist(productId)) {
+      this.wishlistService.removeFromWishlist(productId).subscribe();
+    } else {
+      this.wishlistService.addToWishlist({ productId }).subscribe();
+    }
+  }
+
+  protected isInWishlist(): boolean {
+    const productId = this.product()?.id;
+    return productId ? this.wishlistService.isInWishlist(productId) : false;
   }
 }

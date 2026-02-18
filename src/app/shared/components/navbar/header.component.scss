@@ -181,6 +181,11 @@
     position: relative;
   }
 
+  // Wishlist with badge
+  &__wishlist-btn {
+    position: relative;
+  }
+
   &__cart-badge {
     position: absolute;
     top: 4px;
@@ -438,7 +443,7 @@
     right: 0;
     bottom: 0;
     background-color: rgba($color-primary, 0.5);
-    z-index: $z-modal-backdrop;
+    z-index: $z-fixed - 1;
 
     @include lg {
       display: none;
