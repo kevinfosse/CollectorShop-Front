@@ -75,8 +75,6 @@ sonar:analysis:
 docker:build:
   stage: docker
   image: docker:latest
-  services:
-    - docker:dind
   variables:
     DOCKER_TLS_CERTDIR: ""
   before_script: []  
