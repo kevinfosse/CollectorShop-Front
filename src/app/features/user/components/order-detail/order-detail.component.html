@@ -49,25 +49,25 @@
     <h2>{{ 'ACCOUNT.ORDER_DETAIL.SUMMARY' | translate }}</h2>
     <div class="totals">
       <div class="totals__row">
-        <span>{{ 'CHECKOUT.SUBTOTAL' | translate }}</span>
+        <span>{{ 'COMMON.SUBTOTAL' | translate }}</span>
         <span>{{ o.subTotal | currency: o.currency }}</span>
       </div>
       <div class="totals__row">
-        <span>{{ 'CHECKOUT.SHIPPING' | translate }}</span>
+        <span>{{ 'COMMON.SHIPPING' | translate }}</span>
         <span>{{ o.shippingCost | currency: o.currency }}</span>
       </div>
       <div class="totals__row">
-        <span>{{ 'CHECKOUT.TAX' | translate }}</span>
+        <span>{{ 'COMMON.TAX' | translate }}</span>
         <span>{{ o.taxAmount | currency: o.currency }}</span>
       </div>
       @if (o.discountAmount > 0) {
         <div class="totals__row totals__row--discount">
-          <span>{{ 'CHECKOUT.DISCOUNT' | translate }}</span>
+          <span>{{ 'COMMON.DISCOUNT' | translate }}</span>
           <span>-{{ o.discountAmount | currency: o.currency }}</span>
         </div>
       }
       <div class="totals__row totals__row--total">
-        <span>{{ 'CHECKOUT.TOTAL' | translate }}</span>
+        <span>{{ 'COMMON.TOTAL' | translate }}</span>
         <span>{{ o.totalAmount | currency: o.currency }}</span>
       </div>
     </div>
@@ -79,8 +79,8 @@
       <h2>{{ 'ACCOUNT.ORDER_DETAIL.SHIPPING_ADDRESS' | translate }}</h2>
       <p class="address-text">
         {{ o.shippingAddress.street }}<br />
-        {{ o.shippingAddress.city }}, {{ o.shippingAddress.state }}
-        {{ o.shippingAddress.zipCode }}<br />
+        {{ o.shippingAddress.city }}, {{ o.shippingAddress.state }} {{ o.shippingAddress.zipCode
+        }}<br />
         {{ o.shippingAddress.country }}
       </p>
     </section>
@@ -88,8 +88,8 @@
       <h2>{{ 'ACCOUNT.ORDER_DETAIL.BILLING_ADDRESS' | translate }}</h2>
       <p class="address-text">
         {{ o.billingAddress.street }}<br />
-        {{ o.billingAddress.city }}, {{ o.billingAddress.state }}
-        {{ o.billingAddress.zipCode }}<br />
+        {{ o.billingAddress.city }}, {{ o.billingAddress.state }} {{ o.billingAddress.zipCode
+        }}<br />
         {{ o.billingAddress.country }}
       </p>
     </section>
