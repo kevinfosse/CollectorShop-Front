@@ -3,7 +3,6 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductService, CartService, AuthService, WishlistService, ToastService } from '../../../core/services';
-import { TranslateService } from '@ngx-translate/core';
 import { ProductDto, ProductConditionLabels, ProductCondition } from '../../../core/models';
 
 @Component({
@@ -19,7 +18,6 @@ export class ProductDetailComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly wishlistService = inject(WishlistService);
   private readonly toastService = inject(ToastService);
-  private readonly translateService = inject(TranslateService);
 
   protected readonly product = signal<ProductDto | null>(null);
   protected readonly loading = signal(true);
@@ -103,8 +101,8 @@ export class ProductDetailComponent implements OnInit {
     }
 
     this.cartService.addToCart({ productId, quantity: this.quantity() }).subscribe({
-      next: () => this.toastService.show(this.translateService.instant('TOAST.ADDED_TO_CART'), 'success'),
-      error: () => this.toastService.show(this.translateService.instant('TOAST.CART_ERROR'), 'error'),
+      next: () => this.toastService.show('TOAST.ADDED_TO_CART', 'success'),
+      error: () => this.toastService.show('TOAST.CART_ERROR', 'error'),
     });
   }
 

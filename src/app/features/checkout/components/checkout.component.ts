@@ -37,7 +37,7 @@ export class CheckoutComponent implements OnInit {
     street: '',
     city: '',
     state: '',
-    country: 'United States',
+    country: 'US',
     zipCode: '',
   };
 
@@ -45,7 +45,7 @@ export class CheckoutComponent implements OnInit {
     street: '',
     city: '',
     state: '',
-    country: 'United States',
+    country: 'US',
     zipCode: '',
   };
 
@@ -56,6 +56,23 @@ export class CheckoutComponent implements OnInit {
 
   protected readonly PaymentMethod = PaymentMethod;
   protected readonly PaymentMethodLabels = PaymentMethodLabels;
+
+  protected readonly countries = [
+    { code: 'US', translationKey: 'CHECKOUT.COUNTRIES.US' },
+    { code: 'CA', translationKey: 'CHECKOUT.COUNTRIES.CA' },
+    { code: 'UK', translationKey: 'CHECKOUT.COUNTRIES.UK' },
+    { code: 'FR', translationKey: 'CHECKOUT.COUNTRIES.FR' },
+    { code: 'DE', translationKey: 'CHECKOUT.COUNTRIES.DE' },
+    { code: 'IT', translationKey: 'CHECKOUT.COUNTRIES.IT' },
+    { code: 'ES', translationKey: 'CHECKOUT.COUNTRIES.ES' },
+    { code: 'CH', translationKey: 'CHECKOUT.COUNTRIES.CH' },
+    { code: 'BE', translationKey: 'CHECKOUT.COUNTRIES.BE' },
+    { code: 'NL', translationKey: 'CHECKOUT.COUNTRIES.NL' },
+    { code: 'AT', translationKey: 'CHECKOUT.COUNTRIES.AT' },
+    { code: 'PT', translationKey: 'CHECKOUT.COUNTRIES.PT' },
+    { code: 'JP', translationKey: 'CHECKOUT.COUNTRIES.JP' },
+    { code: 'AU', translationKey: 'CHECKOUT.COUNTRIES.AU' },
+  ];
 
   ngOnInit(): void {
     // Load cart if not already loaded

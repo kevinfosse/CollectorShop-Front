@@ -18,7 +18,6 @@ import {
   ProductCondition,
   CategoryListDto,
 } from '../../../../core/models';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-catalog-list',
@@ -34,7 +33,6 @@ export class CatalogListComponent implements OnInit, OnDestroy {
   private readonly categoryService = inject(CategoryService);
   private readonly authService = inject(AuthService);
   private readonly toastService = inject(ToastService);
-  private readonly translateService = inject(TranslateService);
   private routeSub?: Subscription;
   private querySub?: Subscription;
 
@@ -283,8 +281,8 @@ export class CatalogListComponent implements OnInit, OnDestroy {
     }
 
     this.cartService.addToCart({ productId: product.id, quantity: 1 }).subscribe({
-      next: () => this.toastService.show(this.translateService.instant('TOAST.ADDED_TO_CART'), 'success'),
-      error: () => this.toastService.show(this.translateService.instant('TOAST.CART_ERROR'), 'error'),
+      next: () => this.toastService.show('TOAST.ADDED_TO_CART', 'success'),
+      error: () => this.toastService.show('TOAST.CART_ERROR', 'error'),
     });
   }
 

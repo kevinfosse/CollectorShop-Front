@@ -3,7 +3,6 @@ import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductService, CartService, AuthService, ToastService } from '../../../core/services';
-import { TranslateService } from '@ngx-translate/core';
 import { ProductDto, ProductCondition, ProductConditionLabels } from '../../../core/models';
 
 @Component({
@@ -17,7 +16,6 @@ export class QuickViewModalComponent implements OnChanges {
   private readonly cartService = inject(CartService);
   private readonly authService = inject(AuthService);
   private readonly toastService = inject(ToastService);
-  private readonly translateService = inject(TranslateService);
 
   productId = input<string | null>(null);
   closed = output<void>();
@@ -99,16 +97,16 @@ export class QuickViewModalComponent implements OnChanges {
     if (!p) return;
 
     if (!this.authService.isAuthenticated()) {
-      this.toastService.show(this.translateService.instant('TOAST.LOGIN_REQUIRED'), 'warning');
+      this.toastService.show('TOAST.LOGIN_REQUIRED', 'warning');
       return;
     }
 
     this.cartService.addToCart({ productId: p.id, quantity: this.quantity() }).subscribe({
       next: () => {
-        this.toastService.show(this.translateService.instant('TOAST.ADDED_TO_CART'), 'success');
+        this.toastService.show('TOAST.ADDED_TO_CART', 'success');
         this.close();
       },
-      error: () => this.toastService.show(this.translateService.instant('TOAST.CART_ERROR'), 'error'),
+      error: () => this.toastService.show('TOAST.CART_ERROR', 'error'),
     });
   }
 

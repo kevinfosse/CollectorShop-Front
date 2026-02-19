@@ -54,3 +54,15 @@ export interface CreateAddressRequest {
   isBillingAddress?: boolean;
   isShippingAddress?: boolean;
 }
+
+export interface UpdateAddressRequest {
+  label: string;
+  street: string;
+  city: string;
+  state: string;
+  country: string;
+  zipCode: string;
+  isDefault?: boolean;
+  isBillingAddress?: boolean;
+  isShippingAddress?: boolean;
+}

@@ -1,11 +1,9 @@
-<div class="wishlist section">
-  <div class="container">
-    <h1>{{ 'ACCOUNT.WISHLIST_PAGE.TITLE' | translate }}</h1>
+<h1>{{ 'ACCOUNT.WISHLIST_PAGE.TITLE' | translate }}</h1>
 
-    @if (loading()) {
-      <div class="loading-spinner">{{ 'WISHLIST.LOADING' | translate }}</div>
-    } @else if (!isAuthenticated()) {
-      <div class="wishlist__empty">
+@if (loading()) {
+  <div class="loading-spinner">{{ 'WISHLIST.LOADING' | translate }}</div>
+} @else if (!isAuthenticated()) {
+  <div class="wishlist__empty">
         <p>
           {{ 'WISHLIST.SIGN_IN_TO_VIEW' | translate }}
           <a routerLink="/auth/login">{{ 'WISHLIST.SIGN_IN_LINK' | translate }}</a>
@@ -63,5 +61,3 @@
         }
       </div>
     }
-  </div>
-</div>

@@ -1,7 +1,14 @@
 @use 'styles/variables' as *;
+@use 'styles/mixins' as *;
 
 h1 {
-  margin-bottom: 2rem;
+  margin: 0 0 $spacing-4;
+  font-size: $font-size-xl;
+
+  @include md {
+    margin: 0 0 $spacing-6;
+    font-size: $font-size-2xl;
+  }
 }
 
 .wishlist__empty {

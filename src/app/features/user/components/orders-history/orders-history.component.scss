@@ -1,1 +1,32 @@
-// Placeholder styles for orders history
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+h1 {
+  margin: 0 0 $spacing-4;
+  font-size: $font-size-xl;
+
+  @include md {
+    margin: 0 0 $spacing-6;
+    font-size: $font-size-2xl;
+  }
+}
+
+.orders-empty {
+  text-align: center;
+  padding: $spacing-10 $spacing-4;
+  background: $color-white;
+  border-radius: $border-radius-lg;
+
+  .pi-box {
+    font-size: 3rem;
+    color: $color-gray-300;
+    display: block;
+    margin-bottom: $spacing-4;
+  }
+
+  p {
+    color: $color-gray-500;
+    margin-bottom: $spacing-6;
+    font-size: $font-size-lg;
+  }
+}

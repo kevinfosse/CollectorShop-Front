@@ -4,23 +4,32 @@ export const USER_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./components/profile/profile.component').then((m) => m.ProfileComponent),
-  },
-  {
-    path: 'orders',
-    loadComponent: () =>
-      import('./components/orders-history/orders-history.component').then(
-        (m) => m.OrdersHistoryComponent
+      import('./components/account-layout/account-layout.component').then(
+        (m) => m.AccountLayoutComponent
       ),
-  },
-  {
-    path: 'wishlist',
-    loadComponent: () =>
-      import('./components/wishlist/wishlist.component').then((m) => m.WishlistComponent),
-  },
-  {
-    path: 'settings',
-    loadComponent: () =>
-      import('./components/settings/settings.component').then((m) => m.SettingsComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./components/profile/profile.component').then((m) => m.ProfileComponent),
+      },
+      {
+        path: 'orders',
+        loadComponent: () =>
+          import('./components/orders-history/orders-history.component').then(
+            (m) => m.OrdersHistoryComponent
+          ),
+      },
+      {
+        path: 'wishlist',
+        loadComponent: () =>
+          import('./components/wishlist/wishlist.component').then((m) => m.WishlistComponent),
+      },
+      {
+        path: 'settings',
+        loadComponent: () =>
+          import('./components/settings/settings.component').then((m) => m.SettingsComponent),
+      },
+    ],
   },
 ];

@@ -83,11 +83,9 @@
                 [(ngModel)]="shippingAddress.country"
                 [disabled]="loading()"
               >
-                <option>{{ 'CHECKOUT.COUNTRIES.US' | translate }}</option>
-                <option>{{ 'CHECKOUT.COUNTRIES.CA' | translate }}</option>
-                <option>{{ 'CHECKOUT.COUNTRIES.UK' | translate }}</option>
-                <option>{{ 'CHECKOUT.COUNTRIES.FR' | translate }}</option>
-                <option>{{ 'CHECKOUT.COUNTRIES.DE' | translate }}</option>
+                @for (c of countries; track c.code) {
+                  <option [value]="c.code">{{ c.translationKey | translate }}</option>
+                }
               </select>
             </div>
           </div>
@@ -155,11 +153,9 @@
                   [(ngModel)]="billingAddress.country"
                   [disabled]="loading()"
                 >
-                  <option>{{ 'CHECKOUT.COUNTRIES.US' | translate }}</option>
-                  <option>{{ 'CHECKOUT.COUNTRIES.CA' | translate }}</option>
-                  <option>{{ 'CHECKOUT.COUNTRIES.UK' | translate }}</option>
-                  <option>{{ 'CHECKOUT.COUNTRIES.FR' | translate }}</option>
-                  <option>{{ 'CHECKOUT.COUNTRIES.DE' | translate }}</option>
+                  @for (c of countries; track c.code) {
+                    <option [value]="c.code">{{ c.translationKey | translate }}</option>
+                  }
                 </select>
               </div>
             </div>

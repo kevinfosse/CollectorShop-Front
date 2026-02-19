@@ -4,7 +4,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ProductCardComponent } from '../../../shared/components/card-preview/product-card.component';
 import { QuickViewModalComponent } from '../../../shared/ui/modal/quick-view-modal.component';
 import { ProductService, CategoryService, WishlistService, CartService, AuthService, ToastService } from '../../../core/services';
-import { TranslateService } from '@ngx-translate/core';
 import { ProductListDto, CategoryListDto } from '../../../core/models';
 
 @Component({
@@ -20,7 +19,6 @@ export class HomeComponent implements OnInit {
   private readonly cartService = inject(CartService);
   private readonly authService = inject(AuthService);
   private readonly toastService = inject(ToastService);
-  private readonly translateService = inject(TranslateService);
 
   protected readonly isAuthenticated = this.authService.isAuthenticated;
   protected readonly featuredProducts = signal<ProductListDto[]>([]);
@@ -58,8 +56,8 @@ export class HomeComponent implements OnInit {
       return;
     }
     this.cartService.addToCart({ productId: product.id, quantity: 1 }).subscribe({
-      next: () => this.toastService.show(this.translateService.instant('TOAST.ADDED_TO_CART'), 'success'),
-      error: () => this.toastService.show(this.translateService.instant('TOAST.CART_ERROR'), 'error'),
+      next: () => this.toastService.show('TOAST.ADDED_TO_CART', 'success'),
+      error: () => this.toastService.show('TOAST.CART_ERROR', 'error'),
     });
   }
 

@@ -1,0 +1,43 @@
+<div class="account section">
+  <div class="container">
+    <div class="account__layout">
+      <!-- Sidebar -->
+      <aside class="account__sidebar">
+        @if (!loading()) {
+          <div class="user-info">
+            <div class="user-info__avatar">{{ initials }}</div>
+            <h3 class="user-info__name">{{ fullName }}</h3>
+            <p class="user-info__email">{{ email }}</p>
+          </div>
+        }
+        <nav class="account-nav">
+          <a
+            routerLink="/account"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="account-nav__link"
+          >
+            <i class="pi pi-user"></i> {{ 'ACCOUNT.MY_PROFILE' | translate }}
+          </a>
+          <a routerLink="/account/orders" routerLinkActive="active" class="account-nav__link">
+            <i class="pi pi-box"></i> {{ 'ACCOUNT.ORDERS' | translate }}
+          </a>
+          <a routerLink="/account/wishlist" routerLinkActive="active" class="account-nav__link">
+            <i class="pi pi-heart"></i> {{ 'ACCOUNT.WISHLIST' | translate }}
+          </a>
+          <a routerLink="/account/settings" routerLinkActive="active" class="account-nav__link">
+            <i class="pi pi-cog"></i> {{ 'ACCOUNT.SETTINGS' | translate }}
+          </a>
+          <button (click)="onLogout()" class="account-nav__link logout">
+            <i class="pi pi-sign-out"></i> {{ 'ACCOUNT.SIGN_OUT' | translate }}
+          </button>
+        </nav>
+      </aside>
+
+      <!-- Main Content (child route) -->
+      <main class="account__main">
+        <router-outlet />
+      </main>
+    </div>
+  </div>
+</div>

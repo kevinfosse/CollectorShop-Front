@@ -3,7 +3,6 @@ import { RouterLink, Router } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { WishlistService, AuthService, ToastService } from '../../../../core/services';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-wishlist',
@@ -16,7 +15,6 @@ export class WishlistComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly toastService = inject(ToastService);
-  private readonly translateService = inject(TranslateService);
 
   protected readonly items = this.wishlistService.items;
   protected readonly loading = this.wishlistService.loading;
@@ -35,8 +33,8 @@ export class WishlistComponent implements OnInit {
 
   protected moveToCart(productId: string): void {
     this.wishlistService.moveToCart(productId).subscribe({
-      next: () => this.toastService.show(this.translateService.instant('TOAST.MOVED_TO_CART'), 'success'),
-      error: () => this.toastService.show(this.translateService.instant('TOAST.CART_ERROR'), 'error'),
+      next: () => this.toastService.show('TOAST.MOVED_TO_CART', 'success'),
+      error: () => this.toastService.show('TOAST.CART_ERROR', 'error'),
     });
   }
 

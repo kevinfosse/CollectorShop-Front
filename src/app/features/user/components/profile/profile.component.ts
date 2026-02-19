@@ -1,21 +1,17 @@
 import { Component, OnInit, signal, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { CustomerService } from '../../../../core/services/customer.service';
-import { AuthService } from '../../../../core/services/auth.service';
 import { CustomerDto } from '../../../../core/models';
 
 @Component({
   selector: 'app-profile',
-  imports: [RouterLink, RouterLinkActive, ReactiveFormsModule, TranslateModule],
+  imports: [ReactiveFormsModule, TranslateModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent implements OnInit {
   private readonly customerService = inject(CustomerService);
-  private readonly authService = inject(AuthService);
-  private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
 
   protected readonly loading = signal(true);
@@ -29,19 +25,6 @@ export class ProfileComponent implements OnInit {
     lastName: ['', Validators.required],
     phoneNumber: [''],
   });
-
-  protected get initials(): string {
-    const c = this.customer();
-    if (c) {
-      return `${c.firstName.charAt(0)}${c.lastName.charAt(0)}`.toUpperCase();
-    }
-    return '';
-  }
-
-  protected get fullName(): string {
-    const c = this.customer();
-    return c ? `${c.firstName} ${c.lastName}` : '';
-  }
 
   protected get email(): string {
     return this.customer()?.email ?? '';
@@ -92,10 +75,5 @@ export class ProfileComponent implements OnInit {
           this.saving.set(false);
         },
       });
-  }
-
-  protected onLogout(): void {
-    this.authService.logout();
-    this.router.navigate(['/']);
   }
 }

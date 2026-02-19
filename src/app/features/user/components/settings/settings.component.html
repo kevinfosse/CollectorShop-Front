@@ -1,6 +1,156 @@
-<div class="section">
-  <div class="container">
-    <h1>{{ 'ACCOUNT.SETTINGS_PAGE.TITLE' | translate }}</h1>
-    <p>{{ 'ACCOUNT.SETTINGS_PAGE.DESCRIPTION' | translate }}</p>
+<h1>{{ 'SETTINGS.TITLE' | translate }}</h1>
+
+<!-- ─── Change Password ──────────────────────────────────── -->
+<section class="settings-card">
+  <h2>{{ 'SETTINGS.CHANGE_PASSWORD' | translate }}</h2>
+  <form class="settings-form" [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+    <div class="form-group">
+      <label for="currentPassword">{{ 'SETTINGS.CURRENT_PASSWORD' | translate }}</label>
+      <input id="currentPassword" type="password" formControlName="currentPassword" />
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="newPassword">{{ 'SETTINGS.NEW_PASSWORD' | translate }}</label>
+        <input id="newPassword" type="password" formControlName="newPassword" />
+      </div>
+      <div class="form-group">
+        <label for="confirmNewPassword">{{ 'SETTINGS.CONFIRM_PASSWORD' | translate }}</label>
+        <input id="confirmNewPassword" type="password" formControlName="confirmNewPassword" />
+      </div>
+    </div>
+    <button
+      type="submit"
+      class="btn-primary"
+      [disabled]="passwordForm.invalid || changingPassword()"
+    >
+      {{
+        changingPassword()
+          ? ('COMMON.SAVING' | translate)
+          : ('SETTINGS.CHANGE_PASSWORD' | translate)
+      }}
+    </button>
+  </form>
+</section>
+
+<!-- ─── Addresses ────────────────────────────────────────── -->
+<section class="settings-card">
+  <div class="card-header">
+    <h2>{{ 'SETTINGS.ADDRESSES' | translate }}</h2>
+    @if (!showAddressForm()) {
+      <button class="btn-outline" (click)="onAddAddress()">
+        <i class="pi pi-plus"></i> {{ 'SETTINGS.ADD_ADDRESS' | translate }}
+      </button>
+    }
   </div>
-</div>
+
+  @if (showAddressForm()) {
+    <form class="settings-form address-form" [formGroup]="addressForm" (ngSubmit)="onSaveAddress()">
+      <div class="form-group">
+        <label for="label">{{ 'SETTINGS.ADDRESS_LABEL' | translate }}</label>
+        <input
+          id="label"
+          type="text"
+          formControlName="label"
+          [placeholder]="'SETTINGS.ADDRESS_LABEL_HINT' | translate"
+        />
+      </div>
+      <div class="form-group">
+        <label for="street">{{ 'SETTINGS.STREET' | translate }}</label>
+        <input id="street" type="text" formControlName="street" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="city">{{ 'SETTINGS.CITY' | translate }}</label>
+          <input id="city" type="text" formControlName="city" />
+        </div>
+        <div class="form-group">
+          <label for="state">{{ 'SETTINGS.STATE' | translate }}</label>
+          <input id="state" type="text" formControlName="state" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="country">{{ 'SETTINGS.COUNTRY' | translate }}</label>
+          <select id="country" formControlName="country">
+            <option value="">{{ 'SETTINGS.SELECT_COUNTRY' | translate }}</option>
+            @for (c of countries; track c.code) {
+              <option [value]="c.code">{{ c.translationKey | translate }}</option>
+            }
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="zipCode">{{ 'SETTINGS.ZIP_CODE' | translate }}</label>
+          <input id="zipCode" type="text" formControlName="zipCode" />
+        </div>
+      </div>
+
+      <div class="checkbox-row">
+        <label class="checkbox-label">
+          <input type="checkbox" formControlName="isDefault" />
+          {{ 'SETTINGS.DEFAULT_ADDRESS' | translate }}
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" formControlName="isBillingAddress" />
+          {{ 'SETTINGS.BILLING_ADDRESS' | translate }}
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" formControlName="isShippingAddress" />
+          {{ 'SETTINGS.SHIPPING_ADDRESS' | translate }}
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn-primary"
+          [disabled]="addressForm.invalid || savingAddress()"
+        >
+          {{ savingAddress() ? ('COMMON.SAVING' | translate) : ('COMMON.SAVE' | translate) }}
+        </button>
+        <button type="button" class="btn-outline" (click)="onCancelAddressForm()">
+          {{ 'COMMON.CANCEL' | translate }}
+        </button>
+      </div>
+    </form>
+  }
+
+  @if (loadingAddresses()) {
+    <p class="loading-text">{{ 'SETTINGS.LOADING_ADDRESSES' | translate }}</p>
+  } @else if (addresses().length === 0 && !showAddressForm()) {
+    <p class="empty-text">{{ 'SETTINGS.NO_ADDRESSES' | translate }}</p>
+  } @else {
+    <div class="address-list">
+      @for (address of addresses(); track address.id) {
+        <div class="address-card" [class.address-card--default]="address.isDefault">
+          <div class="address-info">
+            <div class="address-label">
+              {{ address.label }}
+              @if (address.isDefault) {
+                <span class="badge badge--default">{{ 'SETTINGS.DEFAULT' | translate }}</span>
+              }
+              @if (address.isBillingAddress) {
+                <span class="badge">{{ 'SETTINGS.BILLING' | translate }}</span>
+              }
+              @if (address.isShippingAddress) {
+                <span class="badge">{{ 'SETTINGS.SHIPPING' | translate }}</span>
+              }
+            </div>
+            <p class="address-text">
+              {{ address.street }}<br />
+              {{ address.city }}@if (address.state) {, {{ address.state }}} {{ address.zipCode }}<br />
+              {{ address.country }}
+            </p>
+          </div>
+          <div class="address-actions">
+            <button class="btn-icon" (click)="onEditAddress(address)" [title]="'COMMON.EDIT' | translate">
+              <i class="pi pi-pencil"></i>
+            </button>
+            <button class="btn-icon btn-icon--danger" (click)="onDeleteAddress(address)" [title]="'COMMON.DELETE' | translate">
+              <i class="pi pi-trash"></i>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</section>
