@@ -259,7 +259,37 @@
     "FAILED_UPDATE_PROFILE": "Failed to update profile",
     "ORDER_HISTORY": {
       "TITLE": "Order History",
-      "EMPTY": "Your past orders will appear here."
+      "EMPTY": "Your past orders will appear here.",
+      "DATE": "Date",
+      "ITEMS": "Items",
+      "TOTAL": "Total"
+    },
+    "ORDER_DETAIL": {
+      "TITLE": "Order",
+      "ORDER_PLACED": "Your order has been placed successfully!",
+      "ITEMS": "Items",
+      "SUMMARY": "Order Summary",
+      "SHIPPING_ADDRESS": "Shipping Address",
+      "BILLING_ADDRESS": "Billing Address",
+      "PAYMENT": "Payment",
+      "PAYMENT_STATUS": "Payment Status",
+      "SHIPMENT": "Shipment",
+      "CARRIER": "Carrier",
+      "TRACKING": "Tracking Number",
+      "ESTIMATED_DELIVERY": "Estimated Delivery",
+      "STATUS_PENDING": "Pending",
+      "STATUS_CONFIRMED": "Confirmed",
+      "STATUS_PROCESSING": "Processing",
+      "STATUS_SHIPPED": "Shipped",
+      "STATUS_DELIVERED": "Delivered",
+      "STATUS_CANCELLED": "Cancelled",
+      "STATUS_REFUNDED": "Refunded",
+      "PAYMENT_PENDING": "Pending",
+      "PAYMENT_AUTHORIZED": "Authorized",
+      "PAYMENT_CAPTURED": "Captured",
+      "PAYMENT_FAILED": "Failed",
+      "PAYMENT_REFUNDED": "Refunded",
+      "PAYMENT_PARTIALLY_REFUNDED": "Partially Refunded"
     },
     "WISHLIST_PAGE": {
       "TITLE": "My Wishlist",

@@ -1,0 +1,148 @@
+@if (showSuccess()) {
+  <div class="success-banner">
+    <i class="pi pi-check-circle"></i>
+    <span>{{ 'ACCOUNT.ORDER_DETAIL.ORDER_PLACED' | translate }}</span>
+  </div>
+}
+
+@if (loading()) {
+  <p class="loading-text">{{ 'COMMON.LOADING' | translate }}</p>
+} @else if (error()) {
+  <p class="error-text">{{ error() }}</p>
+} @else if (order(); as o) {
+  <div class="order-header">
+    <div class="order-header__left">
+      <a routerLink="/account/orders" class="back-link">
+        <i class="pi pi-arrow-left"></i>
+        {{ 'ACCOUNT.ORDER_HISTORY.TITLE' | translate }}
+      </a>
+      <h1>
+        {{ 'ACCOUNT.ORDER_DETAIL.TITLE' | translate }}
+        <span class="order-number">#{{ o.orderNumber }}</span>
+      </h1>
+      <p class="order-date">{{ o.createdAt | date: 'longDate' }}</p>
+    </div>
+    <span class="status-badge" [class]="statusClass(o.status)">
+      {{ statusKey(o.status) | translate }}
+    </span>
+  </div>
+
+  <!-- Items -->
+  <section class="detail-card">
+    <h2>{{ 'ACCOUNT.ORDER_DETAIL.ITEMS' | translate }} ({{ o.items.length }})</h2>
+    <div class="items-list">
+      @for (item of o.items; track item.id) {
+        <div class="order-item">
+          <div class="order-item__info">
+            <p class="order-item__name">{{ item.productName }}</p>
+            <p class="order-item__sku">SKU: {{ item.productSku }}</p>
+          </div>
+          <div class="order-item__qty">× {{ item.quantity }}</div>
+          <div class="order-item__price">{{ item.totalPrice | currency: o.currency }}</div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Totals -->
+  <section class="detail-card">
+    <h2>{{ 'ACCOUNT.ORDER_DETAIL.SUMMARY' | translate }}</h2>
+    <div class="totals">
+      <div class="totals__row">
+        <span>{{ 'CHECKOUT.SUBTOTAL' | translate }}</span>
+        <span>{{ o.subTotal | currency: o.currency }}</span>
+      </div>
+      <div class="totals__row">
+        <span>{{ 'CHECKOUT.SHIPPING' | translate }}</span>
+        <span>{{ o.shippingCost | currency: o.currency }}</span>
+      </div>
+      <div class="totals__row">
+        <span>{{ 'CHECKOUT.TAX' | translate }}</span>
+        <span>{{ o.taxAmount | currency: o.currency }}</span>
+      </div>
+      @if (o.discountAmount > 0) {
+        <div class="totals__row totals__row--discount">
+          <span>{{ 'CHECKOUT.DISCOUNT' | translate }}</span>
+          <span>-{{ o.discountAmount | currency: o.currency }}</span>
+        </div>
+      }
+      <div class="totals__row totals__row--total">
+        <span>{{ 'CHECKOUT.TOTAL' | translate }}</span>
+        <span>{{ o.totalAmount | currency: o.currency }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Addresses -->
+  <div class="address-row">
+    <section class="detail-card detail-card--half">
+      <h2>{{ 'ACCOUNT.ORDER_DETAIL.SHIPPING_ADDRESS' | translate }}</h2>
+      <p class="address-text">
+        {{ o.shippingAddress.street }}<br />
+        {{ o.shippingAddress.city }}, {{ o.shippingAddress.state }}
+        {{ o.shippingAddress.zipCode }}<br />
+        {{ o.shippingAddress.country }}
+      </p>
+    </section>
+    <section class="detail-card detail-card--half">
+      <h2>{{ 'ACCOUNT.ORDER_DETAIL.BILLING_ADDRESS' | translate }}</h2>
+      <p class="address-text">
+        {{ o.billingAddress.street }}<br />
+        {{ o.billingAddress.city }}, {{ o.billingAddress.state }}
+        {{ o.billingAddress.zipCode }}<br />
+        {{ o.billingAddress.country }}
+      </p>
+    </section>
+  </div>
+
+  <!-- Payment -->
+  @if (o.payment) {
+    <section class="detail-card">
+      <h2>{{ 'ACCOUNT.ORDER_DETAIL.PAYMENT' | translate }}</h2>
+      <div class="payment-info">
+        <div class="payment-info__row">
+          <span>{{ 'ACCOUNT.ORDER_DETAIL.PAYMENT_STATUS' | translate }}</span>
+          <span class="status-badge status-badge--sm" [class]="statusClass(o.status)">
+            {{ paymentStatusKey(o.payment.status) | translate }}
+          </span>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- Shipment -->
+  @if (o.shipment) {
+    <section class="detail-card">
+      <h2>{{ 'ACCOUNT.ORDER_DETAIL.SHIPMENT' | translate }}</h2>
+      <div class="shipment-info">
+        <p>
+          <strong>{{ 'ACCOUNT.ORDER_DETAIL.CARRIER' | translate }}:</strong>
+          {{ o.shipment.carrier }}
+        </p>
+        <p>
+          <strong>{{ 'ACCOUNT.ORDER_DETAIL.TRACKING' | translate }}:</strong>
+          @if (o.shipment.trackingUrl) {
+            <a [href]="o.shipment.trackingUrl" target="_blank" rel="noopener">
+              {{ o.shipment.trackingNumber }}
+            </a>
+          } @else {
+            {{ o.shipment.trackingNumber }}
+          }
+        </p>
+        @if (o.shipment.estimatedDeliveryDate) {
+          <p>
+            <strong>{{ 'ACCOUNT.ORDER_DETAIL.ESTIMATED_DELIVERY' | translate }}:</strong>
+            {{ o.shipment.estimatedDeliveryDate | date: 'longDate' }}
+          </p>
+        }
+      </div>
+    </section>
+  }
+
+  @if (o.notes) {
+    <section class="detail-card">
+      <h2>{{ 'CHECKOUT.ORDER_NOTES' | translate }}</h2>
+      <p class="notes-text">{{ o.notes }}</p>
+    </section>
+  }
+}

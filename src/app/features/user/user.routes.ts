@@ -21,6 +21,13 @@ export const USER_ROUTES: Routes = [
           ),
       },
       {
+        path: 'orders/:id',
+        loadComponent: () =>
+          import('./components/order-detail/order-detail.component').then(
+            (m) => m.OrderDetailComponent
+          ),
+      },
+      {
         path: 'wishlist',
         loadComponent: () =>
           import('./components/wishlist/wishlist.component').then((m) => m.WishlistComponent),

@@ -259,7 +259,37 @@
     "FAILED_UPDATE_PROFILE": "Profil konnte nicht aktualisiert werden",
     "ORDER_HISTORY": {
       "TITLE": "Bestellverlauf",
-      "EMPTY": "Ihre bisherigen Bestellungen werden hier angezeigt."
+      "EMPTY": "Ihre bisherigen Bestellungen werden hier angezeigt.",
+      "DATE": "Datum",
+      "ITEMS": "Artikel",
+      "TOTAL": "Gesamt"
+    },
+    "ORDER_DETAIL": {
+      "TITLE": "Bestellung",
+      "ORDER_PLACED": "Ihre Bestellung wurde erfolgreich aufgegeben!",
+      "ITEMS": "Artikel",
+      "SUMMARY": "Bestellübersicht",
+      "SHIPPING_ADDRESS": "Lieferadresse",
+      "BILLING_ADDRESS": "Rechnungsadresse",
+      "PAYMENT": "Zahlung",
+      "PAYMENT_STATUS": "Zahlungsstatus",
+      "SHIPMENT": "Versand",
+      "CARRIER": "Versanddienstleister",
+      "TRACKING": "Sendungsnummer",
+      "ESTIMATED_DELIVERY": "Voraussichtliche Lieferung",
+      "STATUS_PENDING": "Ausstehend",
+      "STATUS_CONFIRMED": "Bestätigt",
+      "STATUS_PROCESSING": "In Bearbeitung",
+      "STATUS_SHIPPED": "Versendet",
+      "STATUS_DELIVERED": "Zugestellt",
+      "STATUS_CANCELLED": "Storniert",
+      "STATUS_REFUNDED": "Erstattet",
+      "PAYMENT_PENDING": "Ausstehend",
+      "PAYMENT_AUTHORIZED": "Autorisiert",
+      "PAYMENT_CAPTURED": "Erfasst",
+      "PAYMENT_FAILED": "Fehlgeschlagen",
+      "PAYMENT_REFUNDED": "Erstattet",
+      "PAYMENT_PARTIALLY_REFUNDED": "Teilweise erstattet"
     },
     "WISHLIST_PAGE": {
       "TITLE": "Meine Wunschliste",

@@ -131,7 +131,7 @@ export class CheckoutComponent implements OnInit {
     const subtotal = this.cart()?.totalAmount ?? 0;
     const discount = this.couponResult()?.discountAmount ?? 0;
     const shipping = 25; // Fixed shipping for now
-    const tax = (subtotal - discount) * 0.08; // 8% tax
+    const tax = (subtotal - discount) * 0.2; // 20 TVA
     return subtotal - discount + shipping + tax;
   }
 

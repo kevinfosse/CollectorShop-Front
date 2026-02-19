@@ -259,7 +259,37 @@
     "FAILED_UPDATE_PROFILE": "Échec de la mise à jour du profil",
     "ORDER_HISTORY": {
       "TITLE": "Historique des commandes",
-      "EMPTY": "Vos commandes passées apparaîtront ici."
+      "EMPTY": "Vos commandes passées apparaîtront ici.",
+      "DATE": "Date",
+      "ITEMS": "Articles",
+      "TOTAL": "Total"
+    },
+    "ORDER_DETAIL": {
+      "TITLE": "Commande",
+      "ORDER_PLACED": "Votre commande a été passée avec succès !",
+      "ITEMS": "Articles",
+      "SUMMARY": "Récapitulatif de la commande",
+      "SHIPPING_ADDRESS": "Adresse de livraison",
+      "BILLING_ADDRESS": "Adresse de facturation",
+      "PAYMENT": "Paiement",
+      "PAYMENT_STATUS": "Statut du paiement",
+      "SHIPMENT": "Expédition",
+      "CARRIER": "Transporteur",
+      "TRACKING": "Numéro de suivi",
+      "ESTIMATED_DELIVERY": "Livraison estimée",
+      "STATUS_PENDING": "En attente",
+      "STATUS_CONFIRMED": "Confirmée",
+      "STATUS_PROCESSING": "En traitement",
+      "STATUS_SHIPPED": "Expédiée",
+      "STATUS_DELIVERED": "Livrée",
+      "STATUS_CANCELLED": "Annulée",
+      "STATUS_REFUNDED": "Remboursée",
+      "PAYMENT_PENDING": "En attente",
+      "PAYMENT_AUTHORIZED": "Autorisé",
+      "PAYMENT_CAPTURED": "Capturé",
+      "PAYMENT_FAILED": "Échoué",
+      "PAYMENT_REFUNDED": "Remboursé",
+      "PAYMENT_PARTIALLY_REFUNDED": "Partiellement remboursé"
     },
     "WISHLIST_PAGE": {
       "TITLE": "Mes favoris",
