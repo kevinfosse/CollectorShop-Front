@@ -24,7 +24,7 @@ lint:format:
   script:
     - npm run lint
     - npx run format:check
-  allow_failure: true
+  allow_failure: false
 
 build:
   stage: build
