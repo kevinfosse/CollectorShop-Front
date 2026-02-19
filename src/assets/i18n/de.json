@@ -32,6 +32,21 @@
     "IN_STOCK": "Auf Lager",
     "OUT_OF_STOCK": "Nicht auf Lager",
     "CONDITION": "Zustand",
+    "CONDITIONS": {
+      "NEW": "Neu",
+      "LIKE_NEW": "Wie neu",
+      "EXCELLENT": "Ausgezeichnet",
+      "GOOD": "Gut",
+      "FAIR": "Akzeptabel",
+      "POOR": "Schlecht"
+    },
+    "PAYMENT_METHODS": {
+      "CREDIT_CARD": "Kreditkarte",
+      "DEBIT_CARD": "Debitkarte",
+      "PAYPAL": "PayPal",
+      "BANK_TRANSFER": "Banküberweisung",
+      "CASH_ON_DELIVERY": "Nachnahme"
+    },
     "BRAND": "Marke",
     "YEAR": "Jahr",
     "SKU": "Art.-Nr.",
@@ -58,7 +73,8 @@
     "ADDED_TO_CART": "Artikel erfolgreich zum Warenkorb hinzugefügt!",
     "MOVED_TO_CART": "Artikel in den Warenkorb verschoben!",
     "CART_ERROR": "Artikel konnte nicht zum Warenkorb hinzugefügt werden.",
-    "LOGIN_REQUIRED": "Bitte melden Sie sich an, um fortzufahren."
+    "LOGIN_REQUIRED": "Bitte melden Sie sich an, um fortzufahren.",
+    "MAX_STOCK_REACHED": "Maximaler verfügbarer Bestand erreicht."
   },
   "HOME": {
     "HERO_TITLE": "Entdecken Sie Seltene Sammlerstücke",

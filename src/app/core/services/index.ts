@@ -10,3 +10,4 @@ export * from './customer.service';
 export * from './wishlist.service';
 export * from './coupon.service';
 export * from './toast.service';
+export * from './config.service';

@@ -16,8 +16,8 @@
       <a [routerLink]="['/account/orders', order.id]" class="order-card">
         <div class="order-card__header">
           <span class="order-card__number">#{{ order.orderNumber }}</span>
-          <span class="status-badge" [class]="statusClass(order.status)">
-            {{ statusKey(order.status) | translate }}
+          <span class="status-badge" [class]="order.status | orderStatusClass">
+            {{ order.status | orderStatusKey | translate }}
           </span>
         </div>
         <div class="order-card__body">
@@ -31,7 +31,9 @@
           </div>
           <div class="order-card__detail">
             <span class="order-card__label">{{ 'ACCOUNT.ORDER_HISTORY.TOTAL' | translate }}</span>
-            <span class="order-card__total">{{ order.totalAmount | currency: order.currency }}</span>
+            <span class="order-card__total">{{
+              order.totalAmount | currency: order.currency
+            }}</span>
           </div>
         </div>
         <i class="pi pi-chevron-right order-card__arrow"></i>

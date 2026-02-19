@@ -5,10 +5,23 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { OrderService } from '../../../../core/services/order.service';
 import { OrderDto, OrderStatus, PaymentStatus } from '../../../../core/models';
+import {
+  OrderStatusKeyPipe,
+  OrderStatusClassPipe,
+  PaymentStatusKeyPipe,
+} from '../../../../shared/pipes/order-status.pipe';
 
 @Component({
   selector: 'app-order-detail',
-  imports: [RouterLink, TranslateModule, CurrencyPipe, DatePipe],
+  imports: [
+    RouterLink,
+    TranslateModule,
+    CurrencyPipe,
+    DatePipe,
+    OrderStatusKeyPipe,
+    OrderStatusClassPipe,
+    PaymentStatusKeyPipe,
+  ],
   templateUrl: './order-detail.component.html',
   styleUrl: './order-detail.component.scss',
 })
@@ -41,48 +54,5 @@ export class OrderDetailComponent implements OnInit {
         this.loading.set(false);
       },
     });
-  }
-
-  protected statusKey(status: OrderStatus): string {
-    const map: Record<OrderStatus, string> = {
-      [OrderStatus.Pending]: 'PENDING',
-      [OrderStatus.Confirmed]: 'CONFIRMED',
-      [OrderStatus.Processing]: 'PROCESSING',
-      [OrderStatus.Shipped]: 'SHIPPED',
-      [OrderStatus.Delivered]: 'DELIVERED',
-      [OrderStatus.Cancelled]: 'CANCELLED',
-      [OrderStatus.Refunded]: 'REFUNDED',
-    };
-    return `ACCOUNT.ORDER_DETAIL.STATUS_${map[status]}`;
-  }
-
-  protected paymentStatusKey(status: PaymentStatus): string {
-    const map: Record<PaymentStatus, string> = {
-      [PaymentStatus.Pending]: 'PENDING',
-      [PaymentStatus.Authorized]: 'AUTHORIZED',
-      [PaymentStatus.Captured]: 'CAPTURED',
-      [PaymentStatus.Failed]: 'FAILED',
-      [PaymentStatus.Refunded]: 'REFUNDED',
-      [PaymentStatus.PartiallyRefunded]: 'PARTIALLY_REFUNDED',
-    };
-    return `ACCOUNT.ORDER_DETAIL.PAYMENT_${map[status]}`;
-  }
-
-  protected statusClass(status: OrderStatus): string {
-    switch (status) {
-      case OrderStatus.Delivered:
-        return 'status--success';
-      case OrderStatus.Shipped:
-      case OrderStatus.Processing:
-      case OrderStatus.Confirmed:
-        return 'status--info';
-      case OrderStatus.Pending:
-        return 'status--warning';
-      case OrderStatus.Cancelled:
-      case OrderStatus.Refunded:
-        return 'status--error';
-      default:
-        return '';
-    }
   }
 }

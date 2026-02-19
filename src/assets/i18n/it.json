@@ -32,6 +32,21 @@
     "IN_STOCK": "Disponibile",
     "OUT_OF_STOCK": "Non disponibile",
     "CONDITION": "Condizione",
+    "CONDITIONS": {
+      "NEW": "Nuovo",
+      "LIKE_NEW": "Come nuovo",
+      "EXCELLENT": "Eccellente",
+      "GOOD": "Buono",
+      "FAIR": "Discreto",
+      "POOR": "Scarso"
+    },
+    "PAYMENT_METHODS": {
+      "CREDIT_CARD": "Carta di credito",
+      "DEBIT_CARD": "Carta di debito",
+      "PAYPAL": "PayPal",
+      "BANK_TRANSFER": "Bonifico bancario",
+      "CASH_ON_DELIVERY": "Contrassegno"
+    },
     "BRAND": "Marca",
     "YEAR": "Anno",
     "SKU": "Cod.",
@@ -58,7 +73,8 @@
     "ADDED_TO_CART": "Articolo aggiunto al carrello con successo!",
     "MOVED_TO_CART": "Articolo spostato nel carrello!",
     "CART_ERROR": "Impossibile aggiungere l'articolo al carrello.",
-    "LOGIN_REQUIRED": "Accedi per continuare."
+    "LOGIN_REQUIRED": "Accedi per continuare.",
+    "MAX_STOCK_REACHED": "Scorta massima disponibile raggiunta."
   },
   "HOME": {
     "HERO_TITLE": "Scopri Oggetti da Collezione Rari",

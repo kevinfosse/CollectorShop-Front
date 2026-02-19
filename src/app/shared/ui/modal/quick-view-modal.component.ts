@@ -59,9 +59,7 @@ export class QuickViewModalComponent implements OnChanges {
   }
 
   protected get discountPercentage(): number | null {
-    const p = this.product();
-    if (!p || !p.compareAtPrice || p.compareAtPrice <= p.price) return null;
-    return Math.round(((p.compareAtPrice - p.price) / p.compareAtPrice) * 100);
+    return this.product()?.discountPercentage ?? null;
   }
 
   protected get isInStock(): boolean {
@@ -86,8 +84,8 @@ export class QuickViewModalComponent implements OnChanges {
   }
 
   protected increaseQty(): void {
-    const max = this.product()?.availableQuantity ?? 99;
-    if (this.quantity() < max) {
+    const max = this.product()?.availableQuantity;
+    if (max != null && this.quantity() < max) {
       this.quantity.set(this.quantity() + 1);
     }
   }

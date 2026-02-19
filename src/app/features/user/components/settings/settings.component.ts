@@ -4,6 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../../../core/services/auth.service';
 import { CustomerService } from '../../../../core/services/customer.service';
 import { ToastService } from '../../../../core/services/toast.service';
+import { ConfigService } from '../../../../core/services/config.service';
 import {
   CustomerAddressDto,
   CreateAddressRequest,
@@ -21,6 +22,7 @@ export class SettingsComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly customerService = inject(CustomerService);
   private readonly toastService = inject(ToastService);
+  private readonly configService = inject(ConfigService);
 
   // Password change
   protected readonly changingPassword = signal(false);
@@ -49,25 +51,16 @@ export class SettingsComponent implements OnInit {
     isShippingAddress: [true],
   });
 
-  protected readonly countries = [
-    { code: 'US', translationKey: 'CHECKOUT.COUNTRIES.US' },
-    { code: 'CA', translationKey: 'CHECKOUT.COUNTRIES.CA' },
-    { code: 'UK', translationKey: 'CHECKOUT.COUNTRIES.UK' },
-    { code: 'FR', translationKey: 'CHECKOUT.COUNTRIES.FR' },
-    { code: 'DE', translationKey: 'CHECKOUT.COUNTRIES.DE' },
-    { code: 'IT', translationKey: 'CHECKOUT.COUNTRIES.IT' },
-    { code: 'ES', translationKey: 'CHECKOUT.COUNTRIES.ES' },
-    { code: 'CH', translationKey: 'CHECKOUT.COUNTRIES.CH' },
-    { code: 'BE', translationKey: 'CHECKOUT.COUNTRIES.BE' },
-    { code: 'NL', translationKey: 'CHECKOUT.COUNTRIES.NL' },
-    { code: 'AT', translationKey: 'CHECKOUT.COUNTRIES.AT' },
-    { code: 'PT', translationKey: 'CHECKOUT.COUNTRIES.PT' },
-    { code: 'JP', translationKey: 'CHECKOUT.COUNTRIES.JP' },
-    { code: 'AU', translationKey: 'CHECKOUT.COUNTRIES.AU' },
-  ];
+  protected readonly countries = signal<{ code: string; translationKey: string }[]>([]);
 
   ngOnInit(): void {
     this.loadAddresses();
+    this.configService.getShippingCountries().subscribe({
+      next: (codes) =>
+        this.countries.set(
+          codes.map((code) => ({ code, translationKey: `CHECKOUT.COUNTRIES.${code}` })),
+        ),
+    });
   }
 
   // ─── Password ─────────────────────────────────────────────────

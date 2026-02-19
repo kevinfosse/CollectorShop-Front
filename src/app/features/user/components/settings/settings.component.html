@@ -73,7 +73,7 @@
           <label for="country">{{ 'SETTINGS.COUNTRY' | translate }}</label>
           <select id="country" formControlName="country">
             <option value="">{{ 'SETTINGS.SELECT_COUNTRY' | translate }}</option>
-            @for (c of countries; track c.code) {
+            @for (c of countries(); track c.code) {
               <option [value]="c.code">{{ c.translationKey | translate }}</option>
             }
           </select>
@@ -137,15 +137,27 @@
             </div>
             <p class="address-text">
               {{ address.street }}<br />
-              {{ address.city }}@if (address.state) {, {{ address.state }}} {{ address.zipCode }}<br />
+              {{ address.city }}
+              @if (address.state) {
+                , {{ address.state }}
+              }
+              {{ address.zipCode }}<br />
               {{ address.country }}
             </p>
           </div>
           <div class="address-actions">
-            <button class="btn-icon" (click)="onEditAddress(address)" [title]="'COMMON.EDIT' | translate">
+            <button
+              class="btn-icon"
+              (click)="onEditAddress(address)"
+              [title]="'COMMON.EDIT' | translate"
+            >
               <i class="pi pi-pencil"></i>
             </button>
-            <button class="btn-icon btn-icon--danger" (click)="onDeleteAddress(address)" [title]="'COMMON.DELETE' | translate">
+            <button
+              class="btn-icon btn-icon--danger"
+              (click)="onDeleteAddress(address)"
+              [title]="'COMMON.DELETE' | translate"
+            >
               <i class="pi pi-trash"></i>
             </button>
           </div>

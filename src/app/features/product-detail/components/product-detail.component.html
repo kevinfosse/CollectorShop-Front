@@ -86,7 +86,7 @@
           <div class="product-info__meta">
             <div class="meta-item">
               <span class="label">{{ 'COMMON.CONDITION' | translate }}:</span>
-              <span class="value">{{ conditionLabel() }}</span>
+              <span class="value">{{ conditionLabel() | translate }}</span>
             </div>
             @if (p.brandName) {
               <div class="meta-item">
@@ -100,11 +100,13 @@
             </div>
             <div class="meta-item">
               <span class="label">{{ 'COMMON.AVAILABILITY' | translate }}:</span>
-              <span class="value" [class.in-stock]="isInStock()">@if (isInStock()) {
-                {{ 'COMMON.IN_STOCK' | translate }} ({{ p.availableQuantity }})
-              } @else {
-                {{ 'COMMON.OUT_OF_STOCK' | translate }}
-              }</span>
+              <span class="value" [class.in-stock]="isInStock()">
+                @if (isInStock()) {
+                  {{ 'COMMON.IN_STOCK' | translate }} ({{ p.availableQuantity }})
+                } @else {
+                  {{ 'COMMON.OUT_OF_STOCK' | translate }}
+                }
+              </span>
             </div>
             @for (attr of p.attributes; track attr.id) {
               <div class="meta-item">
@@ -132,7 +134,11 @@
               {{ 'COMMON.ADD_TO_CART' | translate }}
             </button>
             <button class="btn-secondary" (click)="toggleWishlist()">
-              <i class="pi" [class.pi-heart]="!isInWishlist()" [class.pi-heart-fill]="isInWishlist()"></i>
+              <i
+                class="pi"
+                [class.pi-heart]="!isInWishlist()"
+                [class.pi-heart-fill]="isInWishlist()"
+              ></i>
             </button>
           </div>
         </div>

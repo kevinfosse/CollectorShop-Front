@@ -1,9 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../../../core/services';
-import { RegisterRequest } from '../../../../core/models';
+import { RegisterRequest, PasswordPolicyResponse } from '../../../../core/models';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +11,7 @@ import { RegisterRequest } from '../../../../core/models';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
@@ -23,6 +23,13 @@ export class RegisterComponent {
   protected agreeToTerms = false;
   protected loading = signal(false);
   protected error = signal<string | null>(null);
+  private passwordPolicy: PasswordPolicyResponse | null = null;
+
+  ngOnInit(): void {
+    this.authService.getPasswordPolicy().subscribe({
+      next: (policy) => (this.passwordPolicy = policy),
+    });
+  }
 
   protected onSubmit(): void {
     if (
@@ -76,11 +83,24 @@ export class RegisterComponent {
 
   private validatePassword(password: string): string[] {
     const errors: string[] = [];
-    if (password.length < 8) errors.push('Password must be at least 8 characters');
-    if (!/[A-Z]/.test(password)) errors.push('Password must contain at least one uppercase letter');
-    if (!/[a-z]/.test(password)) errors.push('Password must contain at least one lowercase letter');
-    if (!/[0-9]/.test(password)) errors.push('Password must contain at least one digit');
-    if (!/[^a-zA-Z0-9]/.test(password))
+    const policy = this.passwordPolicy;
+
+    // Use server policy if available, otherwise fall back to safe defaults
+    const minLength = policy?.minLength ?? 8;
+    const requireUppercase = policy?.requireUppercase ?? true;
+    const requireLowercase = policy?.requireLowercase ?? true;
+    const requireDigit = policy?.requireDigit ?? true;
+    const requireNonAlphanumeric = policy?.requireNonAlphanumeric ?? true;
+
+    if (password.length < minLength)
+      errors.push(`Password must be at least ${minLength} characters`);
+    if (requireUppercase && !/[A-Z]/.test(password))
+      errors.push('Password must contain at least one uppercase letter');
+    if (requireLowercase && !/[a-z]/.test(password))
+      errors.push('Password must contain at least one lowercase letter');
+    if (requireDigit && !/[0-9]/.test(password))
+      errors.push('Password must contain at least one digit');
+    if (requireNonAlphanumeric && !/[^a-zA-Z0-9]/.test(password))
       errors.push('Password must contain at least one special character');
     return errors;
   }

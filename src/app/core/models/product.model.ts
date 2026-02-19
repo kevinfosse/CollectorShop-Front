@@ -17,6 +17,7 @@ export interface ProductDto {
   price: number;
   currency: string;
   compareAtPrice?: number;
+  discountPercentage?: number;
   stockQuantity: number;
   availableQuantity: number;
   isActive: boolean;
@@ -43,6 +44,7 @@ export interface ProductListDto {
   price: number;
   currency: string;
   compareAtPrice?: number;
+  discountPercentage?: number;
   availableQuantity: number;
   isActive: boolean;
   isFeatured: boolean;
@@ -126,12 +128,12 @@ export interface CreateProductAttributeRequest {
   value: string;
 }
 
-// Helper to get condition label
+// Translation keys for condition labels
 export const ProductConditionLabels: Record<ProductCondition, string> = {
-  [ProductCondition.New]: 'New',
-  [ProductCondition.LikeNew]: 'Like New',
-  [ProductCondition.Excellent]: 'Excellent',
-  [ProductCondition.Good]: 'Good',
-  [ProductCondition.Fair]: 'Fair',
-  [ProductCondition.Poor]: 'Poor',
+  [ProductCondition.New]: 'COMMON.CONDITIONS.NEW',
+  [ProductCondition.LikeNew]: 'COMMON.CONDITIONS.LIKE_NEW',
+  [ProductCondition.Excellent]: 'COMMON.CONDITIONS.EXCELLENT',
+  [ProductCondition.Good]: 'COMMON.CONDITIONS.GOOD',
+  [ProductCondition.Fair]: 'COMMON.CONDITIONS.FAIR',
+  [ProductCondition.Poor]: 'COMMON.CONDITIONS.POOR',
 };

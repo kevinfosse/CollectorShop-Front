@@ -32,6 +32,21 @@
     "IN_STOCK": "In Stock",
     "OUT_OF_STOCK": "Out of Stock",
     "CONDITION": "Condition",
+    "CONDITIONS": {
+      "NEW": "New",
+      "LIKE_NEW": "Like New",
+      "EXCELLENT": "Excellent",
+      "GOOD": "Good",
+      "FAIR": "Fair",
+      "POOR": "Poor"
+    },
+    "PAYMENT_METHODS": {
+      "CREDIT_CARD": "Credit Card",
+      "DEBIT_CARD": "Debit Card",
+      "PAYPAL": "PayPal",
+      "BANK_TRANSFER": "Bank Transfer",
+      "CASH_ON_DELIVERY": "Cash on Delivery"
+    },
     "BRAND": "Brand",
     "YEAR": "Year",
     "SKU": "SKU",
@@ -58,7 +73,8 @@
     "ADDED_TO_CART": "Item added to cart successfully!",
     "MOVED_TO_CART": "Item moved to cart!",
     "CART_ERROR": "Failed to add item to cart.",
-    "LOGIN_REQUIRED": "Please sign in to continue."
+    "LOGIN_REQUIRED": "Please sign in to continue.",
+    "MAX_STOCK_REACHED": "Maximum available stock reached."
   },
   "HOME": {
     "HERO_TITLE": "Discover Rare Collectibles",

@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { CartService, AuthService } from '../../../core/services';
+import { CartService, AuthService, ToastService } from '../../../core/services';
 import { CartItemDto } from '../../../core/models';
 
 @Component({
@@ -15,6 +15,7 @@ export class CartComponent implements OnInit {
   private readonly cartService = inject(CartService);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly toastService = inject(ToastService);
 
   protected readonly cart = this.cartService.cart;
   protected readonly loading = this.cartService.loading;
@@ -34,6 +35,7 @@ export class CartComponent implements OnInit {
       return;
     }
     if (newQuantity > item.availableStock) {
+      this.toastService.show('TOAST.MAX_STOCK_REACHED', 'warning');
       return;
     }
     this.cartService.updateQuantity(item.productId, newQuantity).subscribe();

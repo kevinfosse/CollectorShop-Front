@@ -10,6 +10,7 @@ import {
   ChangePasswordRequest,
   ForgotPasswordRequest,
   ResetPasswordRequest,
+  PasswordPolicyResponse,
   UserDto,
 } from '../models';
 
@@ -91,6 +92,10 @@ export class AuthService {
 
   resetPassword(request: ResetPasswordRequest): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/reset-password`, request);
+  }
+
+  getPasswordPolicy(): Observable<PasswordPolicyResponse> {
+    return this.http.get<PasswordPolicyResponse>(`${this.apiUrl}/password-policy`);
   }
 
   private handleAuthResponse(response: AuthResponse): void {

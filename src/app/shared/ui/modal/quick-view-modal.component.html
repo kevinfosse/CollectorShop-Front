@@ -60,19 +60,25 @@
 
             <!-- Price -->
             <div class="quick-view__price-wrapper">
-              <span class="quick-view__price">{{ p.price | currency : p.currency }}</span>
+              <span class="quick-view__price">{{ p.price | currency: p.currency }}</span>
               @if (p.compareAtPrice && p.compareAtPrice > p.price) {
-                <span class="quick-view__compare-price">{{ p.compareAtPrice | currency : p.currency }}</span>
+                <span class="quick-view__compare-price">{{
+                  p.compareAtPrice | currency: p.currency
+                }}</span>
               }
             </div>
 
             <!-- Condition & Brand -->
             <div class="quick-view__meta">
               @if (conditionLabel) {
-                <span class="quick-view__condition">{{ 'COMMON.CONDITION' | translate }}: {{ conditionLabel }}</span>
+                <span class="quick-view__condition"
+                  >{{ 'COMMON.CONDITION' | translate }}: {{ conditionLabel | translate }}</span
+                >
               }
               @if (p.brandName) {
-                <span class="quick-view__brand">{{ 'COMMON.BRAND' | translate }}: {{ p.brandName }}</span>
+                <span class="quick-view__brand"
+                  >{{ 'COMMON.BRAND' | translate }}: {{ p.brandName }}</span
+                >
               }
             </div>
 
@@ -96,7 +102,11 @@
             @if (isInStock) {
               <div class="quick-view__actions">
                 <div class="quick-view__qty">
-                  <button class="quick-view__qty-btn" (click)="decreaseQty()" [disabled]="quantity() <= 1">
+                  <button
+                    class="quick-view__qty-btn"
+                    (click)="decreaseQty()"
+                    [disabled]="quantity() <= 1"
+                  >
                     <i class="pi pi-minus"></i>
                   </button>
                   <span class="quick-view__qty-value">{{ quantity() }}</span>

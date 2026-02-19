@@ -132,30 +132,47 @@ export interface OrderFilterRequest {
   sortDescending?: boolean;
 }
 
-// Helper to get status label
+export interface OrderPreviewRequest {
+  couponCode?: string;
+  shippingCountry?: string;
+}
+
+export interface OrderPreviewResponse {
+  subTotal: number;
+  shippingCost: number;
+  taxRate: number;
+  taxAmount: number;
+  discountAmount: number;
+  total: number;
+  currency: string;
+  couponMessage?: string;
+  isCouponValid: boolean;
+}
+
+// Translation keys for status labels
 export const OrderStatusLabels: Record<OrderStatus, string> = {
-  [OrderStatus.Pending]: 'Pending',
-  [OrderStatus.Confirmed]: 'Confirmed',
-  [OrderStatus.Processing]: 'Processing',
-  [OrderStatus.Shipped]: 'Shipped',
-  [OrderStatus.Delivered]: 'Delivered',
-  [OrderStatus.Cancelled]: 'Cancelled',
-  [OrderStatus.Refunded]: 'Refunded',
+  [OrderStatus.Pending]: 'ACCOUNT.ORDER_DETAIL.STATUS_PENDING',
+  [OrderStatus.Confirmed]: 'ACCOUNT.ORDER_DETAIL.STATUS_CONFIRMED',
+  [OrderStatus.Processing]: 'ACCOUNT.ORDER_DETAIL.STATUS_PROCESSING',
+  [OrderStatus.Shipped]: 'ACCOUNT.ORDER_DETAIL.STATUS_SHIPPED',
+  [OrderStatus.Delivered]: 'ACCOUNT.ORDER_DETAIL.STATUS_DELIVERED',
+  [OrderStatus.Cancelled]: 'ACCOUNT.ORDER_DETAIL.STATUS_CANCELLED',
+  [OrderStatus.Refunded]: 'ACCOUNT.ORDER_DETAIL.STATUS_REFUNDED',
 };
 
 export const PaymentMethodLabels: Record<PaymentMethod, string> = {
-  [PaymentMethod.CreditCard]: 'Credit Card',
-  [PaymentMethod.DebitCard]: 'Debit Card',
-  [PaymentMethod.PayPal]: 'PayPal',
-  [PaymentMethod.BankTransfer]: 'Bank Transfer',
-  [PaymentMethod.CashOnDelivery]: 'Cash on Delivery',
+  [PaymentMethod.CreditCard]: 'COMMON.PAYMENT_METHODS.CREDIT_CARD',
+  [PaymentMethod.DebitCard]: 'COMMON.PAYMENT_METHODS.DEBIT_CARD',
+  [PaymentMethod.PayPal]: 'COMMON.PAYMENT_METHODS.PAYPAL',
+  [PaymentMethod.BankTransfer]: 'COMMON.PAYMENT_METHODS.BANK_TRANSFER',
+  [PaymentMethod.CashOnDelivery]: 'COMMON.PAYMENT_METHODS.CASH_ON_DELIVERY',
 };
 
 export const PaymentStatusLabels: Record<PaymentStatus, string> = {
-  [PaymentStatus.Pending]: 'Pending',
-  [PaymentStatus.Authorized]: 'Authorized',
-  [PaymentStatus.Captured]: 'Captured',
-  [PaymentStatus.Failed]: 'Failed',
-  [PaymentStatus.Refunded]: 'Refunded',
-  [PaymentStatus.PartiallyRefunded]: 'Partially Refunded',
+  [PaymentStatus.Pending]: 'ACCOUNT.ORDER_DETAIL.PAYMENT_PENDING',
+  [PaymentStatus.Authorized]: 'ACCOUNT.ORDER_DETAIL.PAYMENT_AUTHORIZED',
+  [PaymentStatus.Captured]: 'ACCOUNT.ORDER_DETAIL.PAYMENT_CAPTURED',
+  [PaymentStatus.Failed]: 'ACCOUNT.ORDER_DETAIL.PAYMENT_FAILED',
+  [PaymentStatus.Refunded]: 'ACCOUNT.ORDER_DETAIL.PAYMENT_REFUNDED',
+  [PaymentStatus.PartiallyRefunded]: 'ACCOUNT.ORDER_DETAIL.PAYMENT_PARTIALLY_REFUNDED',
 };

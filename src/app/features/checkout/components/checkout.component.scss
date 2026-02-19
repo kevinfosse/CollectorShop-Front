@@ -98,6 +98,29 @@ h1 {
   }
 }
 
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  margin-top: $spacing-4;
+  cursor: pointer;
+  font-size: $font-size-sm;
+  user-select: none;
+
+  input[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: $color-primary;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  span {
+    line-height: 1.4;
+  }
+}
+
 .payment-methods {
   display: flex;
   gap: $spacing-4;

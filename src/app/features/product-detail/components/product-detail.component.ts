@@ -2,7 +2,13 @@ import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { ProductService, CartService, AuthService, WishlistService, ToastService } from '../../../core/services';
+import {
+  ProductService,
+  CartService,
+  AuthService,
+  WishlistService,
+  ToastService,
+} from '../../../core/services';
 import { ProductDto, ProductConditionLabels, ProductCondition } from '../../../core/models';
 
 @Component({
@@ -39,8 +45,7 @@ export class ProductDetailComponent implements OnInit {
 
   protected readonly discountPercentage = computed(() => {
     const p = this.product();
-    if (!p || !p.compareAtPrice || p.compareAtPrice <= p.price) return null;
-    return Math.round(((p.compareAtPrice - p.price) / p.compareAtPrice) * 100);
+    return p?.discountPercentage ?? null;
   });
 
   protected readonly isInStock = computed(() => {
@@ -85,8 +90,8 @@ export class ProductDetailComponent implements OnInit {
   }
 
   protected increaseQty(): void {
-    const max = this.product()?.availableQuantity ?? 99;
-    if (this.quantity() < max) {
+    const max = this.product()?.availableQuantity;
+    if (max != null && this.quantity() < max) {
       this.quantity.set(this.quantity() + 1);
     }
   }

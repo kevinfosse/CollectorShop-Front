@@ -3,14 +3,14 @@ import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { CartService, OrderService, CustomerService, CouponService } from '../../../core/services';
+import { CartService, OrderService, CustomerService, ConfigService } from '../../../core/services';
 import {
   CreateOrderRequest,
   AddressDto,
   PaymentMethod,
   PaymentMethodLabels,
   CustomerAddressDto,
-  ValidateCouponResponse,
+  OrderPreviewResponse,
 } from '../../../core/models';
 
 @Component({
@@ -23,14 +23,15 @@ export class CheckoutComponent implements OnInit {
   private readonly cartService = inject(CartService);
   private readonly orderService = inject(OrderService);
   private readonly customerService = inject(CustomerService);
-  private readonly couponService = inject(CouponService);
+  private readonly configService = inject(ConfigService);
   private readonly router = inject(Router);
 
   protected readonly cart = this.cartService.cart;
   protected readonly loading = signal(false);
   protected readonly error = signal<string | null>(null);
   protected readonly savedAddresses = signal<CustomerAddressDto[]>([]);
-  protected readonly couponResult = signal<ValidateCouponResponse | null>(null);
+  protected readonly orderPreview = signal<OrderPreviewResponse | null>(null);
+  protected readonly previewLoading = signal(false);
 
   // Form fields
   protected shippingAddress: AddressDto = {
@@ -57,27 +58,24 @@ export class CheckoutComponent implements OnInit {
   protected readonly PaymentMethod = PaymentMethod;
   protected readonly PaymentMethodLabels = PaymentMethodLabels;
 
-  protected readonly countries = [
-    { code: 'US', translationKey: 'CHECKOUT.COUNTRIES.US' },
-    { code: 'CA', translationKey: 'CHECKOUT.COUNTRIES.CA' },
-    { code: 'UK', translationKey: 'CHECKOUT.COUNTRIES.UK' },
-    { code: 'FR', translationKey: 'CHECKOUT.COUNTRIES.FR' },
-    { code: 'DE', translationKey: 'CHECKOUT.COUNTRIES.DE' },
-    { code: 'IT', translationKey: 'CHECKOUT.COUNTRIES.IT' },
-    { code: 'ES', translationKey: 'CHECKOUT.COUNTRIES.ES' },
-    { code: 'CH', translationKey: 'CHECKOUT.COUNTRIES.CH' },
-    { code: 'BE', translationKey: 'CHECKOUT.COUNTRIES.BE' },
-    { code: 'NL', translationKey: 'CHECKOUT.COUNTRIES.NL' },
-    { code: 'AT', translationKey: 'CHECKOUT.COUNTRIES.AT' },
-    { code: 'PT', translationKey: 'CHECKOUT.COUNTRIES.PT' },
-    { code: 'JP', translationKey: 'CHECKOUT.COUNTRIES.JP' },
-    { code: 'AU', translationKey: 'CHECKOUT.COUNTRIES.AU' },
-  ];
+  protected readonly countries = signal<{ code: string; translationKey: string }[]>([]);
 
   ngOnInit(): void {
+    // Load countries from API
+    this.configService.getShippingCountries().subscribe({
+      next: (codes) =>
+        this.countries.set(
+          codes.map((code) => ({ code, translationKey: `CHECKOUT.COUNTRIES.${code}` })),
+        ),
+    });
+
     // Load cart if not already loaded
     if (!this.cart()) {
-      this.cartService.loadCart().subscribe();
+      this.cartService.loadCart().subscribe({
+        next: () => this.loadOrderPreview(),
+      });
+    } else {
+      this.loadOrderPreview();
     }
 
     // Load saved addresses
@@ -114,25 +112,34 @@ export class CheckoutComponent implements OnInit {
 
   protected validateCoupon(): void {
     if (!this.couponCode) return;
+    this.loadOrderPreview();
+  }
 
-    const orderAmount = this.cart()?.totalAmount ?? 0;
-    this.couponService.validateCoupon({ code: this.couponCode, orderAmount }).subscribe({
-      next: (result) => this.couponResult.set(result),
-      error: () =>
-        this.couponResult.set({
-          isValid: false,
-          message: 'Invalid coupon code',
-          discountAmount: 0,
-        }),
-    });
+  protected removeCoupon(): void {
+    this.couponCode = '';
+    this.loadOrderPreview();
+  }
+
+  private loadOrderPreview(): void {
+    this.previewLoading.set(true);
+    this.orderService
+      .previewOrder({
+        couponCode: this.couponCode || undefined,
+        shippingCountry: this.shippingAddress.country || undefined,
+      })
+      .subscribe({
+        next: (preview) => {
+          this.orderPreview.set(preview);
+          this.previewLoading.set(false);
+        },
+        error: () => {
+          this.previewLoading.set(false);
+        },
+      });
   }
 
   protected get finalTotal(): number {
-    const subtotal = this.cart()?.totalAmount ?? 0;
-    const discount = this.couponResult()?.discountAmount ?? 0;
-    const shipping = 25; // Fixed shipping for now
-    const tax = (subtotal - discount) * 0.2; // 20 TVA
-    return subtotal - discount + shipping + tax;
+    return this.orderPreview()?.total ?? this.cart()?.totalAmount ?? 0;
   }
 
   protected placeOrder(): void {
@@ -147,7 +154,7 @@ export class CheckoutComponent implements OnInit {
       shippingAddress: this.shippingAddress,
       billingAddress: billingAddr,
       paymentMethod: this.selectedPaymentMethod,
-      couponCode: this.couponResult()?.isValid ? this.couponCode : undefined,
+      couponCode: this.orderPreview()?.isCouponValid ? this.couponCode : undefined,
       notes: this.orderNotes || undefined,
     };
 

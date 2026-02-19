@@ -20,11 +20,7 @@ export class ProductCardComponent {
   quickView = output<ProductListDto>();
 
   get discountPercentage(): number | null {
-    const prod = this.product();
-    if (prod.compareAtPrice && prod.compareAtPrice > prod.price) {
-      return Math.round(((prod.compareAtPrice - prod.price) / prod.compareAtPrice) * 100);
-    }
-    return null;
+    return this.product().discountPercentage ?? null;
   }
 
   get primaryImage(): string {

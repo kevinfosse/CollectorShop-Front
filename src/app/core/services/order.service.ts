@@ -10,6 +10,8 @@ import {
   CreateOrderRequest,
   UpdateOrderStatusRequest,
   ShipOrderRequest,
+  OrderPreviewRequest,
+  OrderPreviewResponse,
 } from '../models';
 
 @Injectable({
@@ -48,6 +50,10 @@ export class OrderService {
 
   createOrder(request: CreateOrderRequest): Observable<OrderDto> {
     return this.http.post<OrderDto>(this.apiUrl, request);
+  }
+
+  previewOrder(request: OrderPreviewRequest): Observable<OrderPreviewResponse> {
+    return this.http.post<OrderPreviewResponse>(`${this.apiUrl}/preview`, request);
   }
 
   cancelOrder(id: string): Observable<void> {
