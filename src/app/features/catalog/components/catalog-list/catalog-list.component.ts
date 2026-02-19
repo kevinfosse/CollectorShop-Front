@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ProductCardComponent } from '../../../../shared/components/card-preview/product-card.component';
+import { QuickViewModalComponent } from '../../../../shared/ui/modal/quick-view-modal.component';
 import {
   ProductService,
   CartService,
@@ -21,7 +22,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-catalog-list',
-  imports: [RouterLink, TranslateModule, ProductCardComponent],
+  imports: [RouterLink, TranslateModule, ProductCardComponent, QuickViewModalComponent],
   templateUrl: './catalog-list.component.html',
   styleUrl: './catalog-list.component.scss',
 })
@@ -307,8 +308,13 @@ export class CatalogListComponent implements OnInit, OnDestroy {
   }
 
   onQuickView(product: ProductListDto): void {
-    console.log('Quick view:', product);
-    // Could open a modal with product details
+    this.quickViewProductId.set(product.id);
+  }
+
+  protected readonly quickViewProductId = signal<string | null>(null);
+
+  onCloseQuickView(): void {
+    this.quickViewProductId.set(null);
   }
 
   formatCategoryName(slug: string): string {

@@ -133,3 +133,8 @@
     </div>
   </section>
 </div>
+
+<app-quick-view-modal
+  [productId]="quickViewProductId()"
+  (closed)="onCloseQuickView()"
+/>

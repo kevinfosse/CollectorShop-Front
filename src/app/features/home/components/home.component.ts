@@ -2,13 +2,14 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductCardComponent } from '../../../shared/components/card-preview/product-card.component';
+import { QuickViewModalComponent } from '../../../shared/ui/modal/quick-view-modal.component';
 import { ProductService, CategoryService, WishlistService, CartService, AuthService, ToastService } from '../../../core/services';
 import { TranslateService } from '@ngx-translate/core';
 import { ProductListDto, CategoryListDto } from '../../../core/models';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, TranslateModule, ProductCardComponent],
+  imports: [RouterLink, TranslateModule, ProductCardComponent, QuickViewModalComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -81,7 +82,13 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  protected readonly quickViewProductId = signal<string | null>(null);
+
   onQuickView(product: ProductListDto): void {
-    console.log('Quick view:', product);
+    this.quickViewProductId.set(product.id);
+  }
+
+  onCloseQuickView(): void {
+    this.quickViewProductId.set(null);
   }
 }

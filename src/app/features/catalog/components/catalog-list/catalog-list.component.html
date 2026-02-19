@@ -174,3 +174,8 @@
     </div>
   </div>
 </div>
+
+<app-quick-view-modal
+  [productId]="quickViewProductId()"
+  (closed)="onCloseQuickView()"
+/>
