@@ -53,6 +53,7 @@ export class CatalogListComponent implements OnInit, OnDestroy {
   protected readonly maxPrice = signal<number | undefined>(undefined);
   protected readonly sortBy = signal('createdAt');
   protected readonly sortDescending = signal(true);
+  protected readonly selectedSort = signal('created-desc');
   protected readonly selectedCondition = signal<ProductCondition | undefined>(undefined);
 
   // Mobile filter drawer
@@ -167,6 +168,7 @@ export class CatalogListComponent implements OnInit, OnDestroy {
   }
 
   protected onSortChange(sortValue: string): void {
+    this.selectedSort.set(sortValue);
     switch (sortValue) {
       case 'price-asc':
         this.sortBy.set('price');
@@ -218,6 +220,9 @@ export class CatalogListComponent implements OnInit, OnDestroy {
     this.minPrice.set(undefined);
     this.maxPrice.set(undefined);
     this.selectedCondition.set(undefined);
+    this.sortBy.set('createdAt');
+    this.sortDescending.set(true);
+    this.selectedSort.set('created-desc');
     this.currentPage.set(1);
     this.loadProducts();
     this.closeFilterDrawer();

@@ -61,6 +61,7 @@
               <input
                 type="number"
                 [placeholder]="'CATALOG.MIN' | translate"
+                [value]="minPrice() ?? ''"
                 class="filter-input"
                 #minPriceInput
               />
@@ -68,6 +69,7 @@
               <input
                 type="number"
                 [placeholder]="'CATALOG.MAX' | translate"
+                [value]="maxPrice() ?? ''"
                 class="filter-input"
                 #maxPriceInput
               />
@@ -115,7 +117,11 @@
             <span class="catalog__count"
               >{{ totalCount() }} {{ 'CATALOG.PRODUCTS' | translate }}</span
             >
-            <select class="catalog__sort" (change)="onSortChange($any($event.target).value)">
+            <select
+              class="catalog__sort"
+              [value]="selectedSort()"
+              (change)="onSortChange($any($event.target).value)"
+            >
               <option value="created-desc">{{ 'CATALOG.NEWEST' | translate }}</option>
               <option value="price-asc">{{ 'CATALOG.PRICE_LOW_HIGH' | translate }}</option>
               <option value="price-desc">{{ 'CATALOG.PRICE_HIGH_LOW' | translate }}</option>
@@ -175,7 +181,4 @@
   </div>
 </div>
 
-<app-quick-view-modal
-  [productId]="quickViewProductId()"
-  (closed)="onCloseQuickView()"
-/>
+<app-quick-view-modal [productId]="quickViewProductId()" (closed)="onCloseQuickView()" />
