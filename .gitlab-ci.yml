@@ -88,6 +88,8 @@ docker:build:
     - build
   only:
     - main
+    - master
+    - tags
 
 deploy:k8s:
   stage: deploy
