@@ -1,8 +1,13 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './shared/components/layout/layout.component';
-import { authGuard, guestGuard } from './core/guards';
+import { authGuard, adminGuard, guestGuard } from './core/guards';
 
 export const routes: Routes = [
+  {
+    path: 'admin',
+    canActivate: [adminGuard],
+    loadChildren: () => import('./features/admin/admin.routes').then((m) => m.ADMIN_ROUTES),
+  },
   {
     path: '',
     component: LayoutComponent,
@@ -20,7 +25,7 @@ export const routes: Routes = [
         path: 'product',
         loadChildren: () =>
           import('./features/product-detail/product-detail.routes').then(
-            (m) => m.PRODUCT_DETAIL_ROUTES
+            (m) => m.PRODUCT_DETAIL_ROUTES,
           ),
       },
       {

@@ -33,6 +33,10 @@ export class ReviewService {
   }
 
   // Admin methods
+  getPendingReviews(): Observable<ReviewDto[]> {
+    return this.http.get<ReviewDto[]>(`${this.apiUrl}/pending`);
+  }
+
   approveReview(id: string): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/${id}/approve`, {});
   }

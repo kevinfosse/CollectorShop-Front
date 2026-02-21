@@ -1,0 +1,234 @@
+<div class="product-form-page">
+  <div class="page-header">
+    <div class="page-header__left">
+      <a routerLink="/admin/products" class="back-link">
+        <i class="pi pi-arrow-left"></i>
+        {{ 'COMMON.BACK' | translate }}
+      </a>
+      <h1 class="page-title">
+        {{
+          (isEditMode() ? 'ADMIN.PRODUCTS.EDIT_PRODUCT' : 'ADMIN.PRODUCTS.ADD_PRODUCT') | translate
+        }}
+      </h1>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="loading">{{ 'COMMON.LOADING' | translate }}</div>
+  } @else {
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="form-layout">
+      <!-- Basic Info -->
+      <div class="form-card">
+        <h2 class="form-card__title">{{ 'ADMIN.PRODUCTS.BASIC_INFO' | translate }}</h2>
+
+        <div class="form-group">
+          <label for="name">{{ 'ADMIN.PRODUCTS.NAME' | translate }} *</label>
+          <input id="name" type="text" formControlName="name" />
+        </div>
+
+        <div class="form-group">
+          <label for="description">{{ 'ADMIN.PRODUCTS.DESCRIPTION' | translate }} *</label>
+          <textarea id="description" formControlName="description" rows="5"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="sku">{{ 'COMMON.SKU' | translate }} *</label>
+            <input id="sku" type="text" formControlName="sku" />
+          </div>
+          <div class="form-group">
+            <label for="condition">{{ 'COMMON.CONDITION' | translate }}</label>
+            <select id="condition" formControlName="condition">
+              @for (cond of conditions; track cond) {
+                <option [ngValue]="cond">{{ conditionLabels[cond] | translate }}</option>
+              }
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pricing -->
+      <div class="form-card">
+        <h2 class="form-card__title">{{ 'ADMIN.PRODUCTS.PRICING' | translate }}</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="price">{{ 'COMMON.PRICE' | translate }} *</label>
+            <input id="price" type="number" step="0.01" formControlName="price" />
+          </div>
+          <div class="form-group">
+            <label for="compareAtPrice">{{ 'ADMIN.PRODUCTS.COMPARE_AT_PRICE' | translate }}</label>
+            <input id="compareAtPrice" type="number" step="0.01" formControlName="compareAtPrice" />
+          </div>
+          <div class="form-group">
+            <label for="currency">{{ 'ADMIN.PRODUCTS.CURRENCY' | translate }}</label>
+            <select id="currency" formControlName="currency">
+              <option value="EUR">EUR</option>
+              <option value="USD">USD</option>
+              <option value="GBP">GBP</option>
+              <option value="CHF">CHF</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inventory -->
+      <div class="form-card">
+        <h2 class="form-card__title">{{ 'ADMIN.PRODUCTS.INVENTORY' | translate }}</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="stockQuantity">{{ 'ADMIN.PRODUCTS.STOCK' | translate }} *</label>
+            <input id="stockQuantity" type="number" formControlName="stockQuantity" />
+          </div>
+          <div class="form-group">
+            <label for="weight">{{ 'ADMIN.PRODUCTS.WEIGHT' | translate }} (kg) *</label>
+            <input id="weight" type="number" step="0.01" formControlName="weight" />
+          </div>
+          <div class="form-group">
+            <label for="dimensions">{{ 'ADMIN.PRODUCTS.DIMENSIONS' | translate }}</label>
+            <input
+              id="dimensions"
+              type="text"
+              formControlName="dimensions"
+              placeholder="L x W x H cm"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Organization -->
+      <div class="form-card">
+        <h2 class="form-card__title">{{ 'ADMIN.PRODUCTS.ORGANIZATION' | translate }}</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="categoryId">{{ 'ADMIN.PRODUCTS.CATEGORY' | translate }} *</label>
+            <select id="categoryId" formControlName="categoryId">
+              <option value="">{{ 'ADMIN.PRODUCTS.SELECT_CATEGORY' | translate }}</option>
+              @for (cat of categories(); track cat.id) {
+                <option [value]="cat.id">{{ cat.name }}</option>
+              }
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="brandId">{{ 'COMMON.BRAND' | translate }}</label>
+            <select id="brandId" formControlName="brandId">
+              <option value="">{{ 'ADMIN.PRODUCTS.NO_BRAND' | translate }}</option>
+              @for (brand of brands(); track brand.id) {
+                <option [value]="brand.id">{{ brand.name }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="isFeatured" />
+            {{ 'ADMIN.PRODUCTS.FEATURED' | translate }}
+          </label>
+          @if (isEditMode()) {
+            <label class="checkbox-label">
+              <input type="checkbox" formControlName="isActive" />
+              {{ 'ADMIN.PRODUCTS.ACTIVE' | translate }}
+            </label>
+          }
+        </div>
+      </div>
+
+      <!-- Images -->
+      @if (!isEditMode()) {
+        <div class="form-card">
+          <div class="form-card__header">
+            <h2 class="form-card__title">{{ 'ADMIN.PRODUCTS.IMAGES' | translate }}</h2>
+            <button type="button" class="btn btn--secondary btn--sm" (click)="addImage()">
+              <i class="pi pi-plus"></i> {{ 'ADMIN.PRODUCTS.ADD_IMAGE' | translate }}
+            </button>
+          </div>
+
+          @for (image of images.controls; track $index; let i = $index) {
+            <div class="array-item" [formGroup]="$any(image)">
+              <div class="form-row">
+                <div class="form-group form-group--grow">
+                  <label>{{ 'ADMIN.PRODUCTS.IMAGE_URL' | translate }} *</label>
+                  <input type="text" formControlName="url" placeholder="https://..." />
+                </div>
+                <div class="form-group">
+                  <label>{{ 'ADMIN.PRODUCTS.ALT_TEXT' | translate }}</label>
+                  <input type="text" formControlName="altText" />
+                </div>
+                <div class="form-group form-group--sm">
+                  <label>{{ 'ADMIN.PRODUCTS.ORDER' | translate }}</label>
+                  <input type="number" formControlName="displayOrder" />
+                </div>
+                <label class="checkbox-label checkbox-label--inline">
+                  <input type="checkbox" formControlName="isPrimary" />
+                  {{ 'ADMIN.PRODUCTS.PRIMARY' | translate }}
+                </label>
+                <button type="button" class="btn-icon btn-icon--danger" (click)="removeImage(i)">
+                  <i class="pi pi-trash"></i>
+                </button>
+              </div>
+            </div>
+          }
+
+          @if (images.length === 0) {
+            <p class="hint">{{ 'ADMIN.PRODUCTS.NO_IMAGES' | translate }}</p>
+          }
+        </div>
+      }
+
+      <!-- Attributes -->
+      @if (!isEditMode()) {
+        <div class="form-card">
+          <div class="form-card__header">
+            <h2 class="form-card__title">{{ 'ADMIN.PRODUCTS.ATTRIBUTES' | translate }}</h2>
+            <button type="button" class="btn btn--secondary btn--sm" (click)="addAttribute()">
+              <i class="pi pi-plus"></i> {{ 'ADMIN.PRODUCTS.ADD_ATTRIBUTE' | translate }}
+            </button>
+          </div>
+
+          @for (attr of attributes.controls; track $index; let i = $index) {
+            <div class="array-item" [formGroup]="$any(attr)">
+              <div class="form-row">
+                <div class="form-group form-group--grow">
+                  <label>{{ 'ADMIN.PRODUCTS.ATTR_NAME' | translate }} *</label>
+                  <input type="text" formControlName="name" />
+                </div>
+                <div class="form-group form-group--grow">
+                  <label>{{ 'ADMIN.PRODUCTS.ATTR_VALUE' | translate }} *</label>
+                  <input type="text" formControlName="value" />
+                </div>
+                <button
+                  type="button"
+                  class="btn-icon btn-icon--danger"
+                  (click)="removeAttribute(i)"
+                >
+                  <i class="pi pi-trash"></i>
+                </button>
+              </div>
+            </div>
+          }
+
+          @if (attributes.length === 0) {
+            <p class="hint">{{ 'ADMIN.PRODUCTS.NO_ATTRIBUTES' | translate }}</p>
+          }
+        </div>
+      }
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <a routerLink="/admin/products" class="btn btn--secondary">{{
+          'COMMON.CANCEL' | translate
+        }}</a>
+        <button type="submit" class="btn btn--primary" [disabled]="saving()">
+          @if (saving()) {
+            {{ 'COMMON.SAVING' | translate }}
+          } @else {
+            {{ 'COMMON.SAVE' | translate }}
+          }
+        </button>
+      </div>
+    </form>
+  }
+</div>

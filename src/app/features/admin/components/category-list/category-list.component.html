@@ -1,0 +1,136 @@
+<div class="category-list">
+  <div class="page-header">
+    <h1 class="page-title">{{ 'ADMIN.CATEGORIES.TITLE' | translate }}</h1>
+    <button class="btn btn--primary" (click)="onAdd()">
+      <i class="pi pi-plus"></i>
+      {{ 'ADMIN.CATEGORIES.ADD_CATEGORY' | translate }}
+    </button>
+  </div>
+
+  <!-- Form Modal -->
+  @if (showForm()) {
+    <div class="modal-backdrop" (click)="onCancel()">
+      <div class="modal" (click)="$event.stopPropagation()">
+        <h3 class="modal__title">
+          {{
+            (editingId() ? 'ADMIN.CATEGORIES.EDIT_CATEGORY' : 'ADMIN.CATEGORIES.ADD_CATEGORY')
+              | translate
+          }}
+        </h3>
+        <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label>{{ 'ADMIN.CATEGORIES.NAME' | translate }} *</label>
+            <input type="text" formControlName="name" (blur)="generateSlug()" />
+          </div>
+          <div class="form-group">
+            <label>{{ 'ADMIN.CATEGORIES.SLUG' | translate }} *</label>
+            <input type="text" formControlName="slug" />
+          </div>
+          <div class="form-group">
+            <label>{{ 'ADMIN.CATEGORIES.DESCRIPTION' | translate }}</label>
+            <textarea formControlName="description" rows="3"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>{{ 'ADMIN.CATEGORIES.IMAGE_URL' | translate }}</label>
+              <input type="text" formControlName="imageUrl" />
+            </div>
+            <div class="form-group form-group--sm">
+              <label>{{ 'ADMIN.CATEGORIES.DISPLAY_ORDER' | translate }}</label>
+              <input type="number" formControlName="displayOrder" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>{{ 'ADMIN.CATEGORIES.PARENT' | translate }}</label>
+            <select formControlName="parentCategoryId">
+              <option value="">{{ 'ADMIN.CATEGORIES.NO_PARENT' | translate }}</option>
+              @for (cat of categories(); track cat.id) {
+                @if (cat.id !== editingId()) {
+                  <option [value]="cat.id">{{ cat.name }}</option>
+                }
+              }
+            </select>
+          </div>
+          @if (editingId()) {
+            <label class="checkbox-label">
+              <input type="checkbox" formControlName="isActive" />
+              {{ 'ADMIN.CATEGORIES.ACTIVE' | translate }}
+            </label>
+          }
+          <div class="modal__actions">
+            <button type="button" class="btn btn--secondary" (click)="onCancel()">
+              {{ 'COMMON.CANCEL' | translate }}
+            </button>
+            <button type="submit" class="btn btn--primary" [disabled]="saving()">
+              {{ saving() ? ('COMMON.SAVING' | translate) : ('COMMON.SAVE' | translate) }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  @if (loading()) {
+    <div class="loading">{{ 'COMMON.LOADING' | translate }}</div>
+  } @else {
+    @if (categories().length === 0) {
+      <div class="empty-state">{{ 'COMMON.NO_RESULTS' | translate }}</div>
+    } @else {
+      <div class="admin-table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>{{ 'ADMIN.CATEGORIES.NAME' | translate }}</th>
+              <th>{{ 'ADMIN.CATEGORIES.SLUG' | translate }}</th>
+              <th>{{ 'ADMIN.CATEGORIES.DISPLAY_ORDER' | translate }}</th>
+              <th>{{ 'ADMIN.CATEGORIES.PRODUCTS' | translate }}</th>
+              <th>{{ 'ADMIN.CATEGORIES.STATUS' | translate }}</th>
+              <th class="col-actions">{{ 'ADMIN.PRODUCTS.ACTIONS' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (cat of categories(); track cat.id) {
+              <tr>
+                <td>
+                  @if (cat.imageUrl) {
+                    <img [src]="cat.imageUrl" [alt]="cat.name" class="cat-thumb" />
+                  }
+                  {{ cat.name }}
+                </td>
+                <td class="text-mono">{{ cat.slug }}</td>
+                <td>{{ cat.displayOrder }}</td>
+                <td>{{ cat.productCount }}</td>
+                <td>
+                  <span
+                    class="status-dot"
+                    [class.status-dot--active]="cat.isActive"
+                    [class.status-dot--inactive]="!cat.isActive"
+                  ></span>
+                  {{
+                    cat.isActive
+                      ? ('ADMIN.CATEGORIES.ACTIVE' | translate)
+                      : ('ADMIN.CATEGORIES.INACTIVE' | translate)
+                  }}
+                </td>
+                <td class="col-actions">
+                  <div class="action-buttons">
+                    <button class="btn-icon" (click)="onEdit(cat)" title="Edit">
+                      <i class="pi pi-pencil"></i>
+                    </button>
+                    <button
+                      class="btn-icon btn-icon--danger"
+                      (click)="onDelete(cat)"
+                      title="Delete"
+                    >
+                      <i class="pi pi-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+</div>

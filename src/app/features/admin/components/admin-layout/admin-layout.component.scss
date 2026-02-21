@@ -1,0 +1,224 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+$sidebar-width: 260px;
+$sidebar-collapsed-width: 64px;
+$topbar-height: 56px;
+
+.admin {
+  display: flex;
+  min-height: 100vh;
+  background: $color-gray-50;
+}
+
+// Sidebar
+.admin__sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $z-fixed;
+  width: $sidebar-width;
+  height: 100vh;
+  background: $color-primary;
+  color: $color-white;
+  display: flex;
+  flex-direction: column;
+  transition: width $transition-base;
+  overflow: hidden;
+
+  .admin--collapsed & {
+    width: $sidebar-collapsed-width;
+  }
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-4;
+  border-bottom: 1px solid rgba($color-white, 0.1);
+  min-height: $topbar-height;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-accent;
+  white-space: nowrap;
+  overflow: hidden;
+
+  i {
+    font-size: $font-size-xl;
+    flex-shrink: 0;
+  }
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  color: $color-gray-400;
+  cursor: pointer;
+  padding: $spacing-1;
+  border-radius: $border-radius-sm;
+  transition: color $transition-fast;
+  flex-shrink: 0;
+
+  &:hover {
+    color: $color-white;
+  }
+
+  .admin--collapsed & {
+    display: none;
+  }
+}
+
+.sidebar-toggle--mobile {
+  display: none;
+  background: none;
+  border: none;
+  color: $color-gray-600;
+  cursor: pointer;
+  padding: $spacing-2;
+  font-size: $font-size-lg;
+
+  @media (max-width: #{$breakpoint-lg - 1}) {
+    display: block;
+  }
+}
+
+// Sidebar nav
+.sidebar-nav {
+  flex: 1;
+  padding: $spacing-3;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    padding: $spacing-3 $spacing-3;
+    border-radius: $border-radius-base;
+    text-decoration: none;
+    color: $color-gray-400;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    transition: all $transition-fast;
+    border: none;
+    background: none;
+    cursor: pointer;
+    white-space: nowrap;
+    width: 100%;
+    text-align: left;
+
+    i {
+      font-size: $font-size-base;
+      width: 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      background: rgba($color-white, 0.08);
+      color: $color-white;
+    }
+
+    &.active {
+      background: rgba($color-accent, 0.15);
+      color: $color-accent;
+    }
+
+    &--logout {
+      color: $color-error;
+
+      &:hover {
+        background: rgba($color-error, 0.1);
+        color: $color-error;
+      }
+    }
+  }
+}
+
+.sidebar-footer {
+  padding: $spacing-3;
+  border-top: 1px solid rgba($color-white, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+}
+
+// Main content
+.admin__content {
+  flex: 1;
+  margin-left: $sidebar-width;
+  transition: margin-left $transition-base;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  .admin--collapsed & {
+    margin-left: $sidebar-collapsed-width;
+  }
+}
+
+.admin__topbar {
+  @include flex-between;
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+  height: $topbar-height;
+  padding: 0 $spacing-6;
+  background: $color-white;
+  border-bottom: $border-width solid $border-color;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+}
+
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-size-sm;
+  color: $color-gray-600;
+
+  i {
+    color: $color-gray-400;
+  }
+}
+
+.admin__main {
+  flex: 1;
+  padding: $spacing-6;
+
+  @include lg {
+    padding: $spacing-8;
+  }
+}
+
+// Responsive
+@media (max-width: #{$breakpoint-lg - 1}) {
+  .admin__sidebar {
+    transform: translateX(-100%);
+
+    .admin--collapsed & {
+      transform: translateX(-100%);
+    }
+  }
+
+  .admin__content {
+    margin-left: 0;
+
+    .admin--collapsed & {
+      margin-left: 0;
+    }
+  }
+}

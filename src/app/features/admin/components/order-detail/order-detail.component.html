@@ -1,0 +1,265 @@
+<div class="order-detail">
+  <div class="page-header">
+    <div class="page-header__left">
+      <a routerLink="/admin/orders" class="back-link">
+        <i class="pi pi-arrow-left"></i>
+        {{ 'COMMON.BACK' | translate }}
+      </a>
+      @if (order(); as o) {
+        <h1 class="page-title">{{ 'ADMIN.ORDERS.ORDER' | translate }} {{ o.orderNumber }}</h1>
+      }
+    </div>
+    @if (order(); as o) {
+      <div class="page-header__actions">
+        @if (
+          o.status !== OrderStatus.Cancelled &&
+          o.status !== OrderStatus.Refunded &&
+          o.status !== OrderStatus.Delivered
+        ) {
+          <button class="btn btn--secondary" (click)="showStatusModal.set(true)">
+            <i class="pi pi-refresh"></i>
+            {{ 'ADMIN.ORDERS.UPDATE_STATUS' | translate }}
+          </button>
+        }
+        @if (o.status === OrderStatus.Processing || o.status === OrderStatus.Confirmed) {
+          <button class="btn btn--primary" (click)="showShipModal.set(true)">
+            <i class="pi pi-send"></i>
+            {{ 'ADMIN.ORDERS.SHIP_ORDER' | translate }}
+          </button>
+        }
+        @if (
+          o.status !== OrderStatus.Cancelled &&
+          o.status !== OrderStatus.Refunded &&
+          o.status !== OrderStatus.Delivered
+        ) {
+          <button class="btn btn--danger" (click)="onCancelOrder()">
+            <i class="pi pi-times"></i>
+            {{ 'ADMIN.ORDERS.CANCEL_ORDER' | translate }}
+          </button>
+        }
+      </div>
+    }
+  </div>
+
+  @if (loading()) {
+    <div class="loading">{{ 'COMMON.LOADING' | translate }}</div>
+  } @else if (order(); as o) {
+    <div class="detail-grid">
+      <!-- Order Summary Card -->
+      <div class="detail-card">
+        <h2 class="detail-card__title">{{ 'ADMIN.ORDERS.ORDER_INFO' | translate }}</h2>
+        <dl class="detail-list">
+          <div class="detail-list__item">
+            <dt>{{ 'ADMIN.ORDERS.STATUS' | translate }}</dt>
+            <dd>
+              <span class="status-badge" [class]="o.status | orderStatusClass">
+                {{ o.status | orderStatusKey | translate }}
+              </span>
+            </dd>
+          </div>
+          <div class="detail-list__item">
+            <dt>{{ 'ADMIN.ORDERS.DATE' | translate }}</dt>
+            <dd>{{ o.createdAt | date: 'medium' }}</dd>
+          </div>
+          <div class="detail-list__item">
+            <dt>{{ 'ADMIN.ORDERS.CUSTOMER' | translate }}</dt>
+            <dd>{{ o.customerName }} ({{ o.customerEmail }})</dd>
+          </div>
+          @if (o.couponCode) {
+            <div class="detail-list__item">
+              <dt>{{ 'ADMIN.ORDERS.COUPON' | translate }}</dt>
+              <dd>{{ o.couponCode }}</dd>
+            </div>
+          }
+          @if (o.notes) {
+            <div class="detail-list__item">
+              <dt>{{ 'ADMIN.ORDERS.NOTES' | translate }}</dt>
+              <dd>{{ o.notes }}</dd>
+            </div>
+          }
+        </dl>
+      </div>
+
+      <!-- Amounts Card -->
+      <div class="detail-card">
+        <h2 class="detail-card__title">{{ 'ADMIN.ORDERS.AMOUNTS' | translate }}</h2>
+        <dl class="detail-list">
+          <div class="detail-list__item">
+            <dt>{{ 'COMMON.SUBTOTAL' | translate }}</dt>
+            <dd>{{ o.subTotal | currency: o.currency }}</dd>
+          </div>
+          <div class="detail-list__item">
+            <dt>{{ 'COMMON.SHIPPING' | translate }}</dt>
+            <dd>{{ o.shippingCost | currency: o.currency }}</dd>
+          </div>
+          <div class="detail-list__item">
+            <dt>{{ 'COMMON.TAX' | translate }}</dt>
+            <dd>{{ o.taxAmount | currency: o.currency }}</dd>
+          </div>
+          @if (o.discountAmount > 0) {
+            <div class="detail-list__item">
+              <dt>{{ 'COMMON.DISCOUNT' | translate }}</dt>
+              <dd class="text-success">-{{ o.discountAmount | currency: o.currency }}</dd>
+            </div>
+          }
+          <div class="detail-list__item detail-list__item--total">
+            <dt>{{ 'COMMON.TOTAL' | translate }}</dt>
+            <dd>{{ o.totalAmount | currency: o.currency }}</dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Shipping Address -->
+      <div class="detail-card">
+        <h2 class="detail-card__title">
+          {{ 'ACCOUNT.ORDER_DETAIL.SHIPPING_ADDRESS' | translate }}
+        </h2>
+        <p class="address-block">
+          {{ o.shippingAddress.street }}<br />
+          {{ o.shippingAddress.city }}, {{ o.shippingAddress.state }} {{ o.shippingAddress.zipCode
+          }}<br />
+          {{ o.shippingAddress.country }}
+        </p>
+      </div>
+
+      <!-- Payment -->
+      @if (o.payment) {
+        <div class="detail-card">
+          <h2 class="detail-card__title">{{ 'ACCOUNT.ORDER_DETAIL.PAYMENT' | translate }}</h2>
+          <dl class="detail-list">
+            <div class="detail-list__item">
+              <dt>{{ 'ACCOUNT.ORDER_DETAIL.PAYMENT_STATUS' | translate }}</dt>
+              <dd>{{ o.payment.status | paymentStatusKey | translate }}</dd>
+            </div>
+            @if (o.payment.transactionId) {
+              <div class="detail-list__item">
+                <dt>{{ 'ADMIN.ORDERS.TRANSACTION_ID' | translate }}</dt>
+                <dd class="text-mono">{{ o.payment.transactionId }}</dd>
+              </div>
+            }
+            @if (o.payment.paidAt) {
+              <div class="detail-list__item">
+                <dt>{{ 'ADMIN.ORDERS.PAID_AT' | translate }}</dt>
+                <dd>{{ o.payment.paidAt | date: 'medium' }}</dd>
+              </div>
+            }
+          </dl>
+        </div>
+      }
+
+      <!-- Shipment -->
+      @if (o.shipment) {
+        <div class="detail-card">
+          <h2 class="detail-card__title">{{ 'ACCOUNT.ORDER_DETAIL.SHIPMENT' | translate }}</h2>
+          <dl class="detail-list">
+            <div class="detail-list__item">
+              <dt>{{ 'ACCOUNT.ORDER_DETAIL.CARRIER' | translate }}</dt>
+              <dd>{{ o.shipment.carrier }}</dd>
+            </div>
+            <div class="detail-list__item">
+              <dt>{{ 'ACCOUNT.ORDER_DETAIL.TRACKING' | translate }}</dt>
+              <dd class="text-mono">{{ o.shipment.trackingNumber }}</dd>
+            </div>
+            @if (o.shipment.estimatedDeliveryDate) {
+              <div class="detail-list__item">
+                <dt>{{ 'ACCOUNT.ORDER_DETAIL.ESTIMATED_DELIVERY' | translate }}</dt>
+                <dd>{{ o.shipment.estimatedDeliveryDate | date: 'mediumDate' }}</dd>
+              </div>
+            }
+          </dl>
+        </div>
+      }
+    </div>
+
+    <!-- Order Items -->
+    <div class="detail-card detail-card--full">
+      <h2 class="detail-card__title">{{ 'ACCOUNT.ORDER_DETAIL.ITEMS' | translate }}</h2>
+      <div class="admin-table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>{{ 'ADMIN.PRODUCTS.NAME' | translate }}</th>
+              <th>{{ 'COMMON.SKU' | translate }}</th>
+              <th>{{ 'COMMON.QUANTITY' | translate }}</th>
+              <th>{{ 'COMMON.PRICE' | translate }}</th>
+              <th>{{ 'COMMON.TOTAL' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of o.items; track item.id) {
+              <tr>
+                <td>{{ item.productName }}</td>
+                <td class="text-mono">{{ item.productSku }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.unitPrice | currency: o.currency }}</td>
+                <td>{{ item.totalPrice | currency: o.currency }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+</div>
+
+<!-- Update Status Modal -->
+@if (showStatusModal()) {
+  <div class="modal-backdrop" (click)="showStatusModal.set(false)">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3 class="modal__title">{{ 'ADMIN.ORDERS.UPDATE_STATUS' | translate }}</h3>
+      <div class="form-group">
+        <label>{{ 'ADMIN.ORDERS.NEW_STATUS' | translate }}</label>
+        <select [(ngModel)]="newStatus">
+          @for (status of statuses; track status) {
+            <option [ngValue]="status">{{ status | orderStatusKey | translate }}</option>
+          }
+        </select>
+      </div>
+      <div class="form-group">
+        <label>{{ 'ADMIN.ORDERS.NOTES' | translate }}</label>
+        <textarea [(ngModel)]="statusNote" rows="3"></textarea>
+      </div>
+      <div class="modal__actions">
+        <button class="btn btn--secondary" (click)="showStatusModal.set(false)">
+          {{ 'COMMON.CANCEL' | translate }}
+        </button>
+        <button class="btn btn--primary" (click)="onUpdateStatus()" [disabled]="updating()">
+          {{ 'ADMIN.ORDERS.CONFIRM' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Ship Order Modal -->
+@if (showShipModal()) {
+  <div class="modal-backdrop" (click)="showShipModal.set(false)">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3 class="modal__title">{{ 'ADMIN.ORDERS.SHIP_ORDER' | translate }}</h3>
+      <div class="form-group">
+        <label>{{ 'ACCOUNT.ORDER_DETAIL.TRACKING' | translate }} *</label>
+        <input type="text" [(ngModel)]="trackingNumber" />
+      </div>
+      <div class="form-group">
+        <label>{{ 'ACCOUNT.ORDER_DETAIL.CARRIER' | translate }} *</label>
+        <input type="text" [(ngModel)]="carrier" placeholder="DHL, FedEx, UPS..." />
+      </div>
+      <div class="form-group">
+        <label>{{ 'ACCOUNT.ORDER_DETAIL.ESTIMATED_DELIVERY' | translate }}</label>
+        <input type="date" [(ngModel)]="estimatedDelivery" />
+      </div>
+      <div class="modal__actions">
+        <button class="btn btn--secondary" (click)="showShipModal.set(false)">
+          {{ 'COMMON.CANCEL' | translate }}
+        </button>
+        <button
+          class="btn btn--primary"
+          (click)="onShipOrder()"
+          [disabled]="updating() || !trackingNumber || !carrier"
+        >
+          {{ 'ADMIN.ORDERS.CONFIRM_SHIP' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+}
