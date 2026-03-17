@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -8,9 +8,8 @@ import { ReviewDto, CreateReviewRequest, UpdateReviewRequest } from '../models';
   providedIn: 'root',
 })
 export class ReviewService {
+  private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/reviews`;
-
-  constructor(private readonly http: HttpClient) {}
 
   getProductReviews(productId: string): Observable<ReviewDto[]> {
     return this.http.get<ReviewDto[]>(`${this.apiUrl}/product/${productId}`);

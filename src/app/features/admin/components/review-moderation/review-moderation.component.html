@@ -1,9 +1,11 @@
 <div class="review-moderation">
   <div class="page-header">
     <h1 class="page-title">{{ 'ADMIN.REVIEWS.TITLE' | translate }}</h1>
-    <span class="review-count" *ngIf="!loading()"
-      >{{ reviews().length }} {{ 'ADMIN.REVIEWS.PENDING' | translate }}</span
-    >
+    @if (!loading()) {
+      <span class="review-count"
+        >{{ reviews().length }} {{ 'ADMIN.REVIEWS.PENDING' | translate }}</span
+      >
+    }
   </div>
 
   @if (loading()) {
@@ -32,7 +34,7 @@
               </div>
             </div>
             <div class="review-card__rating">
-              @for (star of getStars(review.rating); track $index) {
+              @for (star of getStars(); track $index) {
                 <i
                   class="pi"
                   [class.pi-star-fill]="$index < review.rating"

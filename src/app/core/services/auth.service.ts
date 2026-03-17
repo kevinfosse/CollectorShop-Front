@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap, catchError, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -22,6 +22,7 @@ const USER_KEY = 'user';
   providedIn: 'root',
 })
 export class AuthService {
+  private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/auth`;
 
   // Signals for reactive state
@@ -32,8 +33,6 @@ export class AuthService {
   readonly user = this._user.asReadonly();
   readonly isAuthenticated = computed(() => !!this._accessToken());
   readonly isAdmin = computed(() => this._user()?.roles?.includes('Admin') ?? false);
-
-  constructor(private readonly http: HttpClient) {}
 
   login(request: LoginRequest): Observable<AuthResponse> {
     return this.http

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -15,9 +15,8 @@ import {
   providedIn: 'root',
 })
 export class ProductService {
+  private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/products`;
-
-  constructor(private readonly http: HttpClient) {}
 
   getProducts(filter?: ProductFilterRequest): Observable<PagedResponse<ProductListDto>> {
     let params = new HttpParams();
@@ -50,7 +49,7 @@ export class ProductService {
     return this.http.get<ProductDto>(`${this.apiUrl}/sku/${sku}`);
   }
 
-  getFeaturedProducts(count: number = 8): Observable<ProductListDto[]> {
+  getFeaturedProducts(count = 8): Observable<ProductListDto[]> {
     return this.http.get<ProductListDto[]>(`${this.apiUrl}/featured`, {
       params: new HttpParams().set('count', count.toString()),
     });

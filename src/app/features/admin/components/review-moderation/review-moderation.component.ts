@@ -55,7 +55,7 @@ export class ReviewModerationComponent implements OnInit {
     });
   }
 
-  protected getStars(rating: number): number[] {
+  protected getStars(): number[] {
     return Array.from({ length: 5 }, (_, i) => i);
   }
 }

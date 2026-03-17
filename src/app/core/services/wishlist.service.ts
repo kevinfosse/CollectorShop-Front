@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, tap, catchError, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -8,6 +8,7 @@ import { WishlistItemDto, AddToWishlistRequest } from '../models';
   providedIn: 'root',
 })
 export class WishlistService {
+  private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/wishlist`;
 
   // Signals for reactive wishlist state
@@ -18,8 +19,6 @@ export class WishlistService {
   readonly loading = this._loading.asReadonly();
   readonly count = computed(() => this._items().length);
   readonly isEmpty = computed(() => this._items().length === 0);
-
-  constructor(private readonly http: HttpClient) {}
 
   loadWishlist(): Observable<WishlistItemDto[]> {
     this._loading.set(true);

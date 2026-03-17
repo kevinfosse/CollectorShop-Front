@@ -38,7 +38,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
   return false;
 };
 
-export const guestGuard: CanActivateFn = (route, state) => {
+export const guestGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 

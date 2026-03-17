@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, tap, catchError, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -8,6 +8,7 @@ import { CartDto, AddToCartRequest, UpdateCartItemRequest } from '../models';
   providedIn: 'root',
 })
 export class CartService {
+  private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/cart`;
 
   // Signals for reactive cart state
@@ -19,8 +20,6 @@ export class CartService {
   readonly itemCount = computed(() => this._cart()?.totalItems ?? 0);
   readonly totalAmount = computed(() => this._cart()?.totalAmount ?? 0);
   readonly isEmpty = computed(() => (this._cart()?.items?.length ?? 0) === 0);
-
-  constructor(private readonly http: HttpClient) {}
 
   loadCart(): Observable<CartDto> {
     this._loading.set(true);

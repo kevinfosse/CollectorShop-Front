@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, shareReplay } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -7,10 +7,9 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class ConfigService {
+  private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/config`;
   private countries$?: Observable<string[]>;
-
-  constructor(private readonly http: HttpClient) {}
 
   getShippingCountries(): Observable<string[]> {
     if (!this.countries$) {

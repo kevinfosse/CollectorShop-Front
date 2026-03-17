@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -8,9 +8,8 @@ import { BrandDto, CreateBrandRequest, UpdateBrandRequest } from '../models';
   providedIn: 'root',
 })
 export class BrandService {
+  private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/brands`;
-
-  constructor(private readonly http: HttpClient) {}
 
   getBrands(): Observable<BrandDto[]> {
     return this.http.get<BrandDto[]>(this.apiUrl);

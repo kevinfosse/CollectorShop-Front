@@ -13,6 +13,8 @@ import {
   ProductCondition,
   ProductConditionLabels,
   CreateProductRequest,
+  CreateProductImageRequest,
+  CreateProductAttributeRequest,
   UpdateProductRequest,
 } from '../../../../core/models';
 
@@ -217,16 +219,20 @@ export class ProductFormComponent implements OnInit {
         categoryId: formValue.categoryId!,
         brandId: formValue.brandId || undefined,
         isFeatured: formValue.isFeatured ?? false,
-        images: formValue.images!.map((img: any) => ({
-          url: img.url,
-          altText: img.altText || undefined,
-          displayOrder: img.displayOrder,
-          isPrimary: img.isPrimary,
-        })),
-        attributes: formValue.attributes!.map((attr: any) => ({
-          name: attr.name,
-          value: attr.value,
-        })),
+        images: (formValue.images as CreateProductImageRequest[]).map(
+          (img) => ({
+            url: img.url,
+            altText: img.altText || undefined,
+            displayOrder: img.displayOrder,
+            isPrimary: img.isPrimary,
+          }),
+        ),
+        attributes: (formValue.attributes as CreateProductAttributeRequest[]).map(
+          (attr) => ({
+            name: attr.name,
+            value: attr.value,
+          }),
+        ),
       };
 
       this.productService.createProduct(request).subscribe({

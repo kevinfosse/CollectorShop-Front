@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -14,9 +14,8 @@ import {
   providedIn: 'root',
 })
 export class CouponService {
+  private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/coupons`;
-
-  constructor(private readonly http: HttpClient) {}
 
   validateCoupon(request: ValidateCouponRequest): Observable<ValidateCouponResponse> {
     return this.http.post<ValidateCouponResponse>(`${this.apiUrl}/validate`, request);
