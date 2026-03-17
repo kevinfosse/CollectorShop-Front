@@ -17,11 +17,13 @@ export class App {
   protected readonly title = signal('CollectorShop');
 
   constructor() {
-    // Initialize translation service
-    this.translateService.setDefaultLang(DEFAULT_LANGUAGE);
-
     // Restore saved language or use default
-    const savedLang = localStorage.getItem(LANGUAGE_KEY);
+    let savedLang: string | null = null;
+    try {
+      savedLang = localStorage.getItem(LANGUAGE_KEY);
+    } catch {
+      // localStorage unavailable (SSR / test environment)
+    }
     const langToUse =
       savedLang && SUPPORTED_LANGUAGES.includes(savedLang) ? savedLang : DEFAULT_LANGUAGE;
 
