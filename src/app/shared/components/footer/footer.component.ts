@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-footer',
-  imports: [RouterLink],
+  imports: [RouterLink, TranslateModule],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
@@ -12,29 +13,29 @@ export class FooterComponent {
 
   protected footerLinks = {
     shop: [
-      { label: 'All Products', path: '/catalog' },
-      { label: 'Trading Cards', path: '/catalog/trading-cards' },
-      { label: 'Figurines', path: '/catalog/figurines' },
-      { label: 'Vintage Items', path: '/catalog/vintage' },
-      { label: 'New Arrivals', path: '/catalog?sort=newest' },
+      { label: 'FOOTER.LINKS.ALL_PRODUCTS', path: '/catalog' },
+      { label: 'FOOTER.LINKS.TRADING_CARDS', path: '/catalog/trading-cards' },
+      { label: 'FOOTER.LINKS.FIGURINES', path: '/catalog/figurines' },
+      { label: 'FOOTER.LINKS.VINTAGE_ITEMS', path: '/catalog/vintage' },
+      { label: 'FOOTER.LINKS.NEW_ARRIVALS', path: '/catalog?sort=newest' },
     ],
     support: [
-      { label: 'Contact Us', path: '/contact' },
-      { label: 'FAQs', path: '/faq' },
-      { label: 'Shipping Info', path: '/shipping' },
-      { label: 'Returns', path: '/returns' },
-      { label: 'Track Order', path: '/track-order' },
+      { label: 'FOOTER.LINKS.CONTACT_US', path: '/contact' },
+      { label: 'FOOTER.LINKS.FAQS', path: '/faq' },
+      { label: 'FOOTER.LINKS.SHIPPING_INFO', path: '/shipping' },
+      { label: 'FOOTER.LINKS.RETURNS', path: '/returns' },
+      { label: 'FOOTER.LINKS.TRACK_ORDER', path: '/track-order' },
     ],
     company: [
-      { label: 'About Us', path: '/about' },
-      { label: 'Blog', path: '/blog' },
-      { label: 'Careers', path: '/careers' },
-      { label: 'Press', path: '/press' },
+      { label: 'FOOTER.LINKS.ABOUT_US', path: '/about' },
+      { label: 'FOOTER.LINKS.BLOG', path: '/blog' },
+      { label: 'FOOTER.LINKS.CAREERS', path: '/careers' },
+      { label: 'FOOTER.LINKS.PRESS', path: '/press' },
     ],
     legal: [
-      { label: 'Privacy Policy', path: '/privacy' },
-      { label: 'Terms of Service', path: '/terms' },
-      { label: 'Cookie Policy', path: '/cookies' },
+      { label: 'FOOTER.LINKS.PRIVACY_POLICY', path: '/privacy' },
+      { label: 'FOOTER.LINKS.TERMS_OF_SERVICE', path: '/terms' },
+      { label: 'FOOTER.LINKS.COOKIE_POLICY', path: '/cookies' },
     ],
   };
 

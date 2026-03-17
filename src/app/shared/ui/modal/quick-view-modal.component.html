@@ -1,0 +1,133 @@
+@if (productId()) {
+  <div class="quick-view-backdrop" (click)="onBackdropClick($event)">
+    <div class="quick-view">
+      <button class="quick-view__close" (click)="close()">
+        <i class="pi pi-times"></i>
+      </button>
+
+      @if (loading()) {
+        <div class="quick-view__loading">
+          <i class="pi pi-spin pi-spinner"></i>
+          <span>{{ 'COMMON.LOADING' | translate }}</span>
+        </div>
+      } @else if (product(); as p) {
+        <div class="quick-view__body">
+          <!-- Image Section -->
+          <div class="quick-view__gallery">
+            <div class="quick-view__main-image">
+              <img [src]="selectedImage" [alt]="p.name" />
+              @if (discountPercentage) {
+                <span class="quick-view__badge">-{{ discountPercentage }}%</span>
+              }
+            </div>
+            @if (p.images.length > 1) {
+              <div class="quick-view__thumbnails">
+                @for (img of p.images; track img.id; let i = $index) {
+                  <button
+                    class="quick-view__thumb"
+                    [class.quick-view__thumb--active]="i === selectedImageIndex()"
+                    (click)="selectImage(i)"
+                  >
+                    <img [src]="img.url" [alt]="img.altText || p.name" />
+                  </button>
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Info Section -->
+          <div class="quick-view__info">
+            @if (p.categoryName) {
+              <span class="quick-view__category">{{ p.categoryName }}</span>
+            }
+            <h2 class="quick-view__name">{{ p.name }}</h2>
+
+            <!-- Rating -->
+            @if (p.averageRating) {
+              <div class="quick-view__rating">
+                <div class="quick-view__stars">
+                  @for (star of [1, 2, 3, 4, 5]; track star) {
+                    <i
+                      class="pi"
+                      [class.pi-star-fill]="star <= p.averageRating"
+                      [class.pi-star]="star > p.averageRating"
+                    ></i>
+                  }
+                </div>
+                <span class="quick-view__review-count">({{ p.reviewCount }})</span>
+              </div>
+            }
+
+            <!-- Price -->
+            <div class="quick-view__price-wrapper">
+              <span class="quick-view__price">{{ p.price | currency: p.currency }}</span>
+              @if (p.compareAtPrice && p.compareAtPrice > p.price) {
+                <span class="quick-view__compare-price">{{
+                  p.compareAtPrice | currency: p.currency
+                }}</span>
+              }
+            </div>
+
+            <!-- Condition & Brand -->
+            <div class="quick-view__meta">
+              @if (conditionLabel) {
+                <span class="quick-view__condition"
+                  >{{ 'COMMON.CONDITION' | translate }}: {{ conditionLabel | translate }}</span
+                >
+              }
+              @if (p.brandName) {
+                <span class="quick-view__brand"
+                  >{{ 'COMMON.BRAND' | translate }}: {{ p.brandName }}</span
+                >
+              }
+            </div>
+
+            <!-- Description -->
+            <p class="quick-view__description">{{ p.description }}</p>
+
+            <!-- Stock -->
+            <div class="quick-view__stock">
+              @if (isInStock) {
+                <span class="quick-view__stock--available">
+                  <i class="pi pi-check-circle"></i> {{ 'COMMON.IN_STOCK' | translate }}
+                </span>
+              } @else {
+                <span class="quick-view__stock--unavailable">
+                  <i class="pi pi-times-circle"></i> {{ 'COMMON.OUT_OF_STOCK' | translate }}
+                </span>
+              }
+            </div>
+
+            <!-- Quantity + Add to Cart -->
+            @if (isInStock) {
+              <div class="quick-view__actions">
+                <div class="quick-view__qty">
+                  <button
+                    class="quick-view__qty-btn"
+                    (click)="decreaseQty()"
+                    [disabled]="quantity() <= 1"
+                  >
+                    <i class="pi pi-minus"></i>
+                  </button>
+                  <span class="quick-view__qty-value">{{ quantity() }}</span>
+                  <button class="quick-view__qty-btn" (click)="increaseQty()">
+                    <i class="pi pi-plus"></i>
+                  </button>
+                </div>
+                <button class="quick-view__cart-btn" (click)="addToCart()">
+                  <i class="pi pi-shopping-cart"></i>
+                  {{ 'COMMON.ADD_TO_CART' | translate }}
+                </button>
+              </div>
+            }
+
+            <!-- View Full Details -->
+            <a [routerLink]="'/product/' + p.id" class="quick-view__details-link" (click)="close()">
+              {{ 'COMMON.VIEW_DETAILS' | translate }} <i class="pi pi-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}

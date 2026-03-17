@@ -1,93 +1,148 @@
-<div class="product-detail section">
-  <div class="container">
-    <nav class="breadcrumb">
-      <a routerLink="/">Home</a>
-      <i class="pi pi-angle-right"></i>
-      <a routerLink="/catalog">Shop</a>
-      <i class="pi pi-angle-right"></i>
-      <span>Product Name</span>
-    </nav>
-
-    <div class="product-layout">
-      <!-- Gallery -->
-      <div class="product-gallery">
-        <div class="product-gallery__main">
-          <img src="https://placehold.co/600x600/1a1a1a/c9a962?text=Product+Image" alt="Product" />
-        </div>
-        <div class="product-gallery__thumbs">
-          <button class="thumb active">
-            <img src="https://placehold.co/100x100/1a1a1a/c9a962?text=1" alt="Thumbnail 1" />
-          </button>
-          <button class="thumb">
-            <img src="https://placehold.co/100x100/1a1a1a/c9a962?text=2" alt="Thumbnail 2" />
-          </button>
-          <button class="thumb">
-            <img src="https://placehold.co/100x100/1a1a1a/c9a962?text=3" alt="Thumbnail 3" />
-          </button>
-        </div>
+@if (loading()) {
+  <div class="product-detail section">
+    <div class="container">
+      <div class="product-detail__loading">
+        <p>{{ 'PRODUCT.LOADING' | translate }}</p>
       </div>
+    </div>
+  </div>
+} @else if (error()) {
+  <div class="product-detail section">
+    <div class="container">
+      <div class="product-detail__error">
+        <p>{{ error() }}</p>
+        <a routerLink="/catalog" class="btn-primary">{{ 'PRODUCT.BACK_TO_CATALOG' | translate }}</a>
+      </div>
+    </div>
+  </div>
+} @else if (product(); as p) {
+  <div class="product-detail section">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a routerLink="/">{{ 'NAV.HOME' | translate }}</a>
+        <i class="pi pi-angle-right"></i>
+        <a routerLink="/catalog">{{ 'NAV.SHOP' | translate }}</a>
+        <i class="pi pi-angle-right"></i>
+        @if (p.categoryName) {
+          <a [routerLink]="['/catalog']">{{ p.categoryName }}</a>
+          <i class="pi pi-angle-right"></i>
+        }
+        <span>{{ p.name }}</span>
+      </nav>
 
-      <!-- Product Info -->
-      <div class="product-info">
-        <span class="product-info__category">Trading Cards</span>
-        <h1 class="product-info__title">Charizard Holo 1st Edition Base Set</h1>
-
-        <div class="product-info__rating">
-          <div class="stars">
-            <i class="pi pi-star-fill"></i>
-            <i class="pi pi-star-fill"></i>
-            <i class="pi pi-star-fill"></i>
-            <i class="pi pi-star-fill"></i>
-            <i class="pi pi-star-fill"></i>
+      <div class="product-layout">
+        <!-- Gallery -->
+        <div class="product-gallery">
+          <div class="product-gallery__main">
+            <img [src]="selectedImage()" [alt]="p.name" />
           </div>
-          <span>(24 reviews)</span>
+          @if (p.images.length > 1) {
+            <div class="product-gallery__thumbs">
+              @for (image of p.images; track image.id; let i = $index) {
+                <button
+                  class="thumb"
+                  [class.active]="selectedImageIndex() === i"
+                  (click)="selectImage(i)"
+                >
+                  <img [src]="image.url" [alt]="image.altText || p.name" />
+                </button>
+              }
+            </div>
+          }
         </div>
 
-        <div class="product-info__price">
-          <span class="current">$15,000.00</span>
-          <span class="compare">$18,000.00</span>
-          <span class="badge">-17%</span>
-        </div>
+        <!-- Product Info -->
+        <div class="product-info">
+          @if (p.categoryName) {
+            <span class="product-info__category">{{ p.categoryName }}</span>
+          }
+          <h1 class="product-info__title">{{ p.name }}</h1>
 
-        <p class="product-info__description">
-          This is the iconic Base Set 1st Edition Charizard Holographic card from 1999. One of the
-          most sought-after Pokemon cards in existence. Graded Near Mint condition by PSA.
-        </p>
+          @if (p.averageRating > 0) {
+            <div class="product-info__rating">
+              <div class="stars">
+                @for (star of [1, 2, 3, 4, 5]; track star) {
+                  <i
+                    class="pi"
+                    [class.pi-star-fill]="star <= p.averageRating"
+                    [class.pi-star]="star > p.averageRating"
+                  ></i>
+                }
+              </div>
+              <span>({{ p.reviewCount }} {{ 'PRODUCT.REVIEWS' | translate }})</span>
+            </div>
+          }
 
-        <div class="product-info__meta">
-          <div class="meta-item">
-            <span class="label">Condition:</span>
-            <span class="value">Near Mint</span>
+          <div class="product-info__price">
+            <span class="current">{{ p.price | currency: p.currency }}</span>
+            @if (p.compareAtPrice && p.compareAtPrice > p.price) {
+              <span class="compare">{{ p.compareAtPrice | currency: p.currency }}</span>
+              <span class="badge">-{{ discountPercentage() }}%</span>
+            }
           </div>
-          <div class="meta-item">
-            <span class="label">Year:</span>
-            <span class="value">1999</span>
-          </div>
-          <div class="meta-item">
-            <span class="label">SKU:</span>
-            <span class="value">PKM-001</span>
-          </div>
-          <div class="meta-item">
-            <span class="label">Availability:</span>
-            <span class="value in-stock">In Stock</span>
-          </div>
-        </div>
 
-        <div class="product-info__actions">
-          <div class="quantity">
-            <button class="quantity__btn">-</button>
-            <input type="number" value="1" min="1" class="quantity__input" />
-            <button class="quantity__btn">+</button>
+          <p class="product-info__description">{{ p.description }}</p>
+
+          <div class="product-info__meta">
+            <div class="meta-item">
+              <span class="label">{{ 'COMMON.CONDITION' | translate }}:</span>
+              <span class="value">{{ conditionLabel() | translate }}</span>
+            </div>
+            @if (p.brandName) {
+              <div class="meta-item">
+                <span class="label">{{ 'COMMON.BRAND' | translate }}:</span>
+                <span class="value">{{ p.brandName }}</span>
+              </div>
+            }
+            <div class="meta-item">
+              <span class="label">{{ 'COMMON.SKU' | translate }}:</span>
+              <span class="value">{{ p.sku }}</span>
+            </div>
+            <div class="meta-item">
+              <span class="label">{{ 'COMMON.AVAILABILITY' | translate }}:</span>
+              <span class="value" [class.in-stock]="isInStock()">
+                @if (isInStock()) {
+                  {{ 'COMMON.IN_STOCK' | translate }} ({{ p.availableQuantity }})
+                } @else {
+                  {{ 'COMMON.OUT_OF_STOCK' | translate }}
+                }
+              </span>
+            </div>
+            @for (attr of p.attributes; track attr.id) {
+              <div class="meta-item">
+                <span class="label">{{ attr.name }}:</span>
+                <span class="value">{{ attr.value }}</span>
+              </div>
+            }
           </div>
-          <button class="btn-primary btn-lg">
-            <i class="pi pi-shopping-cart"></i>
-            Add to Cart
-          </button>
-          <button class="btn-secondary">
-            <i class="pi pi-heart"></i>
-          </button>
+
+          <div class="product-info__actions">
+            <div class="quantity">
+              <button class="quantity__btn" (click)="decreaseQty()">-</button>
+              <input
+                type="number"
+                [value]="quantity()"
+                min="1"
+                [max]="p.availableQuantity"
+                class="quantity__input"
+                readonly
+              />
+              <button class="quantity__btn" (click)="increaseQty()">+</button>
+            </div>
+            <button class="btn-primary btn-lg" [disabled]="!isInStock()" (click)="addToCart()">
+              <i class="pi pi-shopping-cart"></i>
+              {{ 'COMMON.ADD_TO_CART' | translate }}
+            </button>
+            <button class="btn-secondary" (click)="toggleWishlist()">
+              <i
+                class="pi"
+                [class.pi-heart]="!isInWishlist()"
+                [class.pi-heart-fill]="isInWishlist()"
+              ></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+}

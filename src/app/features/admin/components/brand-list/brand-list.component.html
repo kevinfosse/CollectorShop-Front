@@ -1,0 +1,131 @@
+<div class="brand-list">
+  <div class="page-header">
+    <h1 class="page-title">{{ 'ADMIN.BRANDS.TITLE' | translate }}</h1>
+    <button class="btn btn--primary" (click)="onAdd()">
+      <i class="pi pi-plus"></i>
+      {{ 'ADMIN.BRANDS.ADD_BRAND' | translate }}
+    </button>
+  </div>
+
+  @if (showForm()) {
+    <div class="modal-backdrop" (click)="onCancel()">
+      <div class="modal" (click)="$event.stopPropagation()">
+        <h3 class="modal__title">
+          {{ (editingId() ? 'ADMIN.BRANDS.EDIT_BRAND' : 'ADMIN.BRANDS.ADD_BRAND') | translate }}
+        </h3>
+        <form [formGroup]="brandForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label>{{ 'ADMIN.BRANDS.NAME' | translate }} *</label>
+            <input type="text" formControlName="name" (blur)="generateSlug()" />
+          </div>
+          <div class="form-group">
+            <label>{{ 'ADMIN.BRANDS.SLUG' | translate }} *</label>
+            <input type="text" formControlName="slug" />
+          </div>
+          <div class="form-group">
+            <label>{{ 'ADMIN.BRANDS.DESCRIPTION' | translate }}</label>
+            <textarea formControlName="description" rows="3"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>{{ 'ADMIN.BRANDS.LOGO_URL' | translate }}</label>
+              <input type="text" formControlName="logoUrl" />
+            </div>
+            <div class="form-group">
+              <label>{{ 'ADMIN.BRANDS.WEBSITE_URL' | translate }}</label>
+              <input type="text" formControlName="websiteUrl" />
+            </div>
+          </div>
+          @if (editingId()) {
+            <label class="checkbox-label">
+              <input type="checkbox" formControlName="isActive" />
+              {{ 'ADMIN.BRANDS.ACTIVE' | translate }}
+            </label>
+          }
+          <div class="modal__actions">
+            <button type="button" class="btn btn--secondary" (click)="onCancel()">
+              {{ 'COMMON.CANCEL' | translate }}
+            </button>
+            <button type="submit" class="btn btn--primary" [disabled]="saving()">
+              {{ saving() ? ('COMMON.SAVING' | translate) : ('COMMON.SAVE' | translate) }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  @if (loading()) {
+    <div class="loading">{{ 'COMMON.LOADING' | translate }}</div>
+  } @else {
+    @if (brands().length === 0) {
+      <div class="empty-state">{{ 'COMMON.NO_RESULTS' | translate }}</div>
+    } @else {
+      <div class="admin-table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>{{ 'ADMIN.BRANDS.NAME' | translate }}</th>
+              <th>{{ 'ADMIN.BRANDS.SLUG' | translate }}</th>
+              <th>{{ 'ADMIN.BRANDS.WEBSITE' | translate }}</th>
+              <th>{{ 'ADMIN.BRANDS.PRODUCTS' | translate }}</th>
+              <th>{{ 'ADMIN.BRANDS.STATUS' | translate }}</th>
+              <th class="col-actions">{{ 'ADMIN.PRODUCTS.ACTIONS' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (brand of brands(); track brand.id) {
+              <tr>
+                <td>
+                  <div class="brand-name">
+                    @if (brand.logoUrl) {
+                      <img [src]="brand.logoUrl" [alt]="brand.name" class="brand-logo" />
+                    }
+                    {{ brand.name }}
+                  </div>
+                </td>
+                <td class="text-mono">{{ brand.slug }}</td>
+                <td>
+                  @if (brand.websiteUrl) {
+                    <a [href]="brand.websiteUrl" target="_blank" class="link">{{
+                      brand.websiteUrl
+                    }}</a>
+                  } @else {
+                    —
+                  }
+                </td>
+                <td>{{ brand.productCount }}</td>
+                <td>
+                  <span
+                    class="status-dot"
+                    [class.status-dot--active]="brand.isActive"
+                    [class.status-dot--inactive]="!brand.isActive"
+                  ></span>
+                  {{
+                    brand.isActive
+                      ? ('ADMIN.BRANDS.ACTIVE' | translate)
+                      : ('ADMIN.BRANDS.INACTIVE' | translate)
+                  }}
+                </td>
+                <td class="col-actions">
+                  <div class="action-buttons">
+                    <button class="btn-icon" (click)="onEdit(brand)" title="Edit">
+                      <i class="pi pi-pencil"></i>
+                    </button>
+                    <button
+                      class="btn-icon btn-icon--danger"
+                      (click)="onDelete(brand)"
+                      title="Delete"
+                    >
+                      <i class="pi pi-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+</div>

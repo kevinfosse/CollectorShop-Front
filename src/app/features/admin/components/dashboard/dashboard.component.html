@@ -1,0 +1,152 @@
+<div class="dashboard">
+  <h1 class="page-title">{{ 'ADMIN.DASHBOARD.TITLE' | translate }}</h1>
+
+  @if (loading()) {
+    <div class="loading">{{ 'COMMON.LOADING' | translate }}</div>
+  } @else {
+    <!-- KPI Cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-card__icon kpi-card__icon--products">
+          <i class="pi pi-box"></i>
+        </div>
+        <div class="kpi-card__content">
+          <span class="kpi-card__value">{{ totalProducts() }}</span>
+          <span class="kpi-card__label">{{ 'ADMIN.DASHBOARD.TOTAL_PRODUCTS' | translate }}</span>
+        </div>
+        <a routerLink="/admin/products" class="kpi-card__link">
+          <i class="pi pi-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-card__icon kpi-card__icon--orders">
+          <i class="pi pi-shopping-cart"></i>
+        </div>
+        <div class="kpi-card__content">
+          <span class="kpi-card__value">{{ totalOrders() }}</span>
+          <span class="kpi-card__label">{{ 'ADMIN.DASHBOARD.TOTAL_ORDERS' | translate }}</span>
+        </div>
+        <a routerLink="/admin/orders" class="kpi-card__link">
+          <i class="pi pi-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-card__icon kpi-card__icon--reviews">
+          <i class="pi pi-star"></i>
+        </div>
+        <div class="kpi-card__content">
+          <span class="kpi-card__value">{{ pendingReviews() }}</span>
+          <span class="kpi-card__label">{{ 'ADMIN.DASHBOARD.PENDING_REVIEWS' | translate }}</span>
+        </div>
+        <a routerLink="/admin/reviews" class="kpi-card__link">
+          <i class="pi pi-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-card__icon kpi-card__icon--coupons">
+          <i class="pi pi-ticket"></i>
+        </div>
+        <div class="kpi-card__content">
+          <span class="kpi-card__value">{{ activeCoupons() }}</span>
+          <span class="kpi-card__label">{{ 'ADMIN.DASHBOARD.ACTIVE_COUPONS' | translate }}</span>
+        </div>
+        <a routerLink="/admin/coupons" class="kpi-card__link">
+          <i class="pi pi-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Recent Orders -->
+    <div class="dashboard-section">
+      <div class="section-header">
+        <h2>{{ 'ADMIN.DASHBOARD.RECENT_ORDERS' | translate }}</h2>
+        <a routerLink="/admin/orders" class="section-link">{{
+          'ADMIN.DASHBOARD.VIEW_ALL' | translate
+        }}</a>
+      </div>
+      @if (recentOrders().length === 0) {
+        <div class="empty-state">{{ 'ADMIN.DASHBOARD.NO_ORDERS' | translate }}</div>
+      } @else {
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>{{ 'ADMIN.ORDERS.ORDER_NUMBER' | translate }}</th>
+                <th>{{ 'ADMIN.ORDERS.CUSTOMER' | translate }}</th>
+                <th>{{ 'ADMIN.ORDERS.STATUS' | translate }}</th>
+                <th>{{ 'ADMIN.ORDERS.TOTAL' | translate }}</th>
+                <th>{{ 'ADMIN.ORDERS.DATE' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (order of recentOrders(); track order.id) {
+                <tr>
+                  <td>
+                    <a routerLink="/admin/orders/{{ order.id }}" class="link">{{
+                      order.orderNumber
+                    }}</a>
+                  </td>
+                  <td>{{ order.customerName }}</td>
+                  <td>
+                    <span class="status-badge" [class]="order.status | orderStatusClass">
+                      {{ order.status | orderStatusKey | translate }}
+                    </span>
+                  </td>
+                  <td>{{ order.totalAmount | currency: order.currency }}</td>
+                  <td>{{ order.createdAt | date: 'shortDate' }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+
+    <!-- Pending Reviews -->
+    @if (pendingReviewsList().length > 0) {
+      <div class="dashboard-section">
+        <div class="section-header">
+          <h2>{{ 'ADMIN.DASHBOARD.PENDING_REVIEWS' | translate }}</h2>
+          <a routerLink="/admin/reviews" class="section-link">{{
+            'ADMIN.DASHBOARD.VIEW_ALL' | translate
+          }}</a>
+        </div>
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>{{ 'ADMIN.REVIEWS.PRODUCT' | translate }}</th>
+                <th>{{ 'ADMIN.REVIEWS.CUSTOMER' | translate }}</th>
+                <th>{{ 'ADMIN.REVIEWS.RATING' | translate }}</th>
+                <th>{{ 'ADMIN.REVIEWS.COMMENT' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (review of pendingReviewsList(); track review.id) {
+                <tr>
+                  <td>{{ review.productName }}</td>
+                  <td>{{ review.customerName }}</td>
+                  <td>
+                    <span class="rating">
+                      @for (star of [1, 2, 3, 4, 5]; track star) {
+                        <i
+                          class="pi"
+                          [class.pi-star-fill]="star <= review.rating"
+                          [class.pi-star]="star > review.rating"
+                        ></i>
+                      }
+                    </span>
+                  </td>
+                  <td class="truncate-cell">{{ review.comment || '—' }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+  }
+</div>

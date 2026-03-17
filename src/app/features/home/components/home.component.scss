@@ -119,6 +119,27 @@
       box-shadow: $shadow-xl;
     }
   }
+
+  &__image-visual {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: $border-radius-xl;
+    box-shadow: $shadow-xl;
+    background: linear-gradient(
+      135deg,
+      $color-primary 0%,
+      lighten($color-primary, 10%) 50%,
+      $color-accent 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+      font-size: 6rem;
+      color: rgba($color-white, 0.3);
+    }
+  }
 }
 
 // Categories Section
@@ -185,6 +206,7 @@
 
   &__name {
     font-size: $font-size-base;
+    color: $color-white;
     font-weight: $font-weight-semibold;
     margin-bottom: $spacing-1;
 
@@ -196,6 +218,20 @@
   &__count {
     font-size: $font-size-sm;
     opacity: 0.8;
+  }
+
+  &__placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, $color-gray-200, $color-gray-300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+      font-size: 2.5rem;
+      color: $color-gray-400;
+    }
   }
 }
 

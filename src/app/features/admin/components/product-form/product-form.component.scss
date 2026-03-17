@@ -1,0 +1,154 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+.page-header {
+  margin-bottom: $spacing-6;
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+  }
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-size-sm;
+  color: $color-gray-500;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+.page-title {
+  @include heading-1;
+  margin: 0;
+}
+
+.form-layout {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+  max-width: 800px;
+}
+
+.form-card {
+  @include card;
+  padding: $spacing-6;
+
+  &__header {
+    @include flex-between;
+    margin-bottom: $spacing-4;
+  }
+
+  &__title {
+    @include heading-3;
+    margin: 0 0 $spacing-4;
+
+    .form-card__header & {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.form-group {
+  margin-bottom: $spacing-4;
+
+  label {
+    display: block;
+    margin-bottom: $spacing-1;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-gray-700;
+  }
+
+  input,
+  select,
+  textarea {
+    @include input-base;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  &--grow {
+    flex: 1;
+  }
+
+  &--sm {
+    width: 80px;
+    flex-shrink: 0;
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: $spacing-4;
+  align-items: flex-end;
+  flex-wrap: wrap;
+
+  .form-group {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-size-sm;
+  color: $color-gray-700;
+  cursor: pointer;
+  margin-bottom: $spacing-4;
+
+  input[type='checkbox'] {
+    width: auto;
+    accent-color: $color-accent;
+  }
+
+  &--inline {
+    margin-bottom: 0;
+    white-space: nowrap;
+  }
+}
+
+.array-item {
+  padding: $spacing-4;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius-base;
+  margin-bottom: $spacing-3;
+
+  .form-row {
+    margin-bottom: 0;
+    align-items: center;
+  }
+
+  .form-group {
+    margin-bottom: 0;
+  }
+}
+
+.hint {
+  font-size: $font-size-sm;
+  color: $color-gray-400;
+  margin: 0;
+}
+
+.form-actions {
+  display: flex;
+  gap: $spacing-3;
+  justify-content: flex-end;
+  padding-top: $spacing-4;
+}
+
+.loading {
+  @include flex-center;
+  padding: $spacing-16;
+  color: $color-gray-500;
+}

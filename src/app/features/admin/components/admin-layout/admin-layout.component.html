@@ -1,0 +1,105 @@
+<div class="admin" [class.admin--collapsed]="sidebarCollapsed()">
+  <!-- Sidebar -->
+  <aside class="admin__sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <i class="pi pi-shield"></i>
+        @if (!sidebarCollapsed()) {
+          <span>{{ 'ADMIN.TITLE' | translate }}</span>
+        }
+      </div>
+      <button class="sidebar-toggle" (click)="toggleSidebar()">
+        <i
+          class="pi"
+          [class.pi-angle-left]="!sidebarCollapsed()"
+          [class.pi-angle-right]="sidebarCollapsed()"
+        ></i>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a
+        routerLink="/admin"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="sidebar-nav__link"
+      >
+        <i class="pi pi-home"></i>
+        @if (!sidebarCollapsed()) {
+          <span>{{ 'ADMIN.NAV.DASHBOARD' | translate }}</span>
+        }
+      </a>
+      <a routerLink="/admin/products" routerLinkActive="active" class="sidebar-nav__link">
+        <i class="pi pi-box"></i>
+        @if (!sidebarCollapsed()) {
+          <span>{{ 'ADMIN.NAV.PRODUCTS' | translate }}</span>
+        }
+      </a>
+      <a routerLink="/admin/orders" routerLinkActive="active" class="sidebar-nav__link">
+        <i class="pi pi-shopping-cart"></i>
+        @if (!sidebarCollapsed()) {
+          <span>{{ 'ADMIN.NAV.ORDERS' | translate }}</span>
+        }
+      </a>
+      <a routerLink="/admin/categories" routerLinkActive="active" class="sidebar-nav__link">
+        <i class="pi pi-tags"></i>
+        @if (!sidebarCollapsed()) {
+          <span>{{ 'ADMIN.NAV.CATEGORIES' | translate }}</span>
+        }
+      </a>
+      <a routerLink="/admin/brands" routerLinkActive="active" class="sidebar-nav__link">
+        <i class="pi pi-bookmark"></i>
+        @if (!sidebarCollapsed()) {
+          <span>{{ 'ADMIN.NAV.BRANDS' | translate }}</span>
+        }
+      </a>
+      <a routerLink="/admin/coupons" routerLinkActive="active" class="sidebar-nav__link">
+        <i class="pi pi-ticket"></i>
+        @if (!sidebarCollapsed()) {
+          <span>{{ 'ADMIN.NAV.COUPONS' | translate }}</span>
+        }
+      </a>
+      <a routerLink="/admin/reviews" routerLinkActive="active" class="sidebar-nav__link">
+        <i class="pi pi-star"></i>
+        @if (!sidebarCollapsed()) {
+          <span>{{ 'ADMIN.NAV.REVIEWS' | translate }}</span>
+        }
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="sidebar-nav__link" (click)="onBackToStore()">
+        <i class="pi pi-arrow-left"></i>
+        @if (!sidebarCollapsed()) {
+          <span>{{ 'ADMIN.BACK_TO_STORE' | translate }}</span>
+        }
+      </button>
+      <button class="sidebar-nav__link sidebar-nav__link--logout" (click)="onLogout()">
+        <i class="pi pi-sign-out"></i>
+        @if (!sidebarCollapsed()) {
+          <span>{{ 'ADMIN.LOGOUT' | translate }}</span>
+        }
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="admin__content">
+    <header class="admin__topbar">
+      <div class="topbar-left">
+        <button class="sidebar-toggle--mobile" (click)="toggleSidebar()">
+          <i class="pi pi-bars"></i>
+        </button>
+      </div>
+      <div class="topbar-right">
+        <span class="topbar-user">
+          <i class="pi pi-user"></i>
+          {{ userName() }}
+        </span>
+      </div>
+    </header>
+    <main class="admin__main">
+      <router-outlet />
+    </main>
+  </div>
+</div>

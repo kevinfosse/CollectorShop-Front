@@ -1,135 +1,125 @@
-.account__layout {
-  display: grid;
-  gap: 2rem;
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
 
-  @media (min-width: 1024px) {
-    grid-template-columns: 280px 1fr;
-  }
-}
+h1 {
+  margin: 0 0 $spacing-4;
+  font-size: $font-size-xl;
 
-.account__sidebar {
-  background: white;
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  height: fit-content;
-}
-
-.user-info {
-  text-align: center;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 1.5rem;
-
-  &__avatar {
-    width: 80px;
-    height: 80px;
-    background: #1a1a1a;
-    color: #c9a962;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin: 0 auto 1rem;
-  }
-
-  &__name {
-    margin: 0;
-    font-size: 1.125rem;
-  }
-
-  &__email {
-    margin: 0.25rem 0 0;
-    font-size: 0.875rem;
-    color: #737373;
-  }
-}
-
-.account-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-
-  &__link {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    color: #525252;
-    font-size: 0.9375rem;
-    transition: all 0.2s;
-    border: none;
-    background: none;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-
-    &:hover,
-    &.active {
-      background: #f5f5f5;
-      color: #1a1a1a;
-    }
-
-    &.logout {
-      color: #ef4444;
-      margin-top: 1rem;
-      &:hover {
-        background: #fef2f2;
-      }
-    }
-  }
-}
-
-.account__main {
-  h1 {
-    margin: 0 0 1.5rem;
+  @include md {
+    margin: 0 0 $spacing-6;
+    font-size: $font-size-2xl;
   }
 }
 
 .profile-card {
-  background: white;
-  border-radius: 0.75rem;
-  padding: 1.5rem;
+  background: $color-white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-4;
+
+  @include md {
+    padding: $spacing-6;
+  }
 
   h2 {
-    font-size: 1.125rem;
-    margin: 0 0 1.5rem;
+    font-size: $font-size-lg;
+    margin: 0 0 $spacing-4;
+
+    @include md {
+      margin: 0 0 $spacing-6;
+    }
   }
 }
 
 .profile-form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: $spacing-4;
 }
 
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: $spacing-4;
+
+  @include sm {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .form-group {
   label {
     display: block;
-    font-size: 0.875rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    margin-bottom: $spacing-2;
   }
 
   input {
     width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid #e5e5e5;
-    border-radius: 0.5rem;
-    font-size: 1rem;
+    padding: $spacing-2 $spacing-3;
+    border: $border-width solid $border-color;
+    border-radius: $border-radius-base;
+    font-size: $font-size-base;
+
+    @include md {
+      padding: $spacing-3 $spacing-4;
+    }
 
     &:focus {
       outline: none;
-      border-color: #1a1a1a;
+      border-color: $color-primary;
     }
+
+    &:disabled {
+      background: $color-gray-100;
+      color: $color-gray-500;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.alert {
+  padding: $spacing-3 $spacing-4;
+  border-radius: $border-radius-base;
+  margin-bottom: $spacing-4;
+  font-size: $font-size-sm;
+
+  &--error {
+    background: rgba($color-error, 0.05);
+    color: $color-error;
+    border: $border-width solid rgba($color-error, 0.2);
+  }
+
+  &--success {
+    background: rgba($color-success, 0.05);
+    color: $color-success;
+    border: $border-width solid rgba($color-success, 0.2);
+  }
+}
+
+.btn-primary {
+  padding: $spacing-2 $spacing-6;
+  background: $color-primary;
+  color: $color-white;
+  border: none;
+  border-radius: $border-radius-base;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: opacity $transition-fast;
+
+  @include md {
+    padding: $spacing-3 $spacing-6;
+    font-size: $font-size-base;
+  }
+
+  &:hover:not(:disabled) {
+    opacity: 0.85;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 }

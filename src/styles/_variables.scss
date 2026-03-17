@@ -34,12 +34,30 @@ $color-warning: #f59e0b;
 $color-error: #ef4444;
 $color-info: #3b82f6;
 
+// Semantic aliases (for component readability)
+$color-text: $color-gray-900;
+$color-text-light: $color-gray-500;
+$color-background: $color-gray-100;
+$color-border: $color-gray-200;
+
 // ===========================================
 // TYPOGRAPHY
 // ===========================================
 
-$font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-$font-family-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$font-family-base:
+  'Inter',
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  Roboto,
+  sans-serif;
+$font-family-heading:
+  'Inter',
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  Roboto,
+  sans-serif;
 
 // Font sizes (mobile-first)
 $font-size-xs: 0.75rem; // 12px
@@ -106,10 +124,18 @@ $header-height-desktop: 80px;
 // ===========================================
 
 $shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-$shadow-base: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-$shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-$shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-$shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+$shadow-base:
+  0 1px 3px 0 rgb(0 0 0 / 0.1),
+  0 1px 2px -1px rgb(0 0 0 / 0.1);
+$shadow-md:
+  0 4px 6px -1px rgb(0 0 0 / 0.1),
+  0 2px 4px -2px rgb(0 0 0 / 0.1);
+$shadow-lg:
+  0 10px 15px -3px rgb(0 0 0 / 0.1),
+  0 4px 6px -4px rgb(0 0 0 / 0.1);
+$shadow-xl:
+  0 20px 25px -5px rgb(0 0 0 / 0.1),
+  0 8px 10px -6px rgb(0 0 0 / 0.1);
 
 // ===========================================
 // BORDERS
@@ -117,6 +143,7 @@ $shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 
 $border-radius-sm: 0.25rem; // 4px
 $border-radius-base: 0.5rem; // 8px
+$border-radius: $border-radius-base; // alias
 $border-radius-lg: 0.75rem; // 12px
 $border-radius-xl: 1rem; // 16px
 $border-radius-full: 9999px;

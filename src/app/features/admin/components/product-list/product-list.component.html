@@ -1,0 +1,178 @@
+<div class="product-list">
+  <div class="page-header">
+    <h1 class="page-title">{{ 'ADMIN.PRODUCTS.TITLE' | translate }}</h1>
+    <a routerLink="/admin/products/new" class="btn btn--primary">
+      <i class="pi pi-plus"></i>
+      {{ 'ADMIN.PRODUCTS.ADD_PRODUCT' | translate }}
+    </a>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-bar">
+    <div class="search-box">
+      <i class="pi pi-search"></i>
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (keyup.enter)="onSearch()"
+        [placeholder]="'ADMIN.PRODUCTS.SEARCH_PLACEHOLDER' | translate"
+      />
+    </div>
+
+    <select [(ngModel)]="selectedCategoryId" (change)="onFilterChange()">
+      <option value="">{{ 'ADMIN.PRODUCTS.ALL_CATEGORIES' | translate }}</option>
+      @for (cat of categories(); track cat.id) {
+        <option [value]="cat.id">{{ cat.name }}</option>
+      }
+    </select>
+
+    <select [(ngModel)]="selectedBrandId" (change)="onFilterChange()">
+      <option value="">{{ 'ADMIN.PRODUCTS.ALL_BRANDS' | translate }}</option>
+      @for (brand of brands(); track brand.id) {
+        <option [value]="brand.id">{{ brand.name }}</option>
+      }
+    </select>
+
+    <select [(ngModel)]="selectedCondition" (change)="onFilterChange()">
+      <option value="">{{ 'ADMIN.PRODUCTS.ALL_CONDITIONS' | translate }}</option>
+      @for (cond of conditions; track cond) {
+        <option [value]="cond">{{ conditionLabels[cond] | translate }}</option>
+      }
+    </select>
+  </div>
+
+  <!-- Results info -->
+  <div class="results-info">
+    <span>{{ totalCount() }} {{ 'ADMIN.PRODUCTS.PRODUCTS_FOUND' | translate }}</span>
+  </div>
+
+  @if (loading()) {
+    <div class="loading">{{ 'COMMON.LOADING' | translate }}</div>
+  } @else {
+    @if (products().length === 0) {
+      <div class="empty-state">{{ 'COMMON.NO_RESULTS' | translate }}</div>
+    } @else {
+      <div class="admin-table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th class="col-image"></th>
+              <th>{{ 'ADMIN.PRODUCTS.NAME' | translate }}</th>
+              <th>{{ 'COMMON.SKU' | translate }}</th>
+              <th>{{ 'COMMON.PRICE' | translate }}</th>
+              <th>{{ 'ADMIN.PRODUCTS.STOCK' | translate }}</th>
+              <th>{{ 'ADMIN.PRODUCTS.CATEGORY' | translate }}</th>
+              <th>{{ 'ADMIN.PRODUCTS.STATUS' | translate }}</th>
+              <th class="col-actions">{{ 'ADMIN.PRODUCTS.ACTIONS' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (product of products(); track product.id) {
+              <tr>
+                <td class="col-image">
+                  @if (product.primaryImageUrl) {
+                    <img
+                      [src]="product.primaryImageUrl"
+                      [alt]="product.name"
+                      class="product-thumb"
+                    />
+                  } @else {
+                    <div class="product-thumb product-thumb--placeholder">
+                      <i class="pi pi-image"></i>
+                    </div>
+                  }
+                </td>
+                <td>
+                  <div class="product-name">
+                    <a [routerLink]="['/admin/products', product.id, 'edit']" class="link">{{
+                      product.name
+                    }}</a>
+                    @if (product.isFeatured) {
+                      <span class="badge badge--accent">{{
+                        'ADMIN.PRODUCTS.FEATURED' | translate
+                      }}</span>
+                    }
+                  </div>
+                </td>
+                <td class="text-mono">{{ product.sku }}</td>
+                <td>
+                  <span>{{ product.price | currency: product.currency }}</span>
+                  @if (product.compareAtPrice) {
+                    <span class="compare-price">{{
+                      product.compareAtPrice | currency: product.currency
+                    }}</span>
+                  }
+                </td>
+                <td>
+                  <span class="stock-badge" [class]="getStockClass(product.availableQuantity)">
+                    {{ product.availableQuantity }}
+                  </span>
+                </td>
+                <td>{{ product.categoryName || '—' }}</td>
+                <td>
+                  <span
+                    class="status-dot"
+                    [class.status-dot--active]="product.isActive"
+                    [class.status-dot--inactive]="!product.isActive"
+                  ></span>
+                  {{
+                    product.isActive
+                      ? ('ADMIN.PRODUCTS.ACTIVE' | translate)
+                      : ('ADMIN.PRODUCTS.INACTIVE' | translate)
+                  }}
+                </td>
+                <td class="col-actions">
+                  <div class="action-buttons">
+                    <a
+                      [routerLink]="['/admin/products', product.id, 'edit']"
+                      class="btn-icon"
+                      title="Edit"
+                    >
+                      <i class="pi pi-pencil"></i>
+                    </a>
+                    <button
+                      class="btn-icon btn-icon--danger"
+                      (click)="onDelete(product)"
+                      title="Delete"
+                    >
+                      <i class="pi pi-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      @if (totalPages() > 1) {
+        <div class="pagination">
+          <button
+            class="pagination__btn"
+            [disabled]="currentPage() === 1"
+            (click)="onPageChange(currentPage() - 1)"
+          >
+            <i class="pi pi-angle-left"></i>
+          </button>
+          @for (page of pages(); track page) {
+            <button
+              class="pagination__btn"
+              [class.pagination__btn--active]="page === currentPage()"
+              (click)="onPageChange(page)"
+            >
+              {{ page }}
+            </button>
+          }
+          <button
+            class="pagination__btn"
+            [disabled]="currentPage() === totalPages()"
+            (click)="onPageChange(currentPage() + 1)"
+          >
+            <i class="pi pi-angle-right"></i>
+          </button>
+        </div>
+      }
+    }
+  }
+</div>

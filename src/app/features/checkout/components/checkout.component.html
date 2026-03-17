@@ -1,123 +1,341 @@
 <div class="checkout section">
   <div class="container">
-    <h1>Checkout</h1>
+    <h1>{{ 'CHECKOUT.TITLE' | translate }}</h1>
+
+    @if (error()) {
+      <div class="alert alert-error">{{ error() }}</div>
+    }
 
     <div class="checkout__layout">
       <!-- Forms -->
       <div class="checkout__forms">
+        <!-- Saved Addresses -->
+        @if (savedAddresses().length > 0) {
+          <div class="checkout__section">
+            <h2>{{ 'CHECKOUT.SAVED_ADDRESSES' | translate }}</h2>
+            <div class="saved-addresses">
+              @for (address of savedAddresses(); track address.id) {
+                <button type="button" class="saved-address" (click)="selectSavedAddress(address)">
+                  <strong>{{ address.label }}</strong>
+                  <span
+                    >{{ address.street }}, {{ address.city }}, {{ address.state }}
+                    {{ address.zipCode }}</span
+                  >
+                </button>
+              }
+            </div>
+          </div>
+        }
+
         <!-- Shipping -->
         <div class="checkout__section">
-          <h2>Shipping Information</h2>
+          <h2>{{ 'CHECKOUT.SHIPPING_INFO' | translate }}</h2>
           <div class="form-grid">
-            <div class="form-group">
-              <label>First Name</label>
-              <input type="text" placeholder="John" />
-            </div>
-            <div class="form-group">
-              <label>Last Name</label>
-              <input type="text" placeholder="Doe" />
-            </div>
             <div class="form-group full-width">
-              <label>Email</label>
-              <input type="email" placeholder="john@example.com" />
-            </div>
-            <div class="form-group full-width">
-              <label>Address</label>
-              <input type="text" placeholder="123 Main St" />
+              <label for="street">{{ 'CHECKOUT.ADDRESS' | translate }}</label>
+              <input
+                type="text"
+                id="street"
+                name="street"
+                [(ngModel)]="shippingAddress.street"
+                [placeholder]="'CHECKOUT.ADDRESS' | translate"
+                [disabled]="loading()"
+              />
             </div>
             <div class="form-group">
-              <label>City</label>
-              <input type="text" placeholder="New York" />
+              <label for="city">{{ 'CHECKOUT.CITY' | translate }}</label>
+              <input
+                type="text"
+                id="city"
+                name="city"
+                [(ngModel)]="shippingAddress.city"
+                [placeholder]="'CHECKOUT.CITY' | translate"
+                [disabled]="loading()"
+              />
             </div>
             <div class="form-group">
-              <label>Postal Code</label>
-              <input type="text" placeholder="10001" />
+              <label for="state">{{ 'CHECKOUT.STATE' | translate }}</label>
+              <input
+                type="text"
+                id="state"
+                name="state"
+                [(ngModel)]="shippingAddress.state"
+                [placeholder]="'CHECKOUT.STATE' | translate"
+                [disabled]="loading()"
+              />
             </div>
-            <div class="form-group full-width">
-              <label>Country</label>
-              <select>
-                <option>United States</option>
-                <option>Canada</option>
-                <option>United Kingdom</option>
+            <div class="form-group">
+              <label for="zipCode">{{ 'CHECKOUT.POSTAL_CODE' | translate }}</label>
+              <input
+                type="text"
+                id="zipCode"
+                name="zipCode"
+                [(ngModel)]="shippingAddress.zipCode"
+                [placeholder]="'CHECKOUT.POSTAL_CODE' | translate"
+                [disabled]="loading()"
+              />
+            </div>
+            <div class="form-group">
+              <label for="country">{{ 'CHECKOUT.COUNTRY' | translate }}</label>
+              <select
+                id="country"
+                name="country"
+                [(ngModel)]="shippingAddress.country"
+                [disabled]="loading()"
+              >
+                @for (c of countries(); track c.code) {
+                  <option [value]="c.code">{{ c.translationKey | translate }}</option>
+                }
               </select>
             </div>
           </div>
+
+          <label class="checkbox">
+            <input type="checkbox" [(ngModel)]="sameAsShipping" />
+            <span>{{ 'CHECKOUT.BILLING_SAME_AS_SHIPPING' | translate }}</span>
+          </label>
         </div>
+
+        <!-- Billing Address (if different) -->
+        @if (!sameAsShipping) {
+          <div class="checkout__section">
+            <h2>{{ 'CHECKOUT.BILLING_INFO' | translate }}</h2>
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label for="billingStreet">{{ 'CHECKOUT.ADDRESS' | translate }}</label>
+                <input
+                  type="text"
+                  id="billingStreet"
+                  name="billingStreet"
+                  [(ngModel)]="billingAddress.street"
+                  [placeholder]="'CHECKOUT.ADDRESS' | translate"
+                  [disabled]="loading()"
+                />
+              </div>
+              <div class="form-group">
+                <label for="billingCity">{{ 'CHECKOUT.CITY' | translate }}</label>
+                <input
+                  type="text"
+                  id="billingCity"
+                  name="billingCity"
+                  [(ngModel)]="billingAddress.city"
+                  [placeholder]="'CHECKOUT.CITY' | translate"
+                  [disabled]="loading()"
+                />
+              </div>
+              <div class="form-group">
+                <label for="billingState">{{ 'CHECKOUT.STATE' | translate }}</label>
+                <input
+                  type="text"
+                  id="billingState"
+                  name="billingState"
+                  [(ngModel)]="billingAddress.state"
+                  [placeholder]="'CHECKOUT.STATE' | translate"
+                  [disabled]="loading()"
+                />
+              </div>
+              <div class="form-group">
+                <label for="billingZipCode">{{ 'CHECKOUT.POSTAL_CODE' | translate }}</label>
+                <input
+                  type="text"
+                  id="billingZipCode"
+                  name="billingZipCode"
+                  [(ngModel)]="billingAddress.zipCode"
+                  [placeholder]="'CHECKOUT.POSTAL_CODE' | translate"
+                  [disabled]="loading()"
+                />
+              </div>
+              <div class="form-group">
+                <label for="billingCountry">{{ 'CHECKOUT.COUNTRY' | translate }}</label>
+                <select
+                  id="billingCountry"
+                  name="billingCountry"
+                  [(ngModel)]="billingAddress.country"
+                  [disabled]="loading()"
+                >
+                  @for (c of countries(); track c.code) {
+                    <option [value]="c.code">{{ c.translationKey | translate }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+          </div>
+        }
 
         <!-- Payment -->
         <div class="checkout__section">
-          <h2>Payment Method</h2>
+          <h2>{{ 'CHECKOUT.PAYMENT_METHOD' | translate }}</h2>
           <div class="payment-methods">
             <label class="payment-option">
-              <input type="radio" name="payment" checked />
+              <input
+                type="radio"
+                name="payment"
+                [value]="PaymentMethod.CreditCard"
+                [(ngModel)]="selectedPaymentMethod"
+              />
               <span class="payment-option__content">
                 <i class="pi pi-credit-card"></i>
-                Credit Card
+                {{ PaymentMethodLabels[PaymentMethod.CreditCard] | translate }}
               </span>
             </label>
             <label class="payment-option">
-              <input type="radio" name="payment" />
+              <input
+                type="radio"
+                name="payment"
+                [value]="PaymentMethod.PayPal"
+                [(ngModel)]="selectedPaymentMethod"
+              />
               <span class="payment-option__content">
                 <i class="pi pi-paypal"></i>
-                PayPal
+                {{ PaymentMethodLabels[PaymentMethod.PayPal] | translate }}
+              </span>
+            </label>
+            <label class="payment-option">
+              <input
+                type="radio"
+                name="payment"
+                [value]="PaymentMethod.BankTransfer"
+                [(ngModel)]="selectedPaymentMethod"
+              />
+              <span class="payment-option__content">
+                <i class="pi pi-building"></i>
+                {{ PaymentMethodLabels[PaymentMethod.BankTransfer] | translate }}
               </span>
             </label>
           </div>
-          <div class="form-grid" style="margin-top: 1.5rem">
-            <div class="form-group full-width">
-              <label>Card Number</label>
-              <input type="text" placeholder="1234 5678 9012 3456" />
+
+          @if (selectedPaymentMethod === PaymentMethod.CreditCard) {
+            <div class="form-grid" style="margin-top: 1.5rem">
+              <div class="form-group full-width">
+                <label>{{ 'CHECKOUT.CARD_NUMBER' | translate }}</label>
+                <input type="text" placeholder="1234 5678 9012 3456" [disabled]="loading()" />
+              </div>
+              <div class="form-group">
+                <label>{{ 'CHECKOUT.EXPIRY_DATE' | translate }}</label>
+                <input type="text" placeholder="MM/YY" [disabled]="loading()" />
+              </div>
+              <div class="form-group">
+                <label>{{ 'CHECKOUT.CVV' | translate }}</label>
+                <input type="text" placeholder="123" [disabled]="loading()" />
+              </div>
             </div>
-            <div class="form-group">
-              <label>Expiry Date</label>
-              <input type="text" placeholder="MM/YY" />
-            </div>
-            <div class="form-group">
-              <label>CVV</label>
-              <input type="text" placeholder="123" />
-            </div>
+          }
+        </div>
+
+        <!-- Order Notes -->
+        <div class="checkout__section">
+          <h2>{{ 'CHECKOUT.ORDER_NOTES' | translate }}</h2>
+          <div class="form-group">
+            <textarea
+              name="orderNotes"
+              [(ngModel)]="orderNotes"
+              [placeholder]="'CHECKOUT.ORDER_NOTES_PLACEHOLDER' | translate"
+              rows="3"
+              [disabled]="loading()"
+            ></textarea>
           </div>
         </div>
       </div>
 
       <!-- Order Summary -->
       <div class="checkout__summary">
-        <h2>Order Summary</h2>
+        <h2>{{ 'CHECKOUT.ORDER_SUMMARY' | translate }}</h2>
         <div class="order-items">
-          <div class="order-item">
-            <img src="https://placehold.co/60x60/1a1a1a/c9a962?text=1" alt="Product" />
-            <div class="order-item__info">
-              <span class="name">Charizard Holo</span>
-              <span class="qty">Qty: 1</span>
+          @for (item of cart()?.items; track item.id) {
+            <div class="order-item">
+              <img
+                [src]="item.productImageUrl || 'https://placehold.co/60x60/1a1a1a/c9a962?text=P'"
+                [alt]="item.productName"
+              />
+              <div class="order-item__info">
+                <span class="name">{{ item.productName }}</span>
+                <span class="qty">{{ 'COMMON.QTY' | translate }}: {{ item.quantity }}</span>
+              </div>
+              <span class="price">{{ item.totalPrice | currency: item.currency }}</span>
             </div>
-            <span class="price">$15,000</span>
-          </div>
-          <div class="order-item">
-            <img src="https://placehold.co/60x60/1a1a1a/c9a962?text=2" alt="Product" />
-            <div class="order-item__info">
-              <span class="name">Pikachu Plush</span>
-              <span class="qty">Qty: 2</span>
+          }
+        </div>
+
+        <!-- Coupon -->
+        <div class="coupon-form">
+          <input
+            type="text"
+            [(ngModel)]="couponCode"
+            [placeholder]="'CHECKOUT.COUPON_PLACEHOLDER' | translate"
+            [disabled]="loading()"
+          />
+          <button
+            type="button"
+            class="btn-secondary"
+            (click)="validateCoupon()"
+            [disabled]="loading() || !couponCode"
+          >
+            {{ 'COMMON.APPLY' | translate }}
+          </button>
+        </div>
+        @if (orderPreview(); as preview) {
+          @if (preview.couponMessage) {
+            <div
+              class="coupon-result"
+              [class.valid]="preview.isCouponValid"
+              [class.invalid]="!preview.isCouponValid"
+            >
+              @if (preview.isCouponValid) {
+                {{ 'COMMON.DISCOUNT' | translate }}: -{{
+                  preview.discountAmount | currency: preview.currency
+                }}
+              } @else {
+                {{ preview.couponMessage }}
+              }
             </div>
-            <span class="price">$300</span>
-          </div>
+          }
+        }
+
+        <div class="summary-row">
+          <span>{{ 'COMMON.SUBTOTAL' | translate }}</span>
+          <span>{{
+            orderPreview()?.subTotal ?? cart()?.totalAmount | currency: cart()?.currency
+          }}</span>
+        </div>
+        @if (orderPreview(); as preview) {
+          @if (preview.discountAmount > 0) {
+            <div class="summary-row discount">
+              <span>{{ 'COMMON.DISCOUNT' | translate }}</span>
+              <span>-{{ preview.discountAmount | currency: preview.currency }}</span>
+            </div>
+          }
+        }
+        <div class="summary-row">
+          <span>{{ 'COMMON.SHIPPING' | translate }}</span>
+          <span>{{ orderPreview()?.shippingCost ?? 0 | currency: cart()?.currency }}</span>
         </div>
         <div class="summary-row">
-          <span>Subtotal</span>
-          <span>$15,300.00</span>
-        </div>
-        <div class="summary-row">
-          <span>Shipping</span>
-          <span>$25.00</span>
-        </div>
-        <div class="summary-row">
-          <span>Tax</span>
-          <span>$1,226.00</span>
+          <span>{{ 'CHECKOUT.TAX_PERCENT' | translate }}</span>
+          <span>{{ orderPreview()?.taxAmount ?? 0 | currency: cart()?.currency }}</span>
         </div>
         <div class="summary-row total">
-          <span>Total</span>
-          <span>$16,551.00</span>
+          <span>{{ 'COMMON.TOTAL' | translate }}</span>
+          <span>{{ finalTotal | currency: cart()?.currency }}</span>
         </div>
-        <button class="btn-accent btn-lg" style="width: 100%">Place Order</button>
+        <button
+          class="btn-accent btn-lg"
+          style="width: 100%"
+          (click)="placeOrder()"
+          [disabled]="loading()"
+        >
+          @if (loading()) {
+            {{ 'COMMON.PROCESSING' | translate }}
+          } @else {
+            {{ 'CHECKOUT.PLACE_ORDER' | translate }}
+          }
+        </button>
+        <a
+          routerLink="/cart"
+          class="btn-text"
+          style="width: 100%; margin-top: 0.5rem; text-align: center"
+        >
+          {{ 'CHECKOUT.BACK_TO_CART' | translate }}
+        </a>
       </div>
     </div>
   </div>

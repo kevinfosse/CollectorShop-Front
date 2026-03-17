@@ -1,6 +1,43 @@
-<div class="section">
-  <div class="container">
-    <h1>Order History</h1>
-    <p>Your past orders will appear here.</p>
+<h1>{{ 'ACCOUNT.ORDER_HISTORY.TITLE' | translate }}</h1>
+
+@if (loading()) {
+  <p class="loading-text">{{ 'COMMON.LOADING' | translate }}</p>
+} @else if (error()) {
+  <p class="error-text">{{ error() }}</p>
+} @else if (orders().length === 0) {
+  <div class="orders-empty">
+    <i class="pi pi-box"></i>
+    <p>{{ 'ACCOUNT.ORDER_HISTORY.EMPTY' | translate }}</p>
+    <a routerLink="/catalog" class="btn-primary">{{ 'COMMON.CONTINUE_SHOPPING' | translate }}</a>
   </div>
-</div>
+} @else {
+  <div class="orders-list">
+    @for (order of orders(); track order.id) {
+      <a [routerLink]="['/account/orders', order.id]" class="order-card">
+        <div class="order-card__header">
+          <span class="order-card__number">#{{ order.orderNumber }}</span>
+          <span class="status-badge" [class]="order.status | orderStatusClass">
+            {{ order.status | orderStatusKey | translate }}
+          </span>
+        </div>
+        <div class="order-card__body">
+          <div class="order-card__detail">
+            <span class="order-card__label">{{ 'ACCOUNT.ORDER_HISTORY.DATE' | translate }}</span>
+            <span>{{ order.createdAt | date: 'mediumDate' }}</span>
+          </div>
+          <div class="order-card__detail">
+            <span class="order-card__label">{{ 'ACCOUNT.ORDER_HISTORY.ITEMS' | translate }}</span>
+            <span>{{ order.itemCount }}</span>
+          </div>
+          <div class="order-card__detail">
+            <span class="order-card__label">{{ 'ACCOUNT.ORDER_HISTORY.TOTAL' | translate }}</span>
+            <span class="order-card__total">{{
+              order.totalAmount | currency: order.currency
+            }}</span>
+          </div>
+        </div>
+        <i class="pi pi-chevron-right order-card__arrow"></i>
+      </a>
+    }
+  </div>
+}

@@ -3,21 +3,22 @@
   <section class="hero">
     <div class="hero__container container">
       <div class="hero__content">
-        <span class="hero__badge">Premium Collectibles</span>
-        <h1 class="hero__title">Discover Rare & Unique Treasures</h1>
+        <span class="hero__badge">{{ 'HOME.HERO_BADGE' | translate }}</span>
+        <h1 class="hero__title">{{ 'HOME.HERO_TITLE' | translate }}</h1>
         <p class="hero__subtitle">
-          Your trusted destination for trading cards, vintage figurines, and exclusive collectibles.
+          {{ 'HOME.HERO_SUBTITLE' | translate }}
         </p>
         <div class="hero__actions">
-          <a routerLink="/catalog" class="btn-primary btn-lg">Shop Now</a>
-          <a routerLink="/catalog?sort=newest" class="btn-secondary btn-lg">New Arrivals</a>
+          <a routerLink="/catalog" class="btn-primary btn-lg">{{ 'HOME.SHOP_NOW' | translate }}</a>
+          <a routerLink="/catalog?sort=newest" class="btn-secondary btn-lg">{{
+            'HOME.NEW_ARRIVALS' | translate
+          }}</a>
         </div>
       </div>
       <div class="hero__image">
-        <img
-          src="https://placehold.co/600x600/1a1a1a/c9a962?text=Hero+Image"
-          alt="Featured Collectibles"
-        />
+        <div class="hero__image-visual" [attr.aria-label]="'HOME.FEATURED_ALT' | translate" role="img">
+          <i class="pi pi-box"></i>
+        </div>
       </div>
     </div>
   </section>
@@ -26,23 +27,31 @@
   <section class="categories section">
     <div class="container">
       <div class="section-header">
-        <h2>Shop by Category</h2>
+        <h2>{{ 'HOME.SHOP_BY_CATEGORY' | translate }}</h2>
         <a routerLink="/catalog" class="section-header__link">
-          View All <i class="pi pi-arrow-right"></i>
+          {{ 'HOME.VIEW_ALL' | translate }} <i class="pi pi-arrow-right"></i>
         </a>
       </div>
 
       <div class="categories__grid">
-        @for (category of categories; track category.slug) {
-        <a [routerLink]="['/catalog', category.slug]" class="category-card">
-          <div class="category-card__image">
-            <img [src]="category.image" [alt]="category.name" />
-          </div>
-          <div class="category-card__content">
-            <h3 class="category-card__name">{{ category.name }}</h3>
-            <span class="category-card__count">{{ category.count }} items</span>
-          </div>
-        </a>
+        @for (category of categories(); track category.id) {
+          <a [routerLink]="['/catalog', category.slug]" class="category-card">
+            <div class="category-card__image">
+              @if (category.imageUrl) {
+              <img [src]="category.imageUrl" [alt]="category.name" />
+            } @else {
+              <div class="category-card__placeholder">
+                <i class="pi pi-tag"></i>
+              </div>
+            }
+            </div>
+            <div class="category-card__content">
+              <h3 class="category-card__name">{{ category.name }}</h3>
+              <span class="category-card__count"
+                >{{ category.productCount }} {{ 'COMMON.ITEMS' | translate }}</span
+              >
+            </div>
+          </a>
         }
       </div>
     </div>
@@ -52,20 +61,20 @@
   <section class="featured section">
     <div class="container">
       <div class="section-header">
-        <h2>Featured Collectibles</h2>
+        <h2>{{ 'HOME.FEATURED_COLLECTIBLES' | translate }}</h2>
         <a routerLink="/catalog" class="section-header__link">
-          View All <i class="pi pi-arrow-right"></i>
+          {{ 'HOME.VIEW_ALL' | translate }} <i class="pi pi-arrow-right"></i>
         </a>
       </div>
 
       <div class="featured__grid">
-        @for (product of featuredProducts; track product.id) {
-        <app-product-card
-          [product]="product"
-          (addToCart)="onAddToCart($event)"
-          (addToWishlist)="onAddToWishlist($event)"
-          (quickView)="onQuickView($event)"
-        />
+        @for (product of featuredProducts(); track product.id) {
+          <app-product-card
+            [product]="product"
+            (addToCart)="onAddToCart($event)"
+            (addToWishlist)="onAddToWishlist($event)"
+            (quickView)="onQuickView($event)"
+          />
         }
       </div>
     </div>
@@ -79,29 +88,29 @@
           <div class="usp__icon">
             <i class="pi pi-verified"></i>
           </div>
-          <h3 class="usp__title">Authenticity Guaranteed</h3>
-          <p class="usp__text">Every item verified by expert collectors</p>
+          <h3 class="usp__title">{{ 'HOME.USP.AUTHENTICITY_TITLE' | translate }}</h3>
+          <p class="usp__text">{{ 'HOME.USP.AUTHENTICITY_DESC' | translate }}</p>
         </div>
         <div class="usp__item">
           <div class="usp__icon">
             <i class="pi pi-shield"></i>
           </div>
-          <h3 class="usp__title">Secure Packaging</h3>
-          <p class="usp__text">Premium protection for your collectibles</p>
+          <h3 class="usp__title">{{ 'HOME.USP.PACKAGING_TITLE' | translate }}</h3>
+          <p class="usp__text">{{ 'HOME.USP.PACKAGING_DESC' | translate }}</p>
         </div>
         <div class="usp__item">
           <div class="usp__icon">
             <i class="pi pi-truck"></i>
           </div>
-          <h3 class="usp__title">Worldwide Shipping</h3>
-          <p class="usp__text">Insured delivery to your doorstep</p>
+          <h3 class="usp__title">{{ 'HOME.USP.SHIPPING_TITLE' | translate }}</h3>
+          <p class="usp__text">{{ 'HOME.USP.SHIPPING_DESC' | translate }}</p>
         </div>
         <div class="usp__item">
           <div class="usp__icon">
             <i class="pi pi-replay"></i>
           </div>
-          <h3 class="usp__title">Easy Returns</h3>
-          <p class="usp__text">30-day hassle-free return policy</p>
+          <h3 class="usp__title">{{ 'HOME.USP.RETURNS_TITLE' | translate }}</h3>
+          <p class="usp__text">{{ 'HOME.USP.RETURNS_DESC' | translate }}</p>
         </div>
       </div>
     </div>
@@ -111,10 +120,21 @@
   <section class="cta">
     <div class="container">
       <div class="cta__content">
-        <h2 class="cta__title">Start Your Collection Today</h2>
-        <p class="cta__text">Join thousands of collectors who trust us for their rare finds</p>
-        <a routerLink="/register" class="btn-accent btn-lg">Create Account</a>
+        @if (isAuthenticated()) {
+          <h2 class="cta__title">{{ 'HOME.CTA.TITLE_LOGGED_IN' | translate }}</h2>
+          <p class="cta__text">{{ 'HOME.CTA.TEXT_LOGGED_IN' | translate }}</p>
+          <a routerLink="/catalog" class="btn-accent btn-lg">{{ 'HOME.CTA.BUTTON_LOGGED_IN' | translate }}</a>
+        } @else {
+          <h2 class="cta__title">{{ 'HOME.CTA.TITLE' | translate }}</h2>
+          <p class="cta__text">{{ 'HOME.CTA.TEXT' | translate }}</p>
+          <a routerLink="/register" class="btn-accent btn-lg">{{ 'HOME.CTA.BUTTON' | translate }}</a>
+        }
       </div>
     </div>
   </section>
 </div>
+
+<app-quick-view-modal
+  [productId]="quickViewProductId()"
+  (closed)="onCloseQuickView()"
+/>

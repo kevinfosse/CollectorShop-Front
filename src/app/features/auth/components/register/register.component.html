@@ -1,45 +1,99 @@
 <div class="auth-page">
   <div class="auth-card">
     <div class="auth-card__header">
-      <h1>Create Account</h1>
-      <p>Join our community of collectors</p>
+      <h1>{{ 'AUTH.REGISTER.TITLE' | translate }}</h1>
+      <p>{{ 'AUTH.REGISTER.SUBTITLE' | translate }}</p>
     </div>
 
-    <form class="auth-form">
+    @if (error()) {
+      <div class="alert alert-error">{{ error() }}</div>
+    }
+
+    <form class="auth-form" (ngSubmit)="onSubmit()">
       <div class="form-row-split">
         <div class="form-group">
-          <label>First Name</label>
-          <input type="text" placeholder="John" />
+          <label for="firstName">{{ 'AUTH.REGISTER.FIRST_NAME' | translate }}</label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            [(ngModel)]="firstName"
+            placeholder="John"
+            [disabled]="loading()"
+            required
+          />
         </div>
         <div class="form-group">
-          <label>Last Name</label>
-          <input type="text" placeholder="Doe" />
+          <label for="lastName">{{ 'AUTH.REGISTER.LAST_NAME' | translate }}</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            [(ngModel)]="lastName"
+            placeholder="Doe"
+            [disabled]="loading()"
+            required
+          />
         </div>
       </div>
       <div class="form-group">
-        <label>Email</label>
-        <input type="email" placeholder="you@example.com" />
+        <label for="email">{{ 'AUTH.REGISTER.EMAIL' | translate }}</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="you@example.com"
+          [disabled]="loading()"
+          required
+        />
       </div>
       <div class="form-group">
-        <label>Password</label>
-        <input type="password" placeholder="••••••••" />
+        <label for="password">{{ 'AUTH.REGISTER.PASSWORD' | translate }}</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="••••••••"
+          [disabled]="loading()"
+          required
+          minlength="8"
+        />
+        <p class="password-hint">
+          {{ 'AUTH.REGISTER.PASSWORD_HINT' | translate }}
+        </p>
       </div>
       <div class="form-group">
-        <label>Confirm Password</label>
-        <input type="password" placeholder="••••••••" />
+        <label for="confirmPassword">{{ 'AUTH.REGISTER.CONFIRM_PASSWORD' | translate }}</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          placeholder="••••••••"
+          [disabled]="loading()"
+          required
+        />
       </div>
       <label class="checkbox">
-        <input type="checkbox" />
-        <span
-          >I agree to the <a href="/terms">Terms of Service</a> and
-          <a href="/privacy">Privacy Policy</a></span
-        >
+        <input type="checkbox" name="agreeToTerms" [(ngModel)]="agreeToTerms" />
+        <span>
+          {{ 'AUTH.REGISTER.AGREE_TERMS' | translate }} <a href="/terms">{{ 'AUTH.REGISTER.TERMS' | translate }}</a> {{ 'AUTH.REGISTER.AND' | translate }}
+          <a href="/privacy">{{ 'AUTH.REGISTER.PRIVACY' | translate }}</a>
+        </span>
       </label>
-      <button type="submit" class="btn-primary btn-lg" style="width: 100%">Create Account</button>
+      <button type="submit" class="btn-primary btn-lg" [disabled]="loading()">
+        @if (loading()) {
+          {{ 'AUTH.REGISTER.CREATING_ACCOUNT' | translate }}
+        } @else {
+          {{ 'AUTH.REGISTER.CREATE_ACCOUNT' | translate }}
+        }
+      </button>
     </form>
 
     <div class="auth-card__footer">
-      <p>Already have an account? <a routerLink="/auth/login">Sign in</a></p>
+      <p>{{ 'AUTH.REGISTER.ALREADY_ACCOUNT' | translate }} <a routerLink="/auth/login">{{ 'AUTH.REGISTER.SIGN_IN' | translate }}</a></p>
     </div>
   </div>
 </div>

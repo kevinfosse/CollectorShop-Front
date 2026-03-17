@@ -1,7 +1,13 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './shared/components/layout/layout.component';
+import { authGuard, adminGuard, guestGuard } from './core/guards';
 
 export const routes: Routes = [
+  {
+    path: 'admin',
+    canActivate: [adminGuard],
+    loadChildren: () => import('./features/admin/admin.routes').then((m) => m.ADMIN_ROUTES),
+  },
   {
     path: '',
     component: LayoutComponent,
@@ -19,7 +25,7 @@ export const routes: Routes = [
         path: 'product',
         loadChildren: () =>
           import('./features/product-detail/product-detail.routes').then(
-            (m) => m.PRODUCT_DETAIL_ROUTES
+            (m) => m.PRODUCT_DETAIL_ROUTES,
           ),
       },
       {
@@ -28,15 +34,18 @@ export const routes: Routes = [
       },
       {
         path: 'checkout',
+        canActivate: [authGuard],
         loadChildren: () =>
           import('./features/checkout/checkout.routes').then((m) => m.CHECKOUT_ROUTES),
       },
       {
         path: 'account',
+        canActivate: [authGuard],
         loadChildren: () => import('./features/user/user.routes').then((m) => m.USER_ROUTES),
       },
       {
         path: 'auth',
+        canActivate: [guestGuard],
         loadChildren: () => import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES),
       },
     ],

@@ -44,7 +44,7 @@ export class ComponentName {
 
 - Components: `feature-name.component.ts` or just `feature-name.ts` (root uses `app.ts`)
 - Templates: `*.html` (not `.component.html` at root level)
-- Services: `*.service.ts` in `core/services/` or `features/*/services/`
+- Services: `*.service.ts` in `core/services/` (centralized, single location for all services)
 - Guards: `*.guard.ts` in `core/guards/`
 - Interceptors: `*.interceptor.ts` in `core/interceptors/`
 

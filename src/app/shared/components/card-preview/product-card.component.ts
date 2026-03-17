@@ -1,39 +1,58 @@
 import { Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
-import { Product } from '../../../features/catalog/models/product.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { ProductListDto, ProductConditionLabels, ProductCondition } from '../../../core/models';
 
 @Component({
   selector: 'app-product-card',
-  imports: [RouterLink, CurrencyPipe],
+  imports: [RouterLink, CurrencyPipe, TranslateModule],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss',
 })
 export class ProductCardComponent {
-  product = input.required<Product>();
+  product = input.required<ProductListDto>();
   showQuickView = input<boolean>(true);
   showWishlist = input<boolean>(true);
 
-  addToCart = output<Product>();
-  addToWishlist = output<Product>();
-  quickView = output<Product>();
+  addToCart = output<ProductListDto>();
+  addToWishlist = output<ProductListDto>();
+  quickView = output<ProductListDto>();
 
   get discountPercentage(): number | null {
-    const prod = this.product();
-    if (prod.compareAtPrice && prod.compareAtPrice > prod.price) {
-      return Math.round(((prod.compareAtPrice - prod.price) / prod.compareAtPrice) * 100);
-    }
-    return null;
+    return this.product().discountPercentage ?? null;
   }
 
   get primaryImage(): string {
-    const images = this.product().images;
-    const primary = images.find((img) => img.isPrimary);
-    return primary?.url || images[0]?.url || '/assets/images/placeholder.jpg';
+    return this.product().primaryImageUrl || '/assets/images/placeholder.jpg';
   }
 
   get productUrl(): string {
-    return `/product/${this.product().slug}`;
+    return `/product/${this.product().id}`;
+  }
+
+  get productName(): string {
+    return this.product().name;
+  }
+
+  get categoryName(): string | null {
+    return this.product().categoryName || null;
+  }
+
+  get averageRating(): number {
+    return this.product().averageRating ?? 0;
+  }
+
+  get isInStock(): boolean {
+    return this.product().availableQuantity > 0;
+  }
+
+  get conditionLabel(): string {
+    const condition = this.product().condition;
+    if (condition != null) {
+      return ProductConditionLabels[condition as ProductCondition] || 'Unknown';
+    }
+    return '';
   }
 
   onAddToCart(event: Event): void {
@@ -52,22 +71,5 @@ export class ProductCardComponent {
     event.preventDefault();
     event.stopPropagation();
     this.quickView.emit(this.product());
-  }
-
-  getConditionLabel(condition: string): string {
-    const labels: Record<string, string> = {
-      mint: 'Mint',
-      'near-mint': 'Near Mint',
-      excellent: 'Excellent',
-      good: 'Good',
-      fair: 'Fair',
-      poor: 'Poor',
-    };
-    return labels[condition] || condition;
-  }
-
-  getRarityClass(rarity: string | undefined): string {
-    if (!rarity) return '';
-    return `product-card__rarity--${rarity}`;
   }
 }

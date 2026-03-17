@@ -1,0 +1,105 @@
+<div class="order-list">
+  <div class="page-header">
+    <h1 class="page-title">{{ 'ADMIN.ORDERS.TITLE' | translate }}</h1>
+    <span class="results-count"
+      >{{ totalCount() }} {{ 'ADMIN.ORDERS.ORDERS_FOUND' | translate }}</span
+    >
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-bar">
+    <select [(ngModel)]="selectedStatus" (change)="onFilterChange()">
+      <option value="">{{ 'ADMIN.ORDERS.ALL_STATUSES' | translate }}</option>
+      @for (status of statuses; track status) {
+        <option [value]="status">{{ status | orderStatusKey | translate }}</option>
+      }
+    </select>
+
+    <div class="date-filter">
+      <label>{{ 'ADMIN.ORDERS.FROM' | translate }}</label>
+      <input type="date" [(ngModel)]="fromDate" (change)="onFilterChange()" />
+    </div>
+
+    <div class="date-filter">
+      <label>{{ 'ADMIN.ORDERS.TO' | translate }}</label>
+      <input type="date" [(ngModel)]="toDate" (change)="onFilterChange()" />
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="loading">{{ 'COMMON.LOADING' | translate }}</div>
+  } @else {
+    @if (orders().length === 0) {
+      <div class="empty-state">{{ 'COMMON.NO_RESULTS' | translate }}</div>
+    } @else {
+      <div class="admin-table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>{{ 'ADMIN.ORDERS.ORDER_NUMBER' | translate }}</th>
+              <th>{{ 'ADMIN.ORDERS.CUSTOMER' | translate }}</th>
+              <th>{{ 'ADMIN.ORDERS.STATUS' | translate }}</th>
+              <th>{{ 'ADMIN.ORDERS.ITEMS' | translate }}</th>
+              <th>{{ 'ADMIN.ORDERS.TOTAL' | translate }}</th>
+              <th>{{ 'ADMIN.ORDERS.DATE' | translate }}</th>
+              <th class="col-actions">{{ 'ADMIN.PRODUCTS.ACTIONS' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (order of orders(); track order.id) {
+              <tr>
+                <td>
+                  <a [routerLink]="['/admin/orders', order.id]" class="link">{{
+                    order.orderNumber
+                  }}</a>
+                </td>
+                <td>{{ order.customerName }}</td>
+                <td>
+                  <span class="status-badge" [class]="order.status | orderStatusClass">
+                    {{ order.status | orderStatusKey | translate }}
+                  </span>
+                </td>
+                <td>{{ order.itemCount }}</td>
+                <td>{{ order.totalAmount | currency: order.currency }}</td>
+                <td>{{ order.createdAt | date: 'medium' }}</td>
+                <td class="col-actions">
+                  <a [routerLink]="['/admin/orders', order.id]" class="btn-icon" title="View">
+                    <i class="pi pi-eye"></i>
+                  </a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      @if (totalPages() > 1) {
+        <div class="pagination">
+          <button
+            class="pagination__btn"
+            [disabled]="currentPage() === 1"
+            (click)="onPageChange(currentPage() - 1)"
+          >
+            <i class="pi pi-angle-left"></i>
+          </button>
+          @for (page of pages(); track page) {
+            <button
+              class="pagination__btn"
+              [class.pagination__btn--active]="page === currentPage()"
+              (click)="onPageChange(page)"
+            >
+              {{ page }}
+            </button>
+          }
+          <button
+            class="pagination__btn"
+            [disabled]="currentPage() === totalPages()"
+            (click)="onPageChange(currentPage() + 1)"
+          >
+            <i class="pi pi-angle-right"></i>
+          </button>
+        </div>
+      }
+    }
+  }
+</div>

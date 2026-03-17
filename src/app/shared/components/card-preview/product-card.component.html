@@ -2,41 +2,41 @@
   <a [routerLink]="productUrl" class="product-card__link">
     <!-- Image Container -->
     <div class="product-card__image-wrapper">
-      <img [src]="primaryImage" [alt]="product().name" class="product-card__image" loading="lazy" />
+      <img [src]="primaryImage" [alt]="productName" class="product-card__image" loading="lazy" />
 
       <!-- Badges -->
       <div class="product-card__badges">
         @if (discountPercentage) {
-        <span class="product-card__badge product-card__badge--sale">
-          -{{ discountPercentage }}%
-        </span>
-        } @if (!product().inStock) {
-        <span class="product-card__badge product-card__badge--out-of-stock"> Out of Stock </span>
-        } @if (product().rarity) {
-        <span class="product-card__badge" [class]="getRarityClass(product().rarity)">
-          {{ product().rarity }}
-        </span>
+          <span class="product-card__badge product-card__badge--sale">
+            -{{ discountPercentage }}%
+          </span>
+        }
+        @if (!isInStock) {
+          <span class="product-card__badge product-card__badge--out-of-stock">
+            {{ 'COMMON.OUT_OF_STOCK' | translate }}
+          </span>
         }
       </div>
 
       <!-- Quick Actions Overlay -->
       <div class="product-card__actions">
         @if (showWishlist()) {
-        <button
-          class="product-card__action-btn"
-          (click)="onAddToWishlist($event)"
-          aria-label="Add to wishlist"
-        >
-          <i class="pi pi-heart"></i>
-        </button>
-        } @if (showQuickView()) {
-        <button
-          class="product-card__action-btn"
-          (click)="onQuickView($event)"
-          aria-label="Quick view"
-        >
-          <i class="pi pi-eye"></i>
-        </button>
+          <button
+            class="product-card__action-btn"
+            (click)="onAddToWishlist($event)"
+            [attr.aria-label]="'COMMON.ADD_TO_WISHLIST' | translate"
+          >
+            <i class="pi pi-heart"></i>
+          </button>
+        }
+        @if (showQuickView()) {
+          <button
+            class="product-card__action-btn"
+            (click)="onQuickView($event)"
+            [attr.aria-label]="'COMMON.QUICK_VIEW' | translate"
+          >
+            <i class="pi pi-eye"></i>
+          </button>
         }
       </div>
     </div>
@@ -44,64 +44,56 @@
     <!-- Content -->
     <div class="product-card__content">
       <!-- Category -->
-      <span class="product-card__category">{{ product().category.name }}</span>
+      @if (categoryName) {
+        <span class="product-card__category">{{ categoryName }}</span>
+      }
 
       <!-- Name -->
-      <h3 class="product-card__name">{{ product().name }}</h3>
+      <h3 class="product-card__name">{{ productName }}</h3>
 
       <!-- Condition -->
       <div class="product-card__meta">
-        <span class="product-card__condition">
-          {{ getConditionLabel(product().condition) }}
-        </span>
-        @if (product().year) {
-        <span class="product-card__year">{{ product().year }}</span>
+        @if (conditionLabel) {
+          <span class="product-card__condition">{{ conditionLabel | translate }}</span>
         }
       </div>
 
       <!-- Rating -->
-      @if (product().rating) {
-      <div class="product-card__rating">
-        <div class="product-card__stars">
-          @for (star of [1, 2, 3, 4, 5]; track star) {
-          <i
-            class="pi"
-            [class.pi-star-fill]="star <= (product().rating || 0)"
-            [class.pi-star]="star > (product().rating || 0)"
-          ></i>
-          }
+      @if (averageRating) {
+        <div class="product-card__rating">
+          <div class="product-card__stars">
+            @for (star of [1, 2, 3, 4, 5]; track star) {
+              <i
+                class="pi"
+                [class.pi-star-fill]="star <= averageRating"
+                [class.pi-star]="star > averageRating"
+              ></i>
+            }
+          </div>
         </div>
-        @if (product().reviewCount) {
-        <span class="product-card__review-count">({{ product().reviewCount }})</span>
-        }
-      </div>
       }
 
       <!-- Price -->
       <div class="product-card__price-wrapper">
         <span class="product-card__price">
-          {{ product().price | currency : product().currency }}
+          {{ product().price | currency: product().currency }}
         </span>
         @if (product().compareAtPrice && product().compareAtPrice! > product().price) {
-        <span class="product-card__compare-price">
-          {{ product().compareAtPrice | currency : product().currency }}
-        </span>
+          <span class="product-card__compare-price">
+            {{ product().compareAtPrice | currency: product().currency }}
+          </span>
         }
       </div>
     </div>
   </a>
 
   <!-- Add to Cart Button -->
-  <button
-    class="product-card__cart-btn"
-    [disabled]="!product().inStock"
-    (click)="onAddToCart($event)"
-  >
-    @if (product().inStock) {
-    <i class="pi pi-shopping-cart"></i>
-    <span>Add to Cart</span>
+  <button class="product-card__cart-btn" [disabled]="!isInStock" (click)="onAddToCart($event)">
+    @if (isInStock) {
+      <i class="pi pi-shopping-cart"></i>
+      <span>{{ 'COMMON.ADD_TO_CART' | translate }}</span>
     } @else {
-    <span>Out of Stock</span>
+      <span>{{ 'COMMON.OUT_OF_STOCK' | translate }}</span>
     }
   </button>
 </article>
