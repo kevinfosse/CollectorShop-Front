@@ -6,6 +6,7 @@ COPY . .
 RUN npx ng build --configuration=production
 
 FROM nginx:alpine
+RUN apk upgrade --no-cache && apk add --upgrade zlib
 COPY --from=build /app/dist/CollectorShop/browser /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
