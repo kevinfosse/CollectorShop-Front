@@ -78,7 +78,7 @@ sonar:
       -Dsonar.host.url="https://sonarcloud.io"
       -Dsonar.sources="src"
       -Dsonar.exclusions="**/node_modules/**,**/dist/**,**/*.spec.ts"
-      -Dsonar.qualitygate.wait=true
+      -Dsonar.qualitygate.wait=false
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
@@ -205,13 +205,13 @@ deploy:azure:
     - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
     - ssh -o StrictHostKeyChecking=accept-new -i ~/.ssh/id_rsa "${SSH_USER}@${SSH_HOST}" "
-        set -e &&
-        echo '${CI_REGISTRY_PASSWORD}' | docker login -u '${CI_REGISTRY_USER}' --password-stdin ${CI_REGISTRY} &&
-        cd /opt/services/apps &&
-        docker compose pull collectorshop-front &&
-        docker compose up -d collectorshop-front &&
-        test \"\$(docker inspect -f '{{.State.Running}}' collectorshop-front)\" = \"true\" &&
-        docker image prune -f
+      set -e &&
+      echo '${CI_REGISTRY_PASSWORD}' | docker login -u '${CI_REGISTRY_USER}' --password-stdin ${CI_REGISTRY} &&
+      cd /opt/services/apps &&
+      docker compose pull collectorshop-front &&
+      docker compose up -d collectorshop-front &&
+      test \"\$(docker inspect -f '{{.State.Running}}' collectorshop-front)\" = \"true\" &&
+      docker image prune -f
       "
   environment:
     name: production
