@@ -162,7 +162,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             set -e
-            echo '${{ secrets.GHCR_TOKEN }}' | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            echo '${{ secrets.GHCR_TOKEN }}' | docker login ghcr.io -u ${{ secrets.GHCR_USER }} --password-stdin
             cd /opt/services/apps
             docker compose pull collectorshop-front
             docker compose up -d collectorshop-front
