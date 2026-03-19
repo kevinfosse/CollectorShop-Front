@@ -63,6 +63,27 @@
               ],
               "outputHashing": "all"
             },
+            "prod-vm": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod-vm.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "8kB",
+                  "maximumError": "16kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "optimization": false,
               "extractLicenses": false,
@@ -79,6 +100,9 @@
             },
             "development": {
               "buildTarget": "CollectorShop:build:development"
+            },
+            "prod-vm": {
+              "buildTarget": "CollectorShop:build:prod-vm"
             }
           },
           "defaultConfiguration": "development"
