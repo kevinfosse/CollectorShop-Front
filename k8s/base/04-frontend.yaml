@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: collectorshop-front
+  namespace: collectorshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: collectorshop-front
+  template:
+    metadata:
+      labels:
+        app: collectorshop-front
+    spec:
+      imagePullSecrets:
+        - name: ghcr-regcred
+      containers:
+        - name: collectorshop-front
+          image: ghcr.io/maalsi-cube3/collectorshop-front:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: '128Mi'
+              cpu: '50m'
+            limits:
+              memory: '256Mi'
+              cpu: '200m'
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: collectorshop-front
+  namespace: collectorshop
+spec:
+  selector:
+    app: collectorshop-front
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: collectorshop-front
+  namespace: collectorshop
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: 'true'
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - maalsikube.dev
+      secretName: collectorshop-front-tls
+  rules:
+    - host: maalsikube.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: collectorshop-front
+                port:
+                  number: 80
