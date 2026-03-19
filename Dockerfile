@@ -3,7 +3,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-RUN npx ng build --configuration=production
+ARG BUILD_CONFIG=production                                                                                                                 
+RUN npx ng build --configuration=${BUILD_CONFIG}
+
 
 FROM nginx:alpine
 RUN apk upgrade --no-cache && apk add --upgrade zlib
