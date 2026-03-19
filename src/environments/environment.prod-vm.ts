@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.maalsikube.dev/api',
+  apiUrl: 'http://172.16.47.13/api',
 };
