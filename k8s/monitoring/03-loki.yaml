@@ -66,11 +66,14 @@ spec:
             - containerPort: 3100
           args:
             - '-config.file=/etc/loki/loki.yaml'
+            - '-target=all'
           volumeMounts:
             - name: config
               mountPath: /etc/loki
             - name: data
               mountPath: /loki
+            - name: wal
+              mountPath: /wal
           resources:
             requests:
               memory: '128Mi'
@@ -83,6 +86,8 @@ spec:
           configMap:
             name: loki-config
         - name: data
+          emptyDir: {}
+        - name: wal
           emptyDir: {}
 ---
 apiVersion: v1
