@@ -55,6 +55,13 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "production-vm": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod-vm.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
