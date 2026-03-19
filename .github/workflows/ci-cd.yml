@@ -35,8 +35,16 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
       - run: npm ci
+      - name: Set build config
+        id: config
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/master" ]; then
+            echo "value=production" >> $GITHUB_OUTPUT
+          else
+            echo "value=prod-vm" >> $GITHUB_OUTPUT
+          fi
       - name: Build Angular
-        run: npx ng build --configuration=production
+        run: npx ng build --configuration=${{ steps.config.outputs.value }}
       - uses: actions/upload-artifact@v4
         with:
           name: dist
