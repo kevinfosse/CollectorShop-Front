@@ -74,7 +74,10 @@
     "MOVED_TO_CART": "Article déplacé dans le panier !",
     "CART_ERROR": "Impossible d'ajouter l'article au panier.",
     "LOGIN_REQUIRED": "Veuillez vous connecter pour continuer.",
-    "MAX_STOCK_REACHED": "Stock maximum disponible atteint."
+    "MAX_STOCK_REACHED": "Stock maximum disponible atteint.",
+    "SETTINGS_SAVED": "Paramètres enregistrés avec succès !",
+    "LOAD_ERROR": "Échec du chargement des données.",
+    "SAVE_ERROR": "Échec de l'enregistrement. Veuillez réessayer."
   },
   "HOME": {
     "HERO_TITLE": "Découvrez des Objets de Collection Rares",
@@ -408,7 +411,17 @@
       "CATEGORIES": "Catégories",
       "BRANDS": "Marques",
       "COUPONS": "Coupons",
-      "REVIEWS": "Avis"
+      "REVIEWS": "Avis",
+      "SHIPPING": "Livraison"
+    },
+    "SHIPPING": {
+      "TITLE": "Paramètres de livraison et taxes",
+      "DEFAULT_COST": "Frais de livraison par défaut",
+      "DEFAULT_COST_HINT": "Appliqué à toutes les commandes sauf si le seuil de livraison gratuite est atteint.",
+      "TAX_RATE": "Taux de taxe",
+      "TAX_RATE_HINT": "Pourcentage appliqué au sous-total de la commande après remises.",
+      "FREE_THRESHOLD": "Seuil de livraison gratuite",
+      "FREE_THRESHOLD_HINT": "Les commandes au-dessus de ce montant bénéficient de la livraison gratuite. Mettre 0 pour désactiver."
     },
     "DASHBOARD": {
       "TITLE": "Tableau de bord",

@@ -72,6 +72,13 @@ export const ADMIN_ROUTES: Routes = [
             (m) => m.ReviewModerationComponent,
           ),
       },
+      {
+        path: 'shipping',
+        loadComponent: () =>
+          import('./components/shipping-settings/shipping-settings.component').then(
+            (m) => m.ShippingSettingsComponent,
+          ),
+      },
     ],
   },
 ];

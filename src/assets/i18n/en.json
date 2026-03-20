@@ -74,7 +74,10 @@
     "MOVED_TO_CART": "Item moved to cart!",
     "CART_ERROR": "Failed to add item to cart.",
     "LOGIN_REQUIRED": "Please sign in to continue.",
-    "MAX_STOCK_REACHED": "Maximum available stock reached."
+    "MAX_STOCK_REACHED": "Maximum available stock reached.",
+    "SETTINGS_SAVED": "Settings saved successfully!",
+    "LOAD_ERROR": "Failed to load data.",
+    "SAVE_ERROR": "Failed to save. Please try again."
   },
   "HOME": {
     "HERO_TITLE": "Discover Rare Collectibles",
@@ -408,7 +411,17 @@
       "CATEGORIES": "Categories",
       "BRANDS": "Brands",
       "COUPONS": "Coupons",
-      "REVIEWS": "Reviews"
+      "REVIEWS": "Reviews",
+      "SHIPPING": "Shipping"
+    },
+    "SHIPPING": {
+      "TITLE": "Shipping & Tax Settings",
+      "DEFAULT_COST": "Default Shipping Cost",
+      "DEFAULT_COST_HINT": "Applied to all orders unless free shipping threshold is met.",
+      "TAX_RATE": "Tax Rate",
+      "TAX_RATE_HINT": "Percentage applied to the order subtotal after discounts.",
+      "FREE_THRESHOLD": "Free Shipping Threshold",
+      "FREE_THRESHOLD_HINT": "Orders above this amount get free shipping. Set to 0 to disable."
     },
     "DASHBOARD": {
       "TITLE": "Dashboard",

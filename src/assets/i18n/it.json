@@ -74,7 +74,10 @@
     "MOVED_TO_CART": "Articolo spostato nel carrello!",
     "CART_ERROR": "Impossibile aggiungere l'articolo al carrello.",
     "LOGIN_REQUIRED": "Accedi per continuare.",
-    "MAX_STOCK_REACHED": "Scorta massima disponibile raggiunta."
+    "MAX_STOCK_REACHED": "Scorta massima disponibile raggiunta.",
+    "SETTINGS_SAVED": "Impostazioni salvate con successo!",
+    "LOAD_ERROR": "Impossibile caricare i dati.",
+    "SAVE_ERROR": "Salvataggio fallito. Riprova."
   },
   "HOME": {
     "HERO_TITLE": "Scopri Oggetti da Collezione Rari",
@@ -408,7 +411,17 @@
       "CATEGORIES": "Categorie",
       "BRANDS": "Marchi",
       "COUPONS": "Coupon",
-      "REVIEWS": "Recensioni"
+      "REVIEWS": "Recensioni",
+      "SHIPPING": "Spedizione"
+    },
+    "SHIPPING": {
+      "TITLE": "Impostazioni spedizione e tasse",
+      "DEFAULT_COST": "Costo di spedizione predefinito",
+      "DEFAULT_COST_HINT": "Applicato a tutti gli ordini a meno che non venga raggiunta la soglia di spedizione gratuita.",
+      "TAX_RATE": "Aliquota fiscale",
+      "TAX_RATE_HINT": "Percentuale applicata al subtotale dell'ordine dopo gli sconti.",
+      "FREE_THRESHOLD": "Soglia spedizione gratuita",
+      "FREE_THRESHOLD_HINT": "Gli ordini sopra questo importo ottengono la spedizione gratuita. Impostare 0 per disattivare."
     },
     "DASHBOARD": {
       "TITLE": "Dashboard",
