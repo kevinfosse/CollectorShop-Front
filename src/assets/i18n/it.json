@@ -74,7 +74,11 @@
     "MOVED_TO_CART": "Articolo spostato nel carrello!",
     "CART_ERROR": "Impossibile aggiungere l'articolo al carrello.",
     "LOGIN_REQUIRED": "Accedi per continuare.",
-    "MAX_STOCK_REACHED": "Scorta massima disponibile raggiunta."
+    "MAX_STOCK_REACHED": "Scorta massima disponibile raggiunta.",
+    "REVIEW_SUBMITTED": "Recensione inviata con successo! Apparirà dopo la moderazione.",
+    "REVIEW_UPDATED": "Recensione aggiornata con successo!",
+    "REVIEW_DELETED": "Recensione eliminata.",
+    "REVIEW_ERROR": "Impossibile inviare la recensione."
   },
   "HOME": {
     "HERO_TITLE": "Scopri Oggetti da Collezione Rari",
@@ -157,7 +161,18 @@
     "ADD_TO_WISHLIST": "Aggiungi ai preferiti",
     "SHARE": "Condividi",
     "BACK_TO_CATALOG": "Torna al catalogo",
-    "LOADING": "Caricamento prodotto..."
+    "LOADING": "Caricamento prodotto...",
+    "CUSTOMER_REVIEWS": "Recensioni dei clienti",
+    "WRITE_REVIEW": "Scrivi una recensione",
+    "YOUR_RATING": "La tua valutazione",
+    "REVIEW_TITLE": "Titolo",
+    "REVIEW_TITLE_PLACEHOLDER": "Riassumi la tua esperienza",
+    "REVIEW_COMMENT": "Commento",
+    "REVIEW_COMMENT_PLACEHOLDER": "Cosa ti è piaciuto o non ti è piaciuto di questo prodotto?",
+    "SUBMIT_REVIEW": "Invia recensione",
+    "TO_WRITE_REVIEW": "per scrivere una recensione.",
+    "NO_REVIEWS": "Ancora nessuna recensione. Sii il primo a recensire questo prodotto!",
+    "VERIFIED_PURCHASE": "Acquisto verificato"
   },
   "CART": {
     "TITLE": "Carrello",
@@ -306,6 +321,12 @@
       "PAYMENT_FAILED": "Fallito",
       "PAYMENT_REFUNDED": "Rimborsato",
       "PAYMENT_PARTIALLY_REFUNDED": "Parzialmente rimborsato"
+    },
+    "MY_REVIEWS": {
+      "NAV": "Le mie recensioni",
+      "TITLE": "Le mie recensioni",
+      "EMPTY": "Non hai ancora scritto recensioni.",
+      "PENDING_APPROVAL": "In attesa di approvazione"
     },
     "WISHLIST_PAGE": {
       "TITLE": "I miei preferiti",

@@ -74,7 +74,11 @@
     "MOVED_TO_CART": "Article déplacé dans le panier !",
     "CART_ERROR": "Impossible d'ajouter l'article au panier.",
     "LOGIN_REQUIRED": "Veuillez vous connecter pour continuer.",
-    "MAX_STOCK_REACHED": "Stock maximum disponible atteint."
+    "MAX_STOCK_REACHED": "Stock maximum disponible atteint.",
+    "REVIEW_SUBMITTED": "Avis soumis avec succès ! Il apparaîtra après modération.",
+    "REVIEW_UPDATED": "Avis mis à jour avec succès !",
+    "REVIEW_DELETED": "Avis supprimé.",
+    "REVIEW_ERROR": "Impossible de soumettre l'avis."
   },
   "HOME": {
     "HERO_TITLE": "Découvrez des Objets de Collection Rares",
@@ -157,7 +161,18 @@
     "ADD_TO_WISHLIST": "Ajouter aux favoris",
     "SHARE": "Partager",
     "BACK_TO_CATALOG": "Retour au catalogue",
-    "LOADING": "Chargement du produit..."
+    "LOADING": "Chargement du produit...",
+    "CUSTOMER_REVIEWS": "Avis clients",
+    "WRITE_REVIEW": "Écrire un avis",
+    "YOUR_RATING": "Votre note",
+    "REVIEW_TITLE": "Titre",
+    "REVIEW_TITLE_PLACEHOLDER": "Résumez votre expérience",
+    "REVIEW_COMMENT": "Commentaire",
+    "REVIEW_COMMENT_PLACEHOLDER": "Qu'avez-vous aimé ou pas aimé de ce produit ?",
+    "SUBMIT_REVIEW": "Envoyer l'avis",
+    "TO_WRITE_REVIEW": "pour écrire un avis.",
+    "NO_REVIEWS": "Aucun avis pour le moment. Soyez le premier à donner votre avis !",
+    "VERIFIED_PURCHASE": "Achat vérifié"
   },
   "CART": {
     "TITLE": "Panier",
@@ -306,6 +321,12 @@
       "PAYMENT_FAILED": "Échoué",
       "PAYMENT_REFUNDED": "Remboursé",
       "PAYMENT_PARTIALLY_REFUNDED": "Partiellement remboursé"
+    },
+    "MY_REVIEWS": {
+      "NAV": "Mes avis",
+      "TITLE": "Mes avis",
+      "EMPTY": "Vous n'avez pas encore écrit d'avis.",
+      "PENDING_APPROVAL": "En attente d'approbation"
     },
     "WISHLIST_PAGE": {
       "TITLE": "Mes favoris",

@@ -33,6 +33,13 @@ export const USER_ROUTES: Routes = [
           import('./components/wishlist/wishlist.component').then((m) => m.WishlistComponent),
       },
       {
+        path: 'reviews',
+        loadComponent: () =>
+          import('./components/my-reviews/my-reviews.component').then(
+            (m) => m.MyReviewsComponent
+          ),
+      },
+      {
         path: 'settings',
         loadComponent: () =>
           import('./components/settings/settings.component').then((m) => m.SettingsComponent),

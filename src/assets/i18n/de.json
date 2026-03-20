@@ -74,7 +74,11 @@
     "MOVED_TO_CART": "Artikel in den Warenkorb verschoben!",
     "CART_ERROR": "Artikel konnte nicht zum Warenkorb hinzugefügt werden.",
     "LOGIN_REQUIRED": "Bitte melden Sie sich an, um fortzufahren.",
-    "MAX_STOCK_REACHED": "Maximaler verfügbarer Bestand erreicht."
+    "MAX_STOCK_REACHED": "Maximaler verfügbarer Bestand erreicht.",
+    "REVIEW_SUBMITTED": "Bewertung erfolgreich eingereicht! Sie wird nach der Moderation angezeigt.",
+    "REVIEW_UPDATED": "Bewertung erfolgreich aktualisiert!",
+    "REVIEW_DELETED": "Bewertung gelöscht.",
+    "REVIEW_ERROR": "Bewertung konnte nicht eingereicht werden."
   },
   "HOME": {
     "HERO_TITLE": "Entdecken Sie Seltene Sammlerstücke",
@@ -157,7 +161,18 @@
     "ADD_TO_WISHLIST": "Zur Wunschliste hinzufügen",
     "SHARE": "Teilen",
     "BACK_TO_CATALOG": "Zurück zum Katalog",
-    "LOADING": "Produkt wird geladen..."
+    "LOADING": "Produkt wird geladen...",
+    "CUSTOMER_REVIEWS": "Kundenbewertungen",
+    "WRITE_REVIEW": "Bewertung schreiben",
+    "YOUR_RATING": "Ihre Bewertung",
+    "REVIEW_TITLE": "Titel",
+    "REVIEW_TITLE_PLACEHOLDER": "Fassen Sie Ihre Erfahrung zusammen",
+    "REVIEW_COMMENT": "Kommentar",
+    "REVIEW_COMMENT_PLACEHOLDER": "Was hat Ihnen an diesem Produkt gefallen oder nicht gefallen?",
+    "SUBMIT_REVIEW": "Bewertung absenden",
+    "TO_WRITE_REVIEW": "um eine Bewertung zu schreiben.",
+    "NO_REVIEWS": "Noch keine Bewertungen. Seien Sie der Erste, der dieses Produkt bewertet!",
+    "VERIFIED_PURCHASE": "Verifizierter Kauf"
   },
   "CART": {
     "TITLE": "Warenkorb",
@@ -306,6 +321,12 @@
       "PAYMENT_FAILED": "Fehlgeschlagen",
       "PAYMENT_REFUNDED": "Erstattet",
       "PAYMENT_PARTIALLY_REFUNDED": "Teilweise erstattet"
+    },
+    "MY_REVIEWS": {
+      "NAV": "Meine Bewertungen",
+      "TITLE": "Meine Bewertungen",
+      "EMPTY": "Sie haben noch keine Bewertungen geschrieben.",
+      "PENDING_APPROVAL": "Ausstehende Genehmigung"
     },
     "WISHLIST_PAGE": {
       "TITLE": "Meine Wunschliste",

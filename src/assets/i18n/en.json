@@ -74,7 +74,11 @@
     "MOVED_TO_CART": "Item moved to cart!",
     "CART_ERROR": "Failed to add item to cart.",
     "LOGIN_REQUIRED": "Please sign in to continue.",
-    "MAX_STOCK_REACHED": "Maximum available stock reached."
+    "MAX_STOCK_REACHED": "Maximum available stock reached.",
+    "REVIEW_SUBMITTED": "Review submitted successfully! It will appear after moderation.",
+    "REVIEW_UPDATED": "Review updated successfully!",
+    "REVIEW_DELETED": "Review deleted.",
+    "REVIEW_ERROR": "Failed to submit review."
   },
   "HOME": {
     "HERO_TITLE": "Discover Rare Collectibles",
@@ -157,7 +161,18 @@
     "ADD_TO_WISHLIST": "Add to Wishlist",
     "SHARE": "Share",
     "BACK_TO_CATALOG": "Back to Catalog",
-    "LOADING": "Loading product..."
+    "LOADING": "Loading product...",
+    "CUSTOMER_REVIEWS": "Customer Reviews",
+    "WRITE_REVIEW": "Write a Review",
+    "YOUR_RATING": "Your Rating",
+    "REVIEW_TITLE": "Title",
+    "REVIEW_TITLE_PLACEHOLDER": "Summarize your experience",
+    "REVIEW_COMMENT": "Comment",
+    "REVIEW_COMMENT_PLACEHOLDER": "What did you like or dislike about this product?",
+    "SUBMIT_REVIEW": "Submit Review",
+    "TO_WRITE_REVIEW": "to write a review.",
+    "NO_REVIEWS": "No reviews yet. Be the first to review this product!",
+    "VERIFIED_PURCHASE": "Verified Purchase"
   },
   "CART": {
     "TITLE": "Shopping Cart",
@@ -306,6 +321,12 @@
       "PAYMENT_FAILED": "Failed",
       "PAYMENT_REFUNDED": "Refunded",
       "PAYMENT_PARTIALLY_REFUNDED": "Partially Refunded"
+    },
+    "MY_REVIEWS": {
+      "NAV": "My Reviews",
+      "TITLE": "My Reviews",
+      "EMPTY": "You haven't written any reviews yet.",
+      "PENDING_APPROVAL": "Pending approval"
     },
     "WISHLIST_PAGE": {
       "TITLE": "My Wishlist",
