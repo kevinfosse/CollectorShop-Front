@@ -114,6 +114,8 @@ export interface UpdateProductRequest {
   brandId?: string;
   isFeatured: boolean;
   isActive: boolean;
+  images: CreateProductImageRequest[];
+  attributes: CreateProductAttributeRequest[];
 }
 
 export interface CreateProductImageRequest {
