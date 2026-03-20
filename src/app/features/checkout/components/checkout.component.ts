@@ -2,7 +2,9 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
+import { Subject, debounceTime, distinctUntilChanged, switchMap, of, catchError } from 'rxjs';
 import { CartService, OrderService, CustomerService, ConfigService } from '../../../core/services';
 import {
   CreateOrderRequest,
@@ -12,6 +14,15 @@ import {
   CustomerAddressDto,
   OrderPreviewResponse,
 } from '../../../core/models';
+
+interface AddressSuggestion {
+  street: string;
+  city: string;
+  state: string;
+  country: string;
+  zipCode: string;
+  display: string;
+}
 
 @Component({
   selector: 'app-checkout',
@@ -25,6 +36,7 @@ export class CheckoutComponent implements OnInit {
   private readonly customerService = inject(CustomerService);
   private readonly configService = inject(ConfigService);
   private readonly router = inject(Router);
+  private readonly http = inject(HttpClient);
 
   protected readonly cart = this.cartService.cart;
   protected readonly loading = signal(false);
@@ -33,12 +45,16 @@ export class CheckoutComponent implements OnInit {
   protected readonly orderPreview = signal<OrderPreviewResponse | null>(null);
   protected readonly previewLoading = signal(false);
 
+  // Address autocomplete
+  protected readonly addressSuggestions = signal<AddressSuggestion[]>([]);
+  private readonly addressSearch$ = new Subject<string>();
+
   // Form fields
   protected shippingAddress: AddressDto = {
     street: '',
     city: '',
     state: '',
-    country: 'US',
+    country: '',
     zipCode: '',
   };
 
@@ -46,7 +62,7 @@ export class CheckoutComponent implements OnInit {
     street: '',
     city: '',
     state: '',
-    country: 'US',
+    country: '',
     zipCode: '',
   };
 
@@ -61,12 +77,24 @@ export class CheckoutComponent implements OnInit {
   protected readonly countries = signal<{ code: string; translationKey: string }[]>([]);
 
   ngOnInit(): void {
+    // Auto-detect country from browser locale
+    const detectedCountry = this.detectCountry();
+
     // Load countries from API
     this.configService.getShippingCountries().subscribe({
-      next: (codes) =>
+      next: (codes) => {
         this.countries.set(
           codes.map((code) => ({ code, translationKey: `CHECKOUT.COUNTRIES.${code}` })),
-        ),
+        );
+        // Set detected country if it's in the supported list, otherwise default to first
+        const country = codes.includes(detectedCountry) ? detectedCountry : codes[0] || 'US';
+        if (!this.shippingAddress.country) {
+          this.shippingAddress.country = country;
+        }
+        if (!this.billingAddress.country) {
+          this.billingAddress.country = country;
+        }
+      },
     });
 
     // Load cart if not already loaded
@@ -98,6 +126,85 @@ export class CheckoutComponent implements OnInit {
         // Ignore - user may not have saved addresses
       },
     });
+
+    // Setup address autocomplete with debounce
+    this.addressSearch$
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((query) => {
+          if (query.length < 3) {
+            return of([]);
+          }
+          return this.fetchAddressSuggestions(query).pipe(catchError(() => of([])));
+        }),
+      )
+      .subscribe((suggestions) => this.addressSuggestions.set(suggestions));
+  }
+
+  private detectCountry(): string {
+    const locale = navigator.language || navigator.languages?.[0] || 'en-US';
+    // Extract country code from locale (e.g., 'fr-FR' -> 'FR', 'en-US' -> 'US')
+    const parts = locale.split('-');
+    return parts.length > 1 ? parts[1].toUpperCase() : parts[0].toUpperCase();
+  }
+
+  private fetchAddressSuggestions(query: string) {
+    // Using Photon (Komoot) — free OSM-based geocoding, no API key required
+    const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&limit=5&lang=${navigator.language?.split('-')[0] || 'en'}`;
+    return this.http
+      .get<{
+        features: Array<{
+          properties: {
+            name?: string;
+            housenumber?: string;
+            street?: string;
+            city?: string;
+            state?: string;
+            country?: string;
+            countrycode?: string;
+            postcode?: string;
+          };
+        }>;
+      }>(url)
+      .pipe(
+        switchMap((response) => {
+          const suggestions: AddressSuggestion[] = response.features
+            .filter((f) => f.properties.street || f.properties.name)
+            .map((f) => {
+              const p = f.properties;
+              const street = p.housenumber
+                ? `${p.housenumber} ${p.street || p.name}`
+                : (p.street || p.name || '');
+              return {
+                street,
+                city: p.city || '',
+                state: p.state || '',
+                country: p.countrycode?.toUpperCase() || '',
+                zipCode: p.postcode || '',
+                display: [street, p.city, p.state, p.postcode, p.country]
+                  .filter(Boolean)
+                  .join(', '),
+              };
+            });
+          return of(suggestions);
+        }),
+      );
+  }
+
+  protected onAddressInput(query: string): void {
+    this.addressSearch$.next(query);
+  }
+
+  protected selectSuggestion(suggestion: AddressSuggestion): void {
+    this.shippingAddress = {
+      street: suggestion.street,
+      city: suggestion.city,
+      state: suggestion.state,
+      country: suggestion.country || this.shippingAddress.country,
+      zipCode: suggestion.zipCode,
+    };
+    this.addressSuggestions.set([]);
   }
 
   protected selectSavedAddress(address: CustomerAddressDto): void {

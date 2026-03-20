@@ -30,26 +30,39 @@
         <!-- Shipping -->
         <div class="checkout__section">
           <h2>{{ 'CHECKOUT.SHIPPING_INFO' | translate }}</h2>
+          <p class="section-hint">{{ 'CHECKOUT.SHIPPING_HINT' | translate }}</p>
           <div class="form-grid">
-            <div class="form-group full-width">
-              <label for="street">{{ 'CHECKOUT.ADDRESS' | translate }}</label>
+            <div class="form-group full-width autocomplete-wrapper">
+              <label for="street">{{ 'CHECKOUT.ADDRESS' | translate }} *</label>
               <input
                 type="text"
                 id="street"
                 name="street"
                 [(ngModel)]="shippingAddress.street"
-                [placeholder]="'CHECKOUT.ADDRESS' | translate"
+                [placeholder]="'CHECKOUT.ADDRESS_PLACEHOLDER' | translate"
                 [disabled]="loading()"
+                (input)="onAddressInput(shippingAddress.street)"
+                autocomplete="off"
               />
+              @if (addressSuggestions().length > 0) {
+                <ul class="autocomplete-list">
+                  @for (suggestion of addressSuggestions(); track suggestion.display) {
+                    <li (click)="selectSuggestion(suggestion)">
+                      <i class="pi pi-map-marker"></i>
+                      {{ suggestion.display }}
+                    </li>
+                  }
+                </ul>
+              }
             </div>
             <div class="form-group">
-              <label for="city">{{ 'CHECKOUT.CITY' | translate }}</label>
+              <label for="city">{{ 'CHECKOUT.CITY' | translate }} *</label>
               <input
                 type="text"
                 id="city"
                 name="city"
                 [(ngModel)]="shippingAddress.city"
-                [placeholder]="'CHECKOUT.CITY' | translate"
+                [placeholder]="'CHECKOUT.CITY_PLACEHOLDER' | translate"
                 [disabled]="loading()"
               />
             </div>
@@ -60,23 +73,23 @@
                 id="state"
                 name="state"
                 [(ngModel)]="shippingAddress.state"
-                [placeholder]="'CHECKOUT.STATE' | translate"
+                [placeholder]="'CHECKOUT.STATE_PLACEHOLDER' | translate"
                 [disabled]="loading()"
               />
             </div>
             <div class="form-group">
-              <label for="zipCode">{{ 'CHECKOUT.POSTAL_CODE' | translate }}</label>
+              <label for="zipCode">{{ 'CHECKOUT.POSTAL_CODE' | translate }} *</label>
               <input
                 type="text"
                 id="zipCode"
                 name="zipCode"
                 [(ngModel)]="shippingAddress.zipCode"
-                [placeholder]="'CHECKOUT.POSTAL_CODE' | translate"
+                [placeholder]="'CHECKOUT.POSTAL_CODE_PLACEHOLDER' | translate"
                 [disabled]="loading()"
               />
             </div>
             <div class="form-group">
-              <label for="country">{{ 'CHECKOUT.COUNTRY' | translate }}</label>
+              <label for="country">{{ 'CHECKOUT.COUNTRY' | translate }} *</label>
               <select
                 id="country"
                 name="country"
@@ -100,26 +113,27 @@
         @if (!sameAsShipping) {
           <div class="checkout__section">
             <h2>{{ 'CHECKOUT.BILLING_INFO' | translate }}</h2>
+            <p class="section-hint">{{ 'CHECKOUT.BILLING_HINT' | translate }}</p>
             <div class="form-grid">
               <div class="form-group full-width">
-                <label for="billingStreet">{{ 'CHECKOUT.ADDRESS' | translate }}</label>
+                <label for="billingStreet">{{ 'CHECKOUT.ADDRESS' | translate }} *</label>
                 <input
                   type="text"
                   id="billingStreet"
                   name="billingStreet"
                   [(ngModel)]="billingAddress.street"
-                  [placeholder]="'CHECKOUT.ADDRESS' | translate"
+                  [placeholder]="'CHECKOUT.ADDRESS_PLACEHOLDER' | translate"
                   [disabled]="loading()"
                 />
               </div>
               <div class="form-group">
-                <label for="billingCity">{{ 'CHECKOUT.CITY' | translate }}</label>
+                <label for="billingCity">{{ 'CHECKOUT.CITY' | translate }} *</label>
                 <input
                   type="text"
                   id="billingCity"
                   name="billingCity"
                   [(ngModel)]="billingAddress.city"
-                  [placeholder]="'CHECKOUT.CITY' | translate"
+                  [placeholder]="'CHECKOUT.CITY_PLACEHOLDER' | translate"
                   [disabled]="loading()"
                 />
               </div>
@@ -130,23 +144,23 @@
                   id="billingState"
                   name="billingState"
                   [(ngModel)]="billingAddress.state"
-                  [placeholder]="'CHECKOUT.STATE' | translate"
+                  [placeholder]="'CHECKOUT.STATE_PLACEHOLDER' | translate"
                   [disabled]="loading()"
                 />
               </div>
               <div class="form-group">
-                <label for="billingZipCode">{{ 'CHECKOUT.POSTAL_CODE' | translate }}</label>
+                <label for="billingZipCode">{{ 'CHECKOUT.POSTAL_CODE' | translate }} *</label>
                 <input
                   type="text"
                   id="billingZipCode"
                   name="billingZipCode"
                   [(ngModel)]="billingAddress.zipCode"
-                  [placeholder]="'CHECKOUT.POSTAL_CODE' | translate"
+                  [placeholder]="'CHECKOUT.POSTAL_CODE_PLACEHOLDER' | translate"
                   [disabled]="loading()"
                 />
               </div>
               <div class="form-group">
-                <label for="billingCountry">{{ 'CHECKOUT.COUNTRY' | translate }}</label>
+                <label for="billingCountry">{{ 'CHECKOUT.COUNTRY' | translate }} *</label>
                 <select
                   id="billingCountry"
                   name="billingCountry"

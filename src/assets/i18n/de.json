@@ -211,10 +211,16 @@
     },
     "BILLING_SAME_AS_SHIPPING": "Rechnungsadresse entspricht Lieferadresse",
     "BILLING_INFO": "Rechnungsinformationen",
+    "SHIPPING_HINT": "Geben Sie die Adresse ein, an die Ihre Bestellung geliefert werden soll.",
+    "BILLING_HINT": "Geben Sie die Adresse ein, die mit Ihrer Zahlungsmethode verknüpft ist.",
+    "ADDRESS_PLACEHOLDER": "Adresse eingeben...",
+    "CITY_PLACEHOLDER": "z.B. Berlin, München",
+    "STATE_PLACEHOLDER": "z.B. Bayern, Nordrhein-Westfalen",
+    "POSTAL_CODE_PLACEHOLDER": "z.B. 10115, 80331",
     "ORDER_NOTES": "Bestellhinweise",
-    "ORDER_NOTES_PLACEHOLDER": "Besondere Anweisungen für Ihre Bestellung...",
+    "ORDER_NOTES_PLACEHOLDER": "Lieferanweisungen oder Hinweise zu Ihrer Bestellung...",
     "COUPON_PLACEHOLDER": "Gutscheincode eingeben",
-    "TAX_PERCENT": "Steuern (8%)",
+    "TAX_PERCENT": "Steuern",
     "BACK_TO_CART": "Zurück zum Warenkorb"
   },
   "AUTH": {

@@ -211,10 +211,16 @@
     },
     "BILLING_SAME_AS_SHIPPING": "Adresse de facturation identique à la livraison",
     "BILLING_INFO": "Informations de facturation",
+    "SHIPPING_HINT": "Saisissez l'adresse où vous souhaitez recevoir votre commande.",
+    "BILLING_HINT": "Saisissez l'adresse associée à votre moyen de paiement.",
+    "ADDRESS_PLACEHOLDER": "Commencez à taper votre adresse...",
+    "CITY_PLACEHOLDER": "ex. Paris, Lyon",
+    "STATE_PLACEHOLDER": "ex. Île-de-France, Rhône-Alpes",
+    "POSTAL_CODE_PLACEHOLDER": "ex. 75001, 69001",
     "ORDER_NOTES": "Notes de commande",
-    "ORDER_NOTES_PLACEHOLDER": "Instructions spéciales pour votre commande...",
+    "ORDER_NOTES_PLACEHOLDER": "Instructions de livraison ou notes pour votre commande...",
     "COUPON_PLACEHOLDER": "Entrer un code promo",
-    "TAX_PERCENT": "Taxes (8%)",
+    "TAX_PERCENT": "Taxes",
     "BACK_TO_CART": "Retour au panier"
   },
   "AUTH": {
