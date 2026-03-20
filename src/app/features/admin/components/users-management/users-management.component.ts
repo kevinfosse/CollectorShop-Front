@@ -24,7 +24,7 @@ export class UsersManagementComponent implements OnInit {
   // Role edit modal
   protected readonly showRoleModal = signal(false);
   protected readonly editingUser = signal<AdminUserDto | null>(null);
-  protected selectedRoles: Set<string> = new Set();
+  protected selectedRoles = new Set<string>();
   protected readonly updating = signal(false);
 
   ngOnInit(): void {

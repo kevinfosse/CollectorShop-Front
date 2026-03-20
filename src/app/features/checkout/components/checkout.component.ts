@@ -154,7 +154,7 @@ export class CheckoutComponent implements OnInit {
     const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&limit=5&lang=${navigator.language?.split('-')[0] || 'en'}`;
     return this.http
       .get<{
-        features: Array<{
+        features: {
           properties: {
             name?: string;
             housenumber?: string;
@@ -165,7 +165,7 @@ export class CheckoutComponent implements OnInit {
             countrycode?: string;
             postcode?: string;
           };
-        }>;
+        }[];
       }>(url)
       .pipe(
         switchMap((response) => {
