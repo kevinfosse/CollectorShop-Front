@@ -1,6 +1,7 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CurrencyPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   ProductService,
@@ -9,11 +10,13 @@ import {
   WishlistService,
   ToastService,
 } from '../../../core/services';
+import { ReviewService } from '../../../core/services/review.service';
 import { ProductDto, ProductConditionLabels, ProductCondition } from '../../../core/models';
+import { ReviewDto, CreateReviewRequest } from '../../../core/models/review.model';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [RouterLink, CurrencyPipe, TranslateModule],
+  imports: [RouterLink, FormsModule, CurrencyPipe, DatePipe, DecimalPipe, TranslateModule],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss',
 })
@@ -21,15 +24,25 @@ export class ProductDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly productService = inject(ProductService);
   private readonly cartService = inject(CartService);
-  private readonly authService = inject(AuthService);
+  protected readonly authService = inject(AuthService);
   private readonly wishlistService = inject(WishlistService);
   private readonly toastService = inject(ToastService);
+  private readonly reviewService = inject(ReviewService);
 
   protected readonly product = signal<ProductDto | null>(null);
   protected readonly loading = signal(true);
   protected readonly error = signal<string | null>(null);
   protected readonly selectedImageIndex = signal(0);
   protected readonly quantity = signal(1);
+
+  // Reviews
+  protected readonly reviews = signal<ReviewDto[]>([]);
+  protected readonly reviewsLoading = signal(false);
+  protected readonly submittingReview = signal(false);
+  protected reviewRating = 0;
+  protected reviewTitle = '';
+  protected reviewComment = '';
+  protected hoverRating = 0;
 
   protected readonly selectedImage = computed(() => {
     const p = this.product();
@@ -53,6 +66,12 @@ export class ProductDetailComponent implements OnInit {
     return p ? p.availableQuantity > 0 : false;
   });
 
+  protected readonly averageRating = computed(() => {
+    const r = this.reviews();
+    if (!r.length) return 0;
+    return r.reduce((sum, rev) => sum + rev.rating, 0) / r.length;
+  });
+
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const slug = params.get('slug');
@@ -66,15 +85,28 @@ export class ProductDetailComponent implements OnInit {
     this.loading.set(true);
     this.error.set(null);
 
-    // Try loading by ID (UUID format) or fall back to treating it as an ID
     this.productService.getProduct(idOrSlug).subscribe({
       next: (product) => {
         this.product.set(product);
         this.loading.set(false);
+        this.loadReviews(product.id);
       },
       error: (err) => {
         this.error.set(err.message || 'Product not found');
         this.loading.set(false);
+      },
+    });
+  }
+
+  private loadReviews(productId: string): void {
+    this.reviewsLoading.set(true);
+    this.reviewService.getProductReviews(productId).subscribe({
+      next: (reviews) => {
+        this.reviews.set(reviews);
+        this.reviewsLoading.set(false);
+      },
+      error: () => {
+        this.reviewsLoading.set(false);
       },
     });
   }
@@ -145,5 +177,37 @@ export class ProductDetailComponent implements OnInit {
   protected isInWishlist(): boolean {
     const productId = this.product()?.id;
     return productId ? this.wishlistService.isInWishlist(productId) : false;
+  }
+
+  protected setRating(rating: number): void {
+    this.reviewRating = rating;
+  }
+
+  protected submitReview(): void {
+    const productId = this.product()?.id;
+    if (!productId || this.reviewRating === 0) return;
+
+    this.submittingReview.set(true);
+    const request: CreateReviewRequest = {
+      productId,
+      rating: this.reviewRating,
+      title: this.reviewTitle || undefined,
+      comment: this.reviewComment || undefined,
+    };
+
+    this.reviewService.createReview(request).subscribe({
+      next: () => {
+        this.reviewRating = 0;
+        this.reviewTitle = '';
+        this.reviewComment = '';
+        this.submittingReview.set(false);
+        this.toastService.show('TOAST.REVIEW_SUBMITTED', 'success');
+        this.loadReviews(productId);
+      },
+      error: () => {
+        this.submittingReview.set(false);
+        this.toastService.show('TOAST.REVIEW_ERROR', 'error');
+      },
+    });
   }
 }

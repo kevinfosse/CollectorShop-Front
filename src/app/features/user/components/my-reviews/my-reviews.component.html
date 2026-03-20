@@ -1,0 +1,91 @@
+<div class="my-reviews">
+  <h2 class="page-title">{{ 'ACCOUNT.MY_REVIEWS.TITLE' | translate }}</h2>
+
+  @if (loading()) {
+    <p class="loading-text">{{ 'COMMON.LOADING' | translate }}</p>
+  } @else if (reviews().length === 0) {
+    <p class="empty-text">{{ 'ACCOUNT.MY_REVIEWS.EMPTY' | translate }}</p>
+  } @else {
+    <div class="reviews-list">
+      @for (review of reviews(); track review.id) {
+        <div class="review-card">
+          @if (editingId() === review.id) {
+            <!-- Edit Mode -->
+            <div class="review-edit">
+              <div class="review-edit__rating">
+                <label>{{ 'PRODUCT.YOUR_RATING' | translate }}</label>
+                <div class="star-selector">
+                  @for (star of [1, 2, 3, 4, 5]; track star) {
+                    <button type="button" class="star-btn" (click)="setEditRating(star)">
+                      <i
+                        class="pi"
+                        [class.pi-star-fill]="star <= editRating"
+                        [class.pi-star]="star > editRating"
+                      ></i>
+                    </button>
+                  }
+                </div>
+              </div>
+              <div class="review-edit__field">
+                <label>{{ 'PRODUCT.REVIEW_TITLE' | translate }}</label>
+                <input type="text" [(ngModel)]="editTitle" />
+              </div>
+              <div class="review-edit__field">
+                <label>{{ 'PRODUCT.REVIEW_COMMENT' | translate }}</label>
+                <textarea [(ngModel)]="editComment" rows="3"></textarea>
+              </div>
+              <div class="review-edit__actions">
+                <button class="btn-secondary btn-sm" (click)="cancelEdit()">
+                  {{ 'COMMON.CANCEL' | translate }}
+                </button>
+                <button class="btn-primary btn-sm" (click)="saveEdit(review.id)">
+                  {{ 'COMMON.SAVE' | translate }}
+                </button>
+              </div>
+            </div>
+          } @else {
+            <!-- View Mode -->
+            <div class="review-card__header">
+              <a [routerLink]="['/product', review.productId]" class="review-card__product">
+                {{ review.productName }}
+              </a>
+              <span class="review-card__date">{{ review.createdAt | date: 'mediumDate' }}</span>
+            </div>
+            <div class="review-card__stars">
+              @for (star of [1, 2, 3, 4, 5]; track star) {
+                <i
+                  class="pi"
+                  [class.pi-star-fill]="star <= review.rating"
+                  [class.pi-star]="star > review.rating"
+                ></i>
+              }
+              @if (review.isVerifiedPurchase) {
+                <span class="review-card__verified">
+                  <i class="pi pi-verified"></i>
+                  {{ 'PRODUCT.VERIFIED_PURCHASE' | translate }}
+                </span>
+              }
+            </div>
+            @if (review.title) {
+              <h4 class="review-card__title">{{ review.title }}</h4>
+            }
+            @if (review.comment) {
+              <p class="review-card__comment">{{ review.comment }}</p>
+            }
+            @if (!review.isApproved) {
+              <span class="review-card__pending">{{ 'ACCOUNT.MY_REVIEWS.PENDING_APPROVAL' | translate }}</span>
+            }
+            <div class="review-card__actions">
+              <button class="btn-link" (click)="startEdit(review)">
+                <i class="pi pi-pencil"></i> {{ 'COMMON.EDIT' | translate }}
+              </button>
+              <button class="btn-link btn-link--danger" (click)="deleteReview(review.id)">
+                <i class="pi pi-trash"></i> {{ 'COMMON.DELETE' | translate }}
+              </button>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>
