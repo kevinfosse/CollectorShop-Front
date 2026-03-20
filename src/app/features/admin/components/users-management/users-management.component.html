@@ -1,0 +1,106 @@
+<div class="users-management">
+  <div class="page-header">
+    <h1 class="page-title">{{ 'ADMIN.USERS.TITLE' | translate }}</h1>
+  </div>
+
+  @if (loading()) {
+    <div class="loading">{{ 'COMMON.LOADING' | translate }}</div>
+  } @else {
+    <div class="admin-table-wrapper">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>{{ 'ADMIN.USERS.NAME' | translate }}</th>
+            <th>{{ 'ADMIN.USERS.EMAIL' | translate }}</th>
+            <th>{{ 'ADMIN.USERS.ROLES' | translate }}</th>
+            <th>{{ 'ADMIN.USERS.STATUS' | translate }}</th>
+            <th>{{ 'ADMIN.USERS.LAST_LOGIN' | translate }}</th>
+            <th>{{ 'ADMIN.USERS.ACTIONS' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of users(); track user.id) {
+            <tr>
+              <td>{{ user.firstName }} {{ user.lastName }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <div class="role-badges">
+                  @for (role of user.roles; track role) {
+                    <span class="role-badge" [class]="'role-badge--' + role.toLowerCase()">
+                      {{ role }}
+                    </span>
+                  }
+                </div>
+              </td>
+              <td>
+                <span
+                  class="status-badge"
+                  [class.status-badge--active]="user.isActive"
+                  [class.status-badge--inactive]="!user.isActive"
+                >
+                  {{ (user.isActive ? 'ADMIN.USERS.ACTIVE' : 'ADMIN.USERS.INACTIVE') | translate }}
+                </span>
+              </td>
+              <td>
+                @if (user.lastLoginAt) {
+                  {{ user.lastLoginAt | date: 'medium' }}
+                } @else {
+                  —
+                }
+              </td>
+              <td>
+                <div class="action-buttons">
+                  <button class="btn btn--sm btn--secondary" (click)="openRoleModal(user)">
+                    <i class="pi pi-users"></i>
+                    {{ 'ADMIN.USERS.MANAGE_ROLES' | translate }}
+                  </button>
+                  <button
+                    class="btn btn--sm"
+                    [class.btn--warning]="user.isActive"
+                    [class.btn--success]="!user.isActive"
+                    (click)="toggleActive(user)"
+                  >
+                    <i class="pi" [class.pi-ban]="user.isActive" [class.pi-check]="!user.isActive"></i>
+                    {{ (user.isActive ? 'ADMIN.USERS.DISABLE' : 'ADMIN.USERS.ENABLE') | translate }}
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
+
+<!-- Role Management Modal -->
+@if (showRoleModal()) {
+  <div class="modal-backdrop" (click)="showRoleModal.set(false)">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3 class="modal__title">{{ 'ADMIN.USERS.MANAGE_ROLES' | translate }}</h3>
+      @if (editingUser(); as user) {
+        <p class="modal__subtitle">{{ user.firstName }} {{ user.lastName }} ({{ user.email }})</p>
+        <div class="role-checkboxes">
+          @for (role of availableRoles(); track role) {
+            <label class="role-checkbox">
+              <input
+                type="checkbox"
+                [checked]="hasRole(role)"
+                (change)="toggleRole(role)"
+              />
+              <span class="role-checkbox__label">{{ role }}</span>
+            </label>
+          }
+        </div>
+      }
+      <div class="modal__actions">
+        <button class="btn btn--secondary" (click)="showRoleModal.set(false)">
+          {{ 'COMMON.CANCEL' | translate }}
+        </button>
+        <button class="btn btn--primary" (click)="saveRoles()" [disabled]="updating()">
+          {{ 'COMMON.SAVE' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

@@ -74,7 +74,12 @@
     "MOVED_TO_CART": "Articolo spostato nel carrello!",
     "CART_ERROR": "Impossibile aggiungere l'articolo al carrello.",
     "LOGIN_REQUIRED": "Accedi per continuare.",
-    "MAX_STOCK_REACHED": "Scorta massima disponibile raggiunta."
+    "MAX_STOCK_REACHED": "Scorta massima disponibile raggiunta.",
+    "ROLES_UPDATED": "Ruoli utente aggiornati con successo.",
+    "USER_ACTIVATED": "Account utente attivato.",
+    "USER_DEACTIVATED": "Account utente disattivato.",
+    "LOAD_ERROR": "Impossibile caricare i dati.",
+    "SAVE_ERROR": "Impossibile salvare le modifiche."
   },
   "HOME": {
     "HERO_TITLE": "Scopri Oggetti da Collezione Rari",
@@ -402,7 +407,8 @@
       "CATEGORIES": "Categorie",
       "BRANDS": "Marchi",
       "COUPONS": "Coupon",
-      "REVIEWS": "Recensioni"
+      "REVIEWS": "Recensioni",
+      "USERS": "Utenti"
     },
     "DASHBOARD": {
       "TITLE": "Dashboard",
@@ -545,6 +551,20 @@
       "CUSTOMER": "Cliente",
       "RATING": "Valutazione",
       "COMMENT": "Commento"
+    },
+    "USERS": {
+      "TITLE": "Gestione utenti",
+      "NAME": "Nome",
+      "EMAIL": "E-mail",
+      "ROLES": "Ruoli",
+      "STATUS": "Stato",
+      "LAST_LOGIN": "Ultimo accesso",
+      "ACTIONS": "Azioni",
+      "ACTIVE": "Attivo",
+      "INACTIVE": "Inattivo",
+      "MANAGE_ROLES": "Gestisci ruoli",
+      "ENABLE": "Attiva",
+      "DISABLE": "Disattiva"
     }
   }
 }

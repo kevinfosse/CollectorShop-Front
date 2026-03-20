@@ -65,6 +65,12 @@
           <span>{{ 'ADMIN.NAV.REVIEWS' | translate }}</span>
         }
       </a>
+      <a routerLink="/admin/users" routerLinkActive="active" class="sidebar-nav__link">
+        <i class="pi pi-users"></i>
+        @if (!sidebarCollapsed()) {
+          <span>{{ 'ADMIN.NAV.USERS' | translate }}</span>
+        }
+      </a>
     </nav>
 
     <div class="sidebar-footer">

@@ -74,7 +74,12 @@
     "MOVED_TO_CART": "Artikel in den Warenkorb verschoben!",
     "CART_ERROR": "Artikel konnte nicht zum Warenkorb hinzugefügt werden.",
     "LOGIN_REQUIRED": "Bitte melden Sie sich an, um fortzufahren.",
-    "MAX_STOCK_REACHED": "Maximaler verfügbarer Bestand erreicht."
+    "MAX_STOCK_REACHED": "Maximaler verfügbarer Bestand erreicht.",
+    "ROLES_UPDATED": "Benutzerrollen erfolgreich aktualisiert.",
+    "USER_ACTIVATED": "Benutzerkonto aktiviert.",
+    "USER_DEACTIVATED": "Benutzerkonto deaktiviert.",
+    "LOAD_ERROR": "Daten konnten nicht geladen werden.",
+    "SAVE_ERROR": "Änderungen konnten nicht gespeichert werden."
   },
   "HOME": {
     "HERO_TITLE": "Entdecken Sie Seltene Sammlerstücke",
@@ -402,7 +407,8 @@
       "CATEGORIES": "Kategorien",
       "BRANDS": "Marken",
       "COUPONS": "Gutscheine",
-      "REVIEWS": "Bewertungen"
+      "REVIEWS": "Bewertungen",
+      "USERS": "Benutzer"
     },
     "DASHBOARD": {
       "TITLE": "Dashboard",
@@ -545,6 +551,20 @@
       "CUSTOMER": "Kunde",
       "RATING": "Bewertung",
       "COMMENT": "Kommentar"
+    },
+    "USERS": {
+      "TITLE": "Benutzerverwaltung",
+      "NAME": "Name",
+      "EMAIL": "E-Mail",
+      "ROLES": "Rollen",
+      "STATUS": "Status",
+      "LAST_LOGIN": "Letzte Anmeldung",
+      "ACTIONS": "Aktionen",
+      "ACTIVE": "Aktiv",
+      "INACTIVE": "Inaktiv",
+      "MANAGE_ROLES": "Rollen verwalten",
+      "ENABLE": "Aktivieren",
+      "DISABLE": "Deaktivieren"
     }
   }
 }

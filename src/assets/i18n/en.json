@@ -74,7 +74,12 @@
     "MOVED_TO_CART": "Item moved to cart!",
     "CART_ERROR": "Failed to add item to cart.",
     "LOGIN_REQUIRED": "Please sign in to continue.",
-    "MAX_STOCK_REACHED": "Maximum available stock reached."
+    "MAX_STOCK_REACHED": "Maximum available stock reached.",
+    "ROLES_UPDATED": "User roles updated successfully.",
+    "USER_ACTIVATED": "User account activated.",
+    "USER_DEACTIVATED": "User account deactivated.",
+    "LOAD_ERROR": "Failed to load data.",
+    "SAVE_ERROR": "Failed to save changes."
   },
   "HOME": {
     "HERO_TITLE": "Discover Rare Collectibles",
@@ -402,7 +407,8 @@
       "CATEGORIES": "Categories",
       "BRANDS": "Brands",
       "COUPONS": "Coupons",
-      "REVIEWS": "Reviews"
+      "REVIEWS": "Reviews",
+      "USERS": "Users"
     },
     "DASHBOARD": {
       "TITLE": "Dashboard",
@@ -545,6 +551,20 @@
       "CUSTOMER": "Customer",
       "RATING": "Rating",
       "COMMENT": "Comment"
+    },
+    "USERS": {
+      "TITLE": "User Management",
+      "NAME": "Name",
+      "EMAIL": "Email",
+      "ROLES": "Roles",
+      "STATUS": "Status",
+      "LAST_LOGIN": "Last Login",
+      "ACTIONS": "Actions",
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive",
+      "MANAGE_ROLES": "Manage Roles",
+      "ENABLE": "Enable",
+      "DISABLE": "Disable"
     }
   }
 }

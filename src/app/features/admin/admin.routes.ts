@@ -72,6 +72,13 @@ export const ADMIN_ROUTES: Routes = [
             (m) => m.ReviewModerationComponent,
           ),
       },
+      {
+        path: 'users',
+        loadComponent: () =>
+          import('./components/users-management/users-management.component').then(
+            (m) => m.UsersManagementComponent,
+          ),
+      },
     ],
   },
 ];
