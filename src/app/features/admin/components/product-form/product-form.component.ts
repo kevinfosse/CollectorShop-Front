@@ -191,6 +191,16 @@ export class ProductFormComponent implements OnInit {
         brandId: formValue.brandId || undefined,
         isFeatured: formValue.isFeatured!,
         isActive: formValue.isActive!,
+        images: (formValue.images as CreateProductImageRequest[]).map((img) => ({
+          url: img.url,
+          altText: img.altText || undefined,
+          displayOrder: img.displayOrder,
+          isPrimary: img.isPrimary,
+        })),
+        attributes: (formValue.attributes as CreateProductAttributeRequest[]).map((attr) => ({
+          name: attr.name,
+          value: attr.value,
+        })),
       };
 
       this.productService.updateProduct(this.product()!.id, request).subscribe({
