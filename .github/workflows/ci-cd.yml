@@ -189,7 +189,7 @@ jobs:
 
       - name: Create GHCR registry secret
         run: |
-          kubectl create secret docker-registry ghcr-regcred \
+          kubectl create secret docker-registry ghcr-regcred-front \
             --docker-server="ghcr.io" \
             --docker-username="${{ github.actor }}" \
             --docker-password="${{ secrets.GITHUB_TOKEN }}" \
