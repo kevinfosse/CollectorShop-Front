@@ -74,7 +74,10 @@
     "MOVED_TO_CART": "Artikel in den Warenkorb verschoben!",
     "CART_ERROR": "Artikel konnte nicht zum Warenkorb hinzugefügt werden.",
     "LOGIN_REQUIRED": "Bitte melden Sie sich an, um fortzufahren.",
-    "MAX_STOCK_REACHED": "Maximaler verfügbarer Bestand erreicht."
+    "MAX_STOCK_REACHED": "Maximaler verfügbarer Bestand erreicht.",
+    "SETTINGS_SAVED": "Einstellungen erfolgreich gespeichert!",
+    "LOAD_ERROR": "Daten konnten nicht geladen werden.",
+    "SAVE_ERROR": "Speichern fehlgeschlagen. Bitte versuchen Sie es erneut."
   },
   "HOME": {
     "HERO_TITLE": "Entdecken Sie Seltene Sammlerstücke",
@@ -402,7 +405,17 @@
       "CATEGORIES": "Kategorien",
       "BRANDS": "Marken",
       "COUPONS": "Gutscheine",
-      "REVIEWS": "Bewertungen"
+      "REVIEWS": "Bewertungen",
+      "SHIPPING": "Versand"
+    },
+    "SHIPPING": {
+      "TITLE": "Versand- & Steuereinstellungen",
+      "DEFAULT_COST": "Standard-Versandkosten",
+      "DEFAULT_COST_HINT": "Wird auf alle Bestellungen angewendet, sofern der Schwellenwert für kostenlosen Versand nicht erreicht wird.",
+      "TAX_RATE": "Steuersatz",
+      "TAX_RATE_HINT": "Prozentsatz, der auf die Zwischensumme nach Rabatten angewendet wird.",
+      "FREE_THRESHOLD": "Schwelle für kostenlosen Versand",
+      "FREE_THRESHOLD_HINT": "Bestellungen über diesem Betrag erhalten kostenlosen Versand. Auf 0 setzen zum Deaktivieren."
     },
     "DASHBOARD": {
       "TITLE": "Dashboard",

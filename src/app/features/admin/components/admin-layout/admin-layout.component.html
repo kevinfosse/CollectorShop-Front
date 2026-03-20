@@ -65,6 +65,12 @@
           <span>{{ 'ADMIN.NAV.REVIEWS' | translate }}</span>
         }
       </a>
+      <a routerLink="/admin/shipping" routerLinkActive="active" class="sidebar-nav__link">
+        <i class="pi pi-truck"></i>
+        @if (!sidebarCollapsed()) {
+          <span>{{ 'ADMIN.NAV.SHIPPING' | translate }}</span>
+        }
+      </a>
     </nav>
 
     <div class="sidebar-footer">

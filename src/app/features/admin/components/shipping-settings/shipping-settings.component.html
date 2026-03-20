@@ -1,0 +1,68 @@
+<div class="shipping-settings">
+  <h1>{{ 'ADMIN.SHIPPING.TITLE' | translate }}</h1>
+
+  @if (loading()) {
+    <div class="loading">{{ 'COMMON.LOADING' | translate }}</div>
+  } @else {
+    <div class="settings-card">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="shippingCost">{{ 'ADMIN.SHIPPING.DEFAULT_COST' | translate }}</label>
+          <div class="input-with-suffix">
+            <input
+              type="number"
+              id="shippingCost"
+              [(ngModel)]="settings.defaultShippingCost"
+              min="0"
+              step="0.01"
+              [disabled]="saving()"
+            />
+            <span class="suffix">EUR</span>
+          </div>
+          <span class="hint">{{ 'ADMIN.SHIPPING.DEFAULT_COST_HINT' | translate }}</span>
+        </div>
+
+        <div class="form-group">
+          <label for="taxRate">{{ 'ADMIN.SHIPPING.TAX_RATE' | translate }}</label>
+          <div class="input-with-suffix">
+            <input
+              type="number"
+              id="taxRate"
+              [(ngModel)]="taxRatePercent"
+              min="0"
+              max="100"
+              step="1"
+              [disabled]="saving()"
+            />
+            <span class="suffix">%</span>
+          </div>
+          <span class="hint">{{ 'ADMIN.SHIPPING.TAX_RATE_HINT' | translate }}</span>
+        </div>
+
+        <div class="form-group">
+          <label for="freeThreshold">{{ 'ADMIN.SHIPPING.FREE_THRESHOLD' | translate }}</label>
+          <div class="input-with-suffix">
+            <input
+              type="number"
+              id="freeThreshold"
+              [(ngModel)]="settings.freeShippingThreshold"
+              min="0"
+              step="0.01"
+              [disabled]="saving()"
+            />
+            <span class="suffix">EUR</span>
+          </div>
+          <span class="hint">{{ 'ADMIN.SHIPPING.FREE_THRESHOLD_HINT' | translate }}</span>
+        </div>
+      </div>
+
+      <button class="btn-primary" (click)="saveSettings()" [disabled]="saving()">
+        @if (saving()) {
+          {{ 'COMMON.SAVING' | translate }}
+        } @else {
+          {{ 'COMMON.SAVE' | translate }}
+        }
+      </button>
+    </div>
+  }
+</div>

@@ -1,0 +1,64 @@
+@use 'styles/variables' as *;
+
+h1 {
+  margin-bottom: 2rem;
+}
+
+.settings-card {
+  background: $color-white;
+  padding: $spacing-6;
+  border-radius: $border-radius-lg;
+  max-width: 600px;
+}
+
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+  margin-bottom: $spacing-6;
+}
+
+.form-group {
+  label {
+    display: block;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    margin-bottom: $spacing-2;
+  }
+
+  .hint {
+    display: block;
+    font-size: $font-size-xs;
+    color: $color-gray-500;
+    margin-top: $spacing-1;
+  }
+}
+
+.input-with-suffix {
+  display: flex;
+  align-items: center;
+
+  input {
+    flex: 1;
+    padding: $spacing-3 $spacing-4;
+    border: $border-width solid $border-color;
+    border-radius: $border-radius-base 0 0 $border-radius-base;
+    font-size: $font-size-base;
+
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+    }
+  }
+
+  .suffix {
+    padding: $spacing-3 $spacing-4;
+    background: $color-gray-100;
+    border: $border-width solid $border-color;
+    border-left: none;
+    border-radius: 0 $border-radius-base $border-radius-base 0;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-gray-600;
+  }
+}
