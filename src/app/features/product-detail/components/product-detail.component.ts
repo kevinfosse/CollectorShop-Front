@@ -39,6 +39,8 @@ export class ProductDetailComponent implements OnInit {
   protected readonly reviews = signal<ReviewDto[]>([]);
   protected readonly reviewsLoading = signal(false);
   protected readonly submittingReview = signal(false);
+  protected readonly canReview = signal(false);
+  protected readonly canReviewReason = signal('');
   protected reviewRating = 0;
   protected reviewTitle = '';
   protected reviewComment = '';
@@ -109,6 +111,18 @@ export class ProductDetailComponent implements OnInit {
         this.reviewsLoading.set(false);
       },
     });
+
+    if (this.authService.isAuthenticated()) {
+      this.reviewService.canReview(productId).subscribe({
+        next: (res) => {
+          this.canReview.set(res.canReview);
+          this.canReviewReason.set(res.reason);
+        },
+        error: () => {
+          this.canReview.set(false);
+        },
+      });
+    }
   }
 
   protected selectImage(index: number): void {

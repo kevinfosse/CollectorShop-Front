@@ -177,6 +177,8 @@
     "REVIEW_COMMENT_PLACEHOLDER": "What did you like or dislike about this product?",
     "SUBMIT_REVIEW": "Submit Review",
     "TO_WRITE_REVIEW": "to write a review.",
+    "ALREADY_REVIEWED": "You have already reviewed this product.",
+    "MUST_PURCHASE_TO_REVIEW": "You must purchase this product before you can write a review.",
     "NO_REVIEWS": "No reviews yet. Be the first to review this product!",
     "VERIFIED_PURCHASE": "Verified Purchase"
   },
@@ -338,7 +340,8 @@
       "NAV": "My Reviews",
       "TITLE": "My Reviews",
       "EMPTY": "You haven't written any reviews yet.",
-      "PENDING_APPROVAL": "Pending approval"
+      "PENDING_APPROVAL": "Pending approval",
+      "REJECTED": "Rejected"
     },
     "WISHLIST_PAGE": {
       "TITLE": "My Wishlist",

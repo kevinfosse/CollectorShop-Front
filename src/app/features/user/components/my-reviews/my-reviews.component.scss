@@ -83,6 +83,16 @@
     margin-bottom: 0.5rem;
   }
 
+  &__rejected {
+    display: inline-block;
+    font-size: 0.75rem;
+    color: #dc2626;
+    background: #fef2f2;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+
   &__actions {
     display: flex;
     gap: 1rem;

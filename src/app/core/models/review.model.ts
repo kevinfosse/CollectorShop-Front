@@ -10,7 +10,7 @@ export interface ReviewDto {
   title?: string;
   comment?: string;
   isVerifiedPurchase: boolean;
-  isApproved: boolean;
+  status: 'Pending' | 'Approved' | 'Rejected';
   createdAt: Date;
 }
 
@@ -25,4 +25,9 @@ export interface UpdateReviewRequest {
   rating: number;
   title?: string;
   comment?: string;
+}
+
+export interface CanReviewResponse {
+  canReview: boolean;
+  reason: string;
 }

@@ -173,48 +173,54 @@
 
         <!-- Review Form -->
         @if (authService.isAuthenticated()) {
-          <div class="review-form">
-            <h3 class="review-form__title">{{ 'PRODUCT.WRITE_REVIEW' | translate }}</h3>
-            <div class="review-form__rating">
-              <label>{{ 'PRODUCT.YOUR_RATING' | translate }} *</label>
-              <div class="star-selector">
-                @for (star of [1, 2, 3, 4, 5]; track star) {
-                  <button
-                    type="button"
-                    class="star-btn"
-                    (click)="setRating(star)"
-                    (mouseenter)="hoverRating = star"
-                    (mouseleave)="hoverRating = 0"
-                  >
-                    <i
-                      class="pi"
-                      [class.pi-star-fill]="star <= (hoverRating || reviewRating)"
-                      [class.pi-star]="star > (hoverRating || reviewRating)"
-                    ></i>
-                  </button>
-                }
+          @if (canReview()) {
+            <div class="review-form">
+              <h3 class="review-form__title">{{ 'PRODUCT.WRITE_REVIEW' | translate }}</h3>
+              <div class="review-form__rating">
+                <label>{{ 'PRODUCT.YOUR_RATING' | translate }} *</label>
+                <div class="star-selector">
+                  @for (star of [1, 2, 3, 4, 5]; track star) {
+                    <button
+                      type="button"
+                      class="star-btn"
+                      (click)="setRating(star)"
+                      (mouseenter)="hoverRating = star"
+                      (mouseleave)="hoverRating = 0"
+                    >
+                      <i
+                        class="pi"
+                        [class.pi-star-fill]="star <= (hoverRating || reviewRating)"
+                        [class.pi-star]="star > (hoverRating || reviewRating)"
+                      ></i>
+                    </button>
+                  }
+                </div>
               </div>
+              <div class="review-form__field">
+                <label>{{ 'PRODUCT.REVIEW_TITLE' | translate }}</label>
+                <input type="text" [(ngModel)]="reviewTitle" [placeholder]="'PRODUCT.REVIEW_TITLE_PLACEHOLDER' | translate" />
+              </div>
+              <div class="review-form__field">
+                <label>{{ 'PRODUCT.REVIEW_COMMENT' | translate }}</label>
+                <textarea [(ngModel)]="reviewComment" rows="4" [placeholder]="'PRODUCT.REVIEW_COMMENT_PLACEHOLDER' | translate"></textarea>
+              </div>
+              <button
+                class="btn-primary"
+                [disabled]="reviewRating === 0 || submittingReview()"
+                (click)="submitReview()"
+              >
+                @if (submittingReview()) {
+                  {{ 'COMMON.PROCESSING' | translate }}
+                } @else {
+                  {{ 'PRODUCT.SUBMIT_REVIEW' | translate }}
+                }
+              </button>
             </div>
-            <div class="review-form__field">
-              <label>{{ 'PRODUCT.REVIEW_TITLE' | translate }}</label>
-              <input type="text" [(ngModel)]="reviewTitle" [placeholder]="'PRODUCT.REVIEW_TITLE_PLACEHOLDER' | translate" />
-            </div>
-            <div class="review-form__field">
-              <label>{{ 'PRODUCT.REVIEW_COMMENT' | translate }}</label>
-              <textarea [(ngModel)]="reviewComment" rows="4" [placeholder]="'PRODUCT.REVIEW_COMMENT_PLACEHOLDER' | translate"></textarea>
-            </div>
-            <button
-              class="btn-primary"
-              [disabled]="reviewRating === 0 || submittingReview()"
-              (click)="submitReview()"
-            >
-              @if (submittingReview()) {
-                {{ 'COMMON.PROCESSING' | translate }}
-              } @else {
-                {{ 'PRODUCT.SUBMIT_REVIEW' | translate }}
-              }
-            </button>
-          </div>
+          } @else if (canReviewReason() === 'Already reviewed') {
+            <p class="reviews-section__hint">{{ 'PRODUCT.ALREADY_REVIEWED' | translate }}</p>
+          } @else if (canReviewReason() === 'Not purchased') {
+            <p class="reviews-section__hint">{{ 'PRODUCT.MUST_PURCHASE_TO_REVIEW' | translate }}</p>
+          }
         } @else {
           <p class="reviews-section__login-hint">
             <a routerLink="/auth/login">{{ 'NAV.LOGIN' | translate }}</a> {{ 'PRODUCT.TO_WRITE_REVIEW' | translate }}

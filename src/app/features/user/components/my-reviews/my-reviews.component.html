@@ -72,8 +72,11 @@
             @if (review.comment) {
               <p class="review-card__comment">{{ review.comment }}</p>
             }
-            @if (!review.isApproved) {
+            @if (review.status === 'Pending') {
               <span class="review-card__pending">{{ 'ACCOUNT.MY_REVIEWS.PENDING_APPROVAL' | translate }}</span>
+            }
+            @if (review.status === 'Rejected') {
+              <span class="review-card__rejected">{{ 'ACCOUNT.MY_REVIEWS.REJECTED' | translate }}</span>
             }
             <div class="review-card__actions">
               <button class="btn-link" (click)="startEdit(review)">

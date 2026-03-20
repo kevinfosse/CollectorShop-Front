@@ -177,6 +177,8 @@
     "REVIEW_COMMENT_PLACEHOLDER": "Cosa ti è piaciuto o non ti è piaciuto di questo prodotto?",
     "SUBMIT_REVIEW": "Invia recensione",
     "TO_WRITE_REVIEW": "per scrivere una recensione.",
+    "ALREADY_REVIEWED": "Hai già recensito questo prodotto.",
+    "MUST_PURCHASE_TO_REVIEW": "Devi acquistare questo prodotto prima di poter scrivere una recensione.",
     "NO_REVIEWS": "Ancora nessuna recensione. Sii il primo a recensire questo prodotto!",
     "VERIFIED_PURCHASE": "Acquisto verificato"
   },
@@ -338,7 +340,8 @@
       "NAV": "Le mie recensioni",
       "TITLE": "Le mie recensioni",
       "EMPTY": "Non hai ancora scritto recensioni.",
-      "PENDING_APPROVAL": "In attesa di approvazione"
+      "PENDING_APPROVAL": "In attesa di approvazione",
+      "REJECTED": "Rifiutata"
     },
     "WISHLIST_PAGE": {
       "TITLE": "I miei preferiti",

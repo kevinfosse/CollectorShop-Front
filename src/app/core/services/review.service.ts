@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { ReviewDto, CreateReviewRequest, UpdateReviewRequest } from '../models';
+import { ReviewDto, CreateReviewRequest, UpdateReviewRequest, CanReviewResponse } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +13,10 @@ export class ReviewService {
 
   getProductReviews(productId: string): Observable<ReviewDto[]> {
     return this.http.get<ReviewDto[]>(`${this.apiUrl}/product/${productId}`);
+  }
+
+  canReview(productId: string): Observable<CanReviewResponse> {
+    return this.http.get<CanReviewResponse>(`${this.apiUrl}/can-review/${productId}`);
   }
 
   getMyReviews(): Observable<ReviewDto[]> {
