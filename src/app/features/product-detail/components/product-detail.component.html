@@ -123,13 +123,13 @@
                 type="number"
                 [value]="quantity()"
                 min="1"
-                [max]="p.availableQuantity"
+                [max]="remainingStock()"
                 class="quantity__input"
                 readonly
               />
-              <button class="quantity__btn" (click)="increaseQty()">+</button>
+              <button class="quantity__btn" (click)="increaseQty()" [disabled]="quantity() >= remainingStock()">+</button>
             </div>
-            <button class="btn-primary btn-lg" [disabled]="!isInStock()" (click)="addToCart()">
+            <button class="btn-primary btn-lg" [disabled]="!isInStock() || remainingStock() === 0" (click)="addToCart()">
               <i class="pi pi-shopping-cart"></i>
               {{ 'COMMON.ADD_TO_CART' | translate }}
             </button>

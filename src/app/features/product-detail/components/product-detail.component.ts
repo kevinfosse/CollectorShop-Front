@@ -89,9 +89,16 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
+  protected readonly remainingStock = computed(() => {
+    const p = this.product();
+    if (!p) return 0;
+    const inCart = this.cartService.getCartQuantity(p.id);
+    return Math.max(0, p.availableQuantity - inCart);
+  });
+
   protected increaseQty(): void {
-    const max = this.product()?.availableQuantity;
-    if (max != null && this.quantity() < max) {
+    const max = this.remainingStock();
+    if (this.quantity() < max) {
       this.quantity.set(this.quantity() + 1);
     }
   }
@@ -105,8 +112,16 @@ export class ProductDetailComponent implements OnInit {
       return;
     }
 
+    if (this.quantity() > this.remainingStock()) {
+      this.toastService.show('TOAST.MAX_STOCK_REACHED', 'warning');
+      return;
+    }
+
     this.cartService.addToCart({ productId, quantity: this.quantity() }).subscribe({
-      next: () => this.toastService.show('TOAST.ADDED_TO_CART', 'success'),
+      next: () => {
+        this.toastService.show('TOAST.ADDED_TO_CART', 'success');
+        this.quantity.set(1);
+      },
       error: () => this.toastService.show('TOAST.CART_ERROR', 'error'),
     });
   }
