@@ -45,6 +45,14 @@ export class OrderDetailComponent implements OnInit {
   // Status update
   protected readonly showStatusModal = signal(false);
   protected newStatus: OrderStatus = OrderStatus.Confirmed;
+
+  protected openStatusModal(): void {
+    const next = this.allowedNextStatuses;
+    if (next.length > 0) {
+      this.newStatus = next[0];
+    }
+    this.showStatusModal.set(true);
+  }
   protected statusNote = '';
 
   // Ship order
@@ -53,11 +61,24 @@ export class OrderDetailComponent implements OnInit {
   protected carrier = '';
   protected estimatedDelivery = '';
 
-  protected readonly statuses = Object.values(OrderStatus).filter(
-    (v) => typeof v === 'number',
-  ) as OrderStatus[];
-
   protected readonly OrderStatus = OrderStatus;
+
+  // Valid status transitions based on domain rules
+  private readonly validTransitions: Record<OrderStatus, OrderStatus[]> = {
+    [OrderStatus.Pending]: [OrderStatus.Confirmed],
+    [OrderStatus.Confirmed]: [OrderStatus.Processing],
+    [OrderStatus.Processing]: [], // Use "Ship Order" button instead
+    [OrderStatus.Shipped]: [OrderStatus.Delivered],
+    [OrderStatus.Delivered]: [],
+    [OrderStatus.Cancelled]: [],
+    [OrderStatus.Refunded]: [],
+  };
+
+  protected get allowedNextStatuses(): OrderStatus[] {
+    const current = this.order()?.status;
+    if (current == null) return [];
+    return this.validTransitions[current] ?? [];
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];

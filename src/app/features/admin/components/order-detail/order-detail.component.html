@@ -11,17 +11,13 @@
     </div>
     @if (order(); as o) {
       <div class="page-header__actions">
-        @if (
-          o.status !== OrderStatus.Cancelled &&
-          o.status !== OrderStatus.Refunded &&
-          o.status !== OrderStatus.Delivered
-        ) {
-          <button class="btn btn--secondary" (click)="showStatusModal.set(true)">
+        @if (allowedNextStatuses.length > 0) {
+          <button class="btn btn--secondary" (click)="openStatusModal()">
             <i class="pi pi-refresh"></i>
             {{ 'ADMIN.ORDERS.UPDATE_STATUS' | translate }}
           </button>
         }
-        @if (o.status === OrderStatus.Processing || o.status === OrderStatus.Confirmed) {
+        @if (o.status === OrderStatus.Processing) {
           <button class="btn btn--primary" (click)="showShipModal.set(true)">
             <i class="pi pi-send"></i>
             {{ 'ADMIN.ORDERS.SHIP_ORDER' | translate }}
@@ -30,7 +26,8 @@
         @if (
           o.status !== OrderStatus.Cancelled &&
           o.status !== OrderStatus.Refunded &&
-          o.status !== OrderStatus.Delivered
+          o.status !== OrderStatus.Delivered &&
+          o.status !== OrderStatus.Shipped
         ) {
           <button class="btn btn--danger" (click)="onCancelOrder()">
             <i class="pi pi-times"></i>
@@ -210,7 +207,7 @@
       <div class="form-group">
         <label>{{ 'ADMIN.ORDERS.NEW_STATUS' | translate }}</label>
         <select [(ngModel)]="newStatus">
-          @for (status of statuses; track status) {
+          @for (status of allowedNextStatuses; track status) {
             <option [ngValue]="status">{{ status | orderStatusKey | translate }}</option>
           }
         </select>
