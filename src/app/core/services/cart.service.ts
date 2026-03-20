@@ -97,6 +97,13 @@ export class CartService {
     return this.updateCartItem(productId, { quantity });
   }
 
+  // Get quantity of a specific product already in cart
+  getCartQuantity(productId: string): number {
+    const cart = this._cart();
+    if (!cart) return 0;
+    return cart.items.find((i) => i.productId === productId)?.quantity ?? 0;
+  }
+
   // Clear local cart state (e.g., on logout)
   resetCart(): void {
     this._cart.set(null);
