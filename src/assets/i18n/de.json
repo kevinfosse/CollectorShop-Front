@@ -81,7 +81,10 @@
     "REVIEW_SUBMITTED": "Bewertung erfolgreich eingereicht! Sie wird nach der Moderation angezeigt.",
     "REVIEW_UPDATED": "Bewertung erfolgreich aktualisiert!",
     "REVIEW_DELETED": "Bewertung gelöscht.",
-    "REVIEW_ERROR": "Bewertung konnte nicht eingereicht werden."
+    "REVIEW_ERROR": "Bewertung konnte nicht eingereicht werden.",
+    "ROLES_UPDATED": "Benutzerrollen erfolgreich aktualisiert.",
+    "USER_ACTIVATED": "Benutzerkonto aktiviert.",
+    "USER_DEACTIVATED": "Benutzerkonto deaktiviert."
   },
   "HOME": {
     "HERO_TITLE": "Entdecken Sie Seltene Sammlerstücke",
@@ -433,7 +436,8 @@
       "BRANDS": "Marken",
       "COUPONS": "Gutscheine",
       "REVIEWS": "Bewertungen",
-      "SHIPPING": "Versand"
+      "SHIPPING": "Versand",
+      "USERS": "Benutzer"
     },
     "SHIPPING": {
       "TITLE": "Versand- & Steuereinstellungen",
@@ -585,6 +589,20 @@
       "CUSTOMER": "Kunde",
       "RATING": "Bewertung",
       "COMMENT": "Kommentar"
+    },
+    "USERS": {
+      "TITLE": "Benutzerverwaltung",
+      "NAME": "Name",
+      "EMAIL": "E-Mail",
+      "ROLES": "Rollen",
+      "STATUS": "Status",
+      "LAST_LOGIN": "Letzte Anmeldung",
+      "ACTIONS": "Aktionen",
+      "ACTIVE": "Aktiv",
+      "INACTIVE": "Inaktiv",
+      "MANAGE_ROLES": "Rollen verwalten",
+      "ENABLE": "Aktivieren",
+      "DISABLE": "Deaktivieren"
     }
   }
 }

@@ -81,7 +81,10 @@
     "REVIEW_SUBMITTED": "Avis soumis avec succès ! Il apparaîtra après modération.",
     "REVIEW_UPDATED": "Avis mis à jour avec succès !",
     "REVIEW_DELETED": "Avis supprimé.",
-    "REVIEW_ERROR": "Impossible de soumettre l'avis."
+    "REVIEW_ERROR": "Impossible de soumettre l'avis.",
+    "ROLES_UPDATED": "Rôles de l'utilisateur mis à jour.",
+    "USER_ACTIVATED": "Compte utilisateur activé.",
+    "USER_DEACTIVATED": "Compte utilisateur désactivé."
   },
   "HOME": {
     "HERO_TITLE": "Découvrez des Objets de Collection Rares",
@@ -433,7 +436,8 @@
       "BRANDS": "Marques",
       "COUPONS": "Coupons",
       "REVIEWS": "Avis",
-      "SHIPPING": "Livraison"
+      "SHIPPING": "Livraison",
+      "USERS": "Utilisateurs"
     },
     "SHIPPING": {
       "TITLE": "Paramètres de livraison et taxes",
@@ -585,6 +589,20 @@
       "CUSTOMER": "Client",
       "RATING": "Note",
       "COMMENT": "Commentaire"
+    },
+    "USERS": {
+      "TITLE": "Gestion des utilisateurs",
+      "NAME": "Nom",
+      "EMAIL": "E-mail",
+      "ROLES": "Rôles",
+      "STATUS": "Statut",
+      "LAST_LOGIN": "Dernière connexion",
+      "ACTIONS": "Actions",
+      "ACTIVE": "Actif",
+      "INACTIVE": "Inactif",
+      "MANAGE_ROLES": "Gérer les rôles",
+      "ENABLE": "Activer",
+      "DISABLE": "Désactiver"
     }
   }
 }

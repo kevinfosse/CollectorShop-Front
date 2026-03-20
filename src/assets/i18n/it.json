@@ -81,7 +81,10 @@
     "REVIEW_SUBMITTED": "Recensione inviata con successo! Apparirà dopo la moderazione.",
     "REVIEW_UPDATED": "Recensione aggiornata con successo!",
     "REVIEW_DELETED": "Recensione eliminata.",
-    "REVIEW_ERROR": "Impossibile inviare la recensione."
+    "REVIEW_ERROR": "Impossibile inviare la recensione.",
+    "ROLES_UPDATED": "Ruoli utente aggiornati con successo.",
+    "USER_ACTIVATED": "Account utente attivato.",
+    "USER_DEACTIVATED": "Account utente disattivato."
   },
   "HOME": {
     "HERO_TITLE": "Scopri Oggetti da Collezione Rari",
@@ -433,7 +436,8 @@
       "BRANDS": "Marchi",
       "COUPONS": "Coupon",
       "REVIEWS": "Recensioni",
-      "SHIPPING": "Spedizione"
+      "SHIPPING": "Spedizione",
+      "USERS": "Utenti"
     },
     "SHIPPING": {
       "TITLE": "Impostazioni spedizione e tasse",
@@ -585,6 +589,20 @@
       "CUSTOMER": "Cliente",
       "RATING": "Valutazione",
       "COMMENT": "Commento"
+    },
+    "USERS": {
+      "TITLE": "Gestione utenti",
+      "NAME": "Nome",
+      "EMAIL": "E-mail",
+      "ROLES": "Ruoli",
+      "STATUS": "Stato",
+      "LAST_LOGIN": "Ultimo accesso",
+      "ACTIONS": "Azioni",
+      "ACTIVE": "Attivo",
+      "INACTIVE": "Inattivo",
+      "MANAGE_ROLES": "Gestisci ruoli",
+      "ENABLE": "Attiva",
+      "DISABLE": "Disattiva"
     }
   }
 }

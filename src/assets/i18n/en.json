@@ -81,7 +81,10 @@
     "REVIEW_SUBMITTED": "Review submitted successfully! It will appear after moderation.",
     "REVIEW_UPDATED": "Review updated successfully!",
     "REVIEW_DELETED": "Review deleted.",
-    "REVIEW_ERROR": "Failed to submit review."
+    "REVIEW_ERROR": "Failed to submit review.",
+    "ROLES_UPDATED": "User roles updated successfully.",
+    "USER_ACTIVATED": "User account activated.",
+    "USER_DEACTIVATED": "User account deactivated."
   },
   "HOME": {
     "HERO_TITLE": "Discover Rare Collectibles",
@@ -433,7 +436,8 @@
       "BRANDS": "Brands",
       "COUPONS": "Coupons",
       "REVIEWS": "Reviews",
-      "SHIPPING": "Shipping"
+      "SHIPPING": "Shipping",
+      "USERS": "Users"
     },
     "SHIPPING": {
       "TITLE": "Shipping & Tax Settings",
@@ -585,6 +589,20 @@
       "CUSTOMER": "Customer",
       "RATING": "Rating",
       "COMMENT": "Comment"
+    },
+    "USERS": {
+      "TITLE": "User Management",
+      "NAME": "Name",
+      "EMAIL": "Email",
+      "ROLES": "Roles",
+      "STATUS": "Status",
+      "LAST_LOGIN": "Last Login",
+      "ACTIONS": "Actions",
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive",
+      "MANAGE_ROLES": "Manage Roles",
+      "ENABLE": "Enable",
+      "DISABLE": "Disable"
     }
   }
 }
