@@ -211,10 +211,16 @@
     },
     "BILLING_SAME_AS_SHIPPING": "Billing address same as shipping",
     "BILLING_INFO": "Billing Information",
+    "SHIPPING_HINT": "Enter the address where you'd like your order delivered.",
+    "BILLING_HINT": "Enter the address associated with your payment method.",
+    "ADDRESS_PLACEHOLDER": "Start typing your address...",
+    "CITY_PLACEHOLDER": "e.g. Paris, New York",
+    "STATE_PLACEHOLDER": "e.g. Île-de-France, California",
+    "POSTAL_CODE_PLACEHOLDER": "e.g. 75001, 10001",
     "ORDER_NOTES": "Order Notes",
-    "ORDER_NOTES_PLACEHOLDER": "Special instructions for your order...",
+    "ORDER_NOTES_PLACEHOLDER": "Any special delivery instructions or notes for your order...",
     "COUPON_PLACEHOLDER": "Enter coupon code",
-    "TAX_PERCENT": "Tax (8%)",
+    "TAX_PERCENT": "Tax",
     "BACK_TO_CART": "Back to Cart"
   },
   "AUTH": {
