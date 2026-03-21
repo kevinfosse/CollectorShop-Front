@@ -69,13 +69,13 @@ export class HomeComponent implements OnInit {
 
     if (this.wishlistService.isInWishlist(product.id)) {
       this.wishlistService.removeFromWishlist(product.id).subscribe({
-        next: () => console.log('Removed from wishlist:', product.name),
-        error: (err) => console.error('Failed to remove from wishlist', err),
+        next: () => this.toastService.show('TOAST.WISHLIST_REMOVED', 'success'),
+        error: () => this.toastService.show('TOAST.WISHLIST_ERROR', 'error'),
       });
     } else {
       this.wishlistService.addToWishlist({ productId: product.id }).subscribe({
-        next: () => console.log('Added to wishlist:', product.name),
-        error: (err) => console.error('Failed to add to wishlist', err),
+        next: () => this.toastService.show('TOAST.WISHLIST_ADDED', 'success'),
+        error: () => this.toastService.show('TOAST.WISHLIST_ERROR', 'error'),
       });
     }
   }

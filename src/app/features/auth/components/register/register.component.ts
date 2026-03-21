@@ -1,8 +1,8 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
-import { AuthService } from '../../../../core/services';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AuthService, ToastService } from '../../../../core/services';
 import { RegisterRequest, PasswordPolicyResponse } from '../../../../core/models';
 
 @Component({
@@ -14,6 +14,8 @@ import { RegisterRequest, PasswordPolicyResponse } from '../../../../core/models
 export class RegisterComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly toastService = inject(ToastService);
+  private readonly translate = inject(TranslateService);
 
   protected firstName = '';
   protected lastName = '';
@@ -72,11 +74,13 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register(request).subscribe({
       next: () => {
+        this.toastService.show(this.translate.instant('TOAST.REGISTER_SUCCESS'), 'success');
         this.router.navigate(['/']);
       },
       error: (err) => {
         this.loading.set(false);
         this.error.set(err.message || 'Registration failed. Please try again.');
+        this.toastService.show(this.translate.instant('TOAST.REGISTER_ERROR'), 'error');
       },
     });
   }

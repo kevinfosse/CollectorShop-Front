@@ -84,7 +84,28 @@
     "REVIEW_ERROR": "Impossibile inviare la recensione.",
     "ROLES_UPDATED": "Ruoli utente aggiornati con successo.",
     "USER_ACTIVATED": "Account utente attivato.",
-    "USER_DEACTIVATED": "Account utente disattivato."
+    "USER_DEACTIVATED": "Account utente disattivato.",
+    "LOGIN_SUCCESS": "Bentornato!",
+    "LOGIN_ERROR": "Email o password non validi.",
+    "REGISTER_SUCCESS": "Account creato con successo! Benvenuto!",
+    "REGISTER_ERROR": "Registrazione fallita. Riprova.",
+    "LOGOUT_SUCCESS": "Sei stato disconnesso.",
+    "FORGOT_PASSWORD_SENT": "Se l'email esiste, un link di reset è stato inviato.",
+    "FORGOT_PASSWORD_ERROR": "Impossibile inviare il link. Riprova.",
+    "RESET_PASSWORD_SUCCESS": "Password reimpostata! Puoi ora accedere.",
+    "RESET_PASSWORD_ERROR": "Reimpostazione fallita. Il link potrebbe essere scaduto.",
+    "ORDER_PLACED": "Ordine effettuato con successo!",
+    "ORDER_ERROR": "Ordine fallito. Riprova.",
+    "ORDER_CANCELLED": "Ordine annullato con successo.",
+    "ORDER_CANCEL_ERROR": "Impossibile annullare l'ordine.",
+    "ITEM_REMOVED": "Articolo rimosso dal carrello.",
+    "CART_UPDATED": "Carrello aggiornato.",
+    "CART_CLEARED": "Carrello svuotato.",
+    "PROFILE_UPDATED": "Profilo aggiornato con successo!",
+    "PROFILE_ERROR": "Impossibile aggiornare il profilo.",
+    "WISHLIST_ADDED": "Articolo aggiunto alla lista desideri!",
+    "WISHLIST_REMOVED": "Articolo rimosso dalla lista desideri.",
+    "WISHLIST_ERROR": "Impossibile aggiornare la lista desideri."
   },
   "HOME": {
     "HERO_TITLE": "Scopri Oggetti da Collezione Rari",
@@ -284,6 +305,14 @@
       "SEND_LINK": "Invia link",
       "REMEMBER_PASSWORD": "Ricordi la tua password?",
       "SIGN_IN": "Accedi"
+    },
+    "RESET_PASSWORD": {
+      "TITLE": "Imposta nuova password",
+      "SUBTITLE": "Inserisci la tua nuova password",
+      "NEW_PASSWORD": "Nuova password",
+      "CONFIRM_PASSWORD": "Conferma password",
+      "SUBMIT": "Reimposta password",
+      "BACK_TO_LOGIN": "Torna al login"
     }
   },
   "ACCOUNT": {
@@ -334,7 +363,9 @@
       "PAYMENT_CAPTURED": "Acquisito",
       "PAYMENT_FAILED": "Fallito",
       "PAYMENT_REFUNDED": "Rimborsato",
-      "PAYMENT_PARTIALLY_REFUNDED": "Parzialmente rimborsato"
+      "PAYMENT_PARTIALLY_REFUNDED": "Parzialmente rimborsato",
+      "CANCEL_ORDER": "Annulla ordine",
+      "CANCEL_CONFIRM": "Sei sicuro di voler annullare questo ordine?"
     },
     "MY_REVIEWS": {
       "NAV": "Le mie recensioni",

@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
-import { AuthService } from '../../../../core/services';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AuthService, ToastService } from '../../../../core/services';
 import { LoginRequest } from '../../../../core/models';
 
 @Component({
@@ -15,6 +15,8 @@ export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly toastService = inject(ToastService);
+  private readonly translate = inject(TranslateService);
 
   protected email = '';
   protected password = '';
@@ -38,12 +40,14 @@ export class LoginComponent {
 
     this.authService.login(request).subscribe({
       next: () => {
+        this.toastService.show(this.translate.instant('TOAST.LOGIN_SUCCESS'), 'success');
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
         this.router.navigateByUrl(returnUrl);
       },
       error: (err) => {
         this.loading.set(false);
         this.error.set(err.message || 'Login failed. Please try again.');
+        this.toastService.show(this.translate.instant('TOAST.LOGIN_ERROR'), 'error');
       },
     });
   }

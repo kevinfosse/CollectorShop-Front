@@ -84,7 +84,28 @@
     "REVIEW_ERROR": "Bewertung konnte nicht eingereicht werden.",
     "ROLES_UPDATED": "Benutzerrollen erfolgreich aktualisiert.",
     "USER_ACTIVATED": "Benutzerkonto aktiviert.",
-    "USER_DEACTIVATED": "Benutzerkonto deaktiviert."
+    "USER_DEACTIVATED": "Benutzerkonto deaktiviert.",
+    "LOGIN_SUCCESS": "Willkommen zurück!",
+    "LOGIN_ERROR": "Ungültige E-Mail oder Passwort.",
+    "REGISTER_SUCCESS": "Konto erfolgreich erstellt! Willkommen!",
+    "REGISTER_ERROR": "Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "LOGOUT_SUCCESS": "Sie wurden abgemeldet.",
+    "FORGOT_PASSWORD_SENT": "Falls die E-Mail existiert, wurde ein Link gesendet.",
+    "FORGOT_PASSWORD_ERROR": "Link konnte nicht gesendet werden. Bitte erneut versuchen.",
+    "RESET_PASSWORD_SUCCESS": "Passwort erfolgreich zurückgesetzt! Sie können sich jetzt anmelden.",
+    "RESET_PASSWORD_ERROR": "Zurücksetzen fehlgeschlagen. Der Link ist möglicherweise abgelaufen.",
+    "ORDER_PLACED": "Bestellung erfolgreich aufgegeben!",
+    "ORDER_ERROR": "Bestellung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "ORDER_CANCELLED": "Bestellung erfolgreich storniert.",
+    "ORDER_CANCEL_ERROR": "Bestellung konnte nicht storniert werden.",
+    "ITEM_REMOVED": "Artikel aus dem Warenkorb entfernt.",
+    "CART_UPDATED": "Warenkorb aktualisiert.",
+    "CART_CLEARED": "Warenkorb geleert.",
+    "PROFILE_UPDATED": "Profil erfolgreich aktualisiert!",
+    "PROFILE_ERROR": "Profil konnte nicht aktualisiert werden.",
+    "WISHLIST_ADDED": "Artikel zur Wunschliste hinzugefügt!",
+    "WISHLIST_REMOVED": "Artikel von der Wunschliste entfernt.",
+    "WISHLIST_ERROR": "Wunschliste konnte nicht aktualisiert werden."
   },
   "HOME": {
     "HERO_TITLE": "Entdecken Sie Seltene Sammlerstücke",
@@ -284,6 +305,14 @@
       "SEND_LINK": "Link senden",
       "REMEMBER_PASSWORD": "Passwort eingefallen?",
       "SIGN_IN": "Anmelden"
+    },
+    "RESET_PASSWORD": {
+      "TITLE": "Neues Passwort festlegen",
+      "SUBTITLE": "Geben Sie Ihr neues Passwort ein",
+      "NEW_PASSWORD": "Neues Passwort",
+      "CONFIRM_PASSWORD": "Passwort bestätigen",
+      "SUBMIT": "Passwort zurücksetzen",
+      "BACK_TO_LOGIN": "Zurück zur Anmeldung"
     }
   },
   "ACCOUNT": {
@@ -334,7 +363,9 @@
       "PAYMENT_CAPTURED": "Erfasst",
       "PAYMENT_FAILED": "Fehlgeschlagen",
       "PAYMENT_REFUNDED": "Erstattet",
-      "PAYMENT_PARTIALLY_REFUNDED": "Teilweise erstattet"
+      "PAYMENT_PARTIALLY_REFUNDED": "Teilweise erstattet",
+      "CANCEL_ORDER": "Bestellung stornieren",
+      "CANCEL_CONFIRM": "Sind Sie sicher, dass Sie diese Bestellung stornieren möchten?"
     },
     "MY_REVIEWS": {
       "NAV": "Meine Bewertungen",

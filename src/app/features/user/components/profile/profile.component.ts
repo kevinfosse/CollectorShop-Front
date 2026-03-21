@@ -2,6 +2,7 @@ import { Component, OnInit, signal, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { CustomerService } from '../../../../core/services/customer.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import { CustomerDto } from '../../../../core/models';
 
 @Component({
@@ -13,6 +14,7 @@ import { CustomerDto } from '../../../../core/models';
 export class ProfileComponent implements OnInit {
   private readonly customerService = inject(CustomerService);
   private readonly fb = inject(FormBuilder);
+  private readonly toastService = inject(ToastService);
 
   protected readonly loading = signal(true);
   protected readonly saving = signal(false);
@@ -69,10 +71,12 @@ export class ProfileComponent implements OnInit {
           this.customer.set(customer);
           this.saving.set(false);
           this.successMessage.set('Profile updated successfully');
+          this.toastService.show('TOAST.PROFILE_UPDATED', 'success');
         },
         error: () => {
           this.error.set('Failed to update profile');
           this.saving.set(false);
+          this.toastService.show('TOAST.PROFILE_ERROR', 'error');
         },
       });
   }

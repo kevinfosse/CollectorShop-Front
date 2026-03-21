@@ -177,14 +177,20 @@ export class ProductDetailComponent implements OnInit {
     if (!productId) return;
 
     if (!this.authService.isAuthenticated()) {
-      console.log('Please login to manage wishlist');
+      this.toastService.show('TOAST.LOGIN_REQUIRED', 'warning');
       return;
     }
 
     if (this.wishlistService.isInWishlist(productId)) {
-      this.wishlistService.removeFromWishlist(productId).subscribe();
+      this.wishlistService.removeFromWishlist(productId).subscribe({
+        next: () => this.toastService.show('TOAST.WISHLIST_REMOVED', 'success'),
+        error: () => this.toastService.show('TOAST.WISHLIST_ERROR', 'error'),
+      });
     } else {
-      this.wishlistService.addToWishlist({ productId }).subscribe();
+      this.wishlistService.addToWishlist({ productId }).subscribe({
+        next: () => this.toastService.show('TOAST.WISHLIST_ADDED', 'success'),
+        error: () => this.toastService.show('TOAST.WISHLIST_ERROR', 'error'),
+      });
     }
   }
 

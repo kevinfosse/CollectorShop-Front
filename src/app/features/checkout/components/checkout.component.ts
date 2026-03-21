@@ -5,7 +5,7 @@ import { CurrencyPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, debounceTime, distinctUntilChanged, switchMap, of, catchError } from 'rxjs';
-import { CartService, OrderService, CustomerService, ConfigService } from '../../../core/services';
+import { CartService, OrderService, CustomerService, ConfigService, ToastService } from '../../../core/services';
 import {
   CreateOrderRequest,
   AddressDto,
@@ -35,6 +35,7 @@ export class CheckoutComponent implements OnInit {
   private readonly orderService = inject(OrderService);
   private readonly customerService = inject(CustomerService);
   private readonly configService = inject(ConfigService);
+  private readonly toastService = inject(ToastService);
   private readonly router = inject(Router);
   private readonly http = inject(HttpClient);
 
@@ -268,6 +269,7 @@ export class CheckoutComponent implements OnInit {
     this.orderService.createOrder(request).subscribe({
       next: (order) => {
         this.cartService.resetCart();
+        this.toastService.show('TOAST.ORDER_PLACED', 'success');
         this.router.navigate(['/account/orders', order.id], {
           queryParams: { success: true },
         });
@@ -275,6 +277,7 @@ export class CheckoutComponent implements OnInit {
       error: (err) => {
         this.loading.set(false);
         this.error.set(err.message || 'Failed to place order. Please try again.');
+        this.toastService.show('TOAST.ORDER_ERROR', 'error');
       },
     });
   }

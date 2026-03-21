@@ -84,7 +84,28 @@
     "REVIEW_ERROR": "Failed to submit review.",
     "ROLES_UPDATED": "User roles updated successfully.",
     "USER_ACTIVATED": "User account activated.",
-    "USER_DEACTIVATED": "User account deactivated."
+    "USER_DEACTIVATED": "User account deactivated.",
+    "LOGIN_SUCCESS": "Welcome back!",
+    "LOGIN_ERROR": "Invalid email or password.",
+    "REGISTER_SUCCESS": "Account created successfully! Welcome!",
+    "REGISTER_ERROR": "Registration failed. Please try again.",
+    "LOGOUT_SUCCESS": "You have been signed out.",
+    "FORGOT_PASSWORD_SENT": "If the email exists, a reset link has been sent.",
+    "FORGOT_PASSWORD_ERROR": "Failed to send reset link. Please try again.",
+    "RESET_PASSWORD_SUCCESS": "Password reset successfully! You can now sign in.",
+    "RESET_PASSWORD_ERROR": "Failed to reset password. The link may have expired.",
+    "ORDER_PLACED": "Order placed successfully!",
+    "ORDER_ERROR": "Failed to place order. Please try again.",
+    "ORDER_CANCELLED": "Order cancelled successfully.",
+    "ORDER_CANCEL_ERROR": "Failed to cancel order.",
+    "ITEM_REMOVED": "Item removed from cart.",
+    "CART_UPDATED": "Cart updated.",
+    "CART_CLEARED": "Cart cleared.",
+    "PROFILE_UPDATED": "Profile updated successfully!",
+    "PROFILE_ERROR": "Failed to update profile.",
+    "WISHLIST_ADDED": "Item added to wishlist!",
+    "WISHLIST_REMOVED": "Item removed from wishlist.",
+    "WISHLIST_ERROR": "Failed to update wishlist."
   },
   "HOME": {
     "HERO_TITLE": "Discover Rare Collectibles",
@@ -284,6 +305,14 @@
       "SEND_LINK": "Send Reset Link",
       "REMEMBER_PASSWORD": "Remember your password?",
       "SIGN_IN": "Sign in"
+    },
+    "RESET_PASSWORD": {
+      "TITLE": "Set New Password",
+      "SUBTITLE": "Enter your new password below",
+      "NEW_PASSWORD": "New Password",
+      "CONFIRM_PASSWORD": "Confirm Password",
+      "SUBMIT": "Reset Password",
+      "BACK_TO_LOGIN": "Back to Sign In"
     }
   },
   "ACCOUNT": {
@@ -334,7 +363,9 @@
       "PAYMENT_CAPTURED": "Captured",
       "PAYMENT_FAILED": "Failed",
       "PAYMENT_REFUNDED": "Refunded",
-      "PAYMENT_PARTIALLY_REFUNDED": "Partially Refunded"
+      "PAYMENT_PARTIALLY_REFUNDED": "Partially Refunded",
+      "CANCEL_ORDER": "Cancel Order",
+      "CANCEL_CONFIRM": "Are you sure you want to cancel this order?"
     },
     "MY_REVIEWS": {
       "NAV": "My Reviews",

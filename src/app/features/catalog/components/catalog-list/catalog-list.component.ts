@@ -1,6 +1,6 @@
 import { Component, inject, signal, computed, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ProductCardComponent } from '../../../../shared/components/card-preview/product-card.component';
 import { QuickViewModalComponent } from '../../../../shared/ui/modal/quick-view-modal.component';
@@ -33,6 +33,7 @@ export class CatalogListComponent implements OnInit, OnDestroy {
   private readonly categoryService = inject(CategoryService);
   private readonly authService = inject(AuthService);
   private readonly toastService = inject(ToastService);
+  private readonly translateService = inject(TranslateService);
   private routeSub?: Subscription;
   private querySub?: Subscription;
 
@@ -61,7 +62,7 @@ export class CatalogListComponent implements OnInit, OnDestroy {
 
   protected readonly currentCategory = computed(() => {
     const slug = this.selectedCategorySlug();
-    if (!slug) return 'All Products';
+    if (!slug) return this.translateService.instant('CATALOG.ALL_PRODUCTS');
     const cat = this.categories().find((c) => c.slug === slug);
     if (cat) return cat.name;
     return this.formatCategoryName(slug);

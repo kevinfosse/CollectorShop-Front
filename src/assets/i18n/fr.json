@@ -84,7 +84,28 @@
     "REVIEW_ERROR": "Impossible de soumettre l'avis.",
     "ROLES_UPDATED": "Rôles de l'utilisateur mis à jour.",
     "USER_ACTIVATED": "Compte utilisateur activé.",
-    "USER_DEACTIVATED": "Compte utilisateur désactivé."
+    "USER_DEACTIVATED": "Compte utilisateur désactivé.",
+    "LOGIN_SUCCESS": "Bon retour parmi nous !",
+    "LOGIN_ERROR": "Email ou mot de passe invalide.",
+    "REGISTER_SUCCESS": "Compte créé avec succès ! Bienvenue !",
+    "REGISTER_ERROR": "Inscription échouée. Veuillez réessayer.",
+    "LOGOUT_SUCCESS": "Vous avez été déconnecté.",
+    "FORGOT_PASSWORD_SENT": "Si l'email existe, un lien de réinitialisation a été envoyé.",
+    "FORGOT_PASSWORD_ERROR": "Impossible d'envoyer le lien. Veuillez réessayer.",
+    "RESET_PASSWORD_SUCCESS": "Mot de passe réinitialisé ! Vous pouvez vous connecter.",
+    "RESET_PASSWORD_ERROR": "Échec de la réinitialisation. Le lien a peut-être expiré.",
+    "ORDER_PLACED": "Commande passée avec succès !",
+    "ORDER_ERROR": "Échec de la commande. Veuillez réessayer.",
+    "ORDER_CANCELLED": "Commande annulée avec succès.",
+    "ORDER_CANCEL_ERROR": "Impossible d'annuler la commande.",
+    "ITEM_REMOVED": "Article retiré du panier.",
+    "CART_UPDATED": "Panier mis à jour.",
+    "CART_CLEARED": "Panier vidé.",
+    "PROFILE_UPDATED": "Profil mis à jour avec succès !",
+    "PROFILE_ERROR": "Échec de la mise à jour du profil.",
+    "WISHLIST_ADDED": "Article ajouté aux favoris !",
+    "WISHLIST_REMOVED": "Article retiré des favoris.",
+    "WISHLIST_ERROR": "Échec de la mise à jour des favoris."
   },
   "HOME": {
     "HERO_TITLE": "Découvrez des Objets de Collection Rares",
@@ -284,6 +305,14 @@
       "SEND_LINK": "Envoyer le lien",
       "REMEMBER_PASSWORD": "Vous vous souvenez de votre mot de passe ?",
       "SIGN_IN": "Se connecter"
+    },
+    "RESET_PASSWORD": {
+      "TITLE": "Nouveau mot de passe",
+      "SUBTITLE": "Entrez votre nouveau mot de passe ci-dessous",
+      "NEW_PASSWORD": "Nouveau mot de passe",
+      "CONFIRM_PASSWORD": "Confirmer le mot de passe",
+      "SUBMIT": "Réinitialiser le mot de passe",
+      "BACK_TO_LOGIN": "Retour à la connexion"
     }
   },
   "ACCOUNT": {
@@ -334,7 +363,9 @@
       "PAYMENT_CAPTURED": "Capturé",
       "PAYMENT_FAILED": "Échoué",
       "PAYMENT_REFUNDED": "Remboursé",
-      "PAYMENT_PARTIALLY_REFUNDED": "Partiellement remboursé"
+      "PAYMENT_PARTIALLY_REFUNDED": "Partiellement remboursé",
+      "CANCEL_ORDER": "Annuler la commande",
+      "CANCEL_CONFIRM": "Êtes-vous sûr de vouloir annuler cette commande ?"
     },
     "MY_REVIEWS": {
       "NAV": "Mes avis",

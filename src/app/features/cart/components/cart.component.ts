@@ -38,15 +38,21 @@ export class CartComponent implements OnInit {
       this.toastService.show('TOAST.MAX_STOCK_REACHED', 'warning');
       return;
     }
-    this.cartService.updateQuantity(item.productId, newQuantity).subscribe();
+    this.cartService.updateQuantity(item.productId, newQuantity).subscribe({
+      next: () => this.toastService.show('TOAST.CART_UPDATED', 'success'),
+    });
   }
 
   protected removeItem(productId: string): void {
-    this.cartService.removeFromCart(productId).subscribe();
+    this.cartService.removeFromCart(productId).subscribe({
+      next: () => this.toastService.show('TOAST.ITEM_REMOVED', 'success'),
+    });
   }
 
   protected clearCart(): void {
-    this.cartService.clearCart().subscribe();
+    this.cartService.clearCart().subscribe({
+      next: () => this.toastService.show('TOAST.CART_CLEARED', 'success'),
+    });
   }
 
   protected proceedToCheckout(): void {

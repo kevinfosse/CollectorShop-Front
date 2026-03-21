@@ -22,9 +22,17 @@
       </h1>
       <p class="order-date">{{ o.createdAt | date: 'longDate' }}</p>
     </div>
-    <span class="status-badge" [class]="o.status | orderStatusClass">
-      {{ o.status | orderStatusKey | translate }}
-    </span>
+    <div class="order-header__actions">
+      <span class="status-badge" [class]="o.status | orderStatusClass">
+        {{ o.status | orderStatusKey | translate }}
+      </span>
+      @if (canCancel) {
+        <button class="btn btn--danger-outline" (click)="onCancelOrder()" [disabled]="cancelling()">
+          <i class="pi pi-times"></i>
+          {{ 'ACCOUNT.ORDER_DETAIL.CANCEL_ORDER' | translate }}
+        </button>
+      }
+    </div>
   </div>
 
   <!-- Items -->
