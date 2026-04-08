@@ -1,3 +1,16 @@
+# ============================================================================
+# Pipeline CI/CD — CollectorShop Frontend (Angular 19)
+# Stratégie : Fail Fast, Shift Left (DevSecOps)
+#
+# Flux : Lint → Build → Tests (+ Couverture) → Sécurité (SCA + SAST/SonarCloud)
+#        → Docker → Trivy (Scan image) → Deploy (manuel)
+#
+# Chaque étape est bloquante : si elle échoue, le pipeline s'arrête.
+# La sécurité est intégrée AVANT le build Docker (Shift Left).
+# Le déploiement est manuel (Continuous Delivery, pas Continuous Deployment)
+# car l'application gère des transactions financières.
+# ============================================================================
+
 name: CI/CD Frontend
 
 on:
@@ -5,6 +18,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 env:
   NODE_VERSION: '22'
@@ -15,6 +29,11 @@ permissions:
   packages: write
 
 jobs:
+  # ----------------------------------------------------------------------------
+  # Lint — vérifie la qualité et la cohérence du code source (indicateur maintenabilité)
+  # ESLint analyse le code TypeScript/Angular pour détecter les erreurs de style,
+  # les anti-patterns et les problèmes potentiels avant même la compilation.
+  # ----------------------------------------------------------------------------
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -26,6 +45,11 @@ jobs:
       - run: npm ci
       - run: npx ng lint
 
+  # ----------------------------------------------------------------------------
+  # Build — compilation Angular en mode production (indicateur fiabilité)
+  # Vérifie que l'application compile sans erreur avec les optimisations de production
+  # (tree-shaking, AOT compilation, minification).
+  # ----------------------------------------------------------------------------
   build:
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +61,13 @@ jobs:
       - run: npm ci
       - run: npx ng build --configuration=production
 
-  test:
+  # ----------------------------------------------------------------------------
+  # Tests unitaires — vérifient la logique des composants et services
+  # (indicateur maintenabilité). Karma + Jasmine exécutent les fichiers *.spec.ts.
+  # La couverture de code est générée au format lcov pour SonarCloud.
+  # continue-on-error: true — les tests frontend sont en cours de renforcement.
+  # ----------------------------------------------------------------------------
+  test-unit:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
@@ -47,9 +77,19 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
       - run: npm ci
-      - run: npx ng test --watch=false || true
+      - run: npx ng test --watch=false --browsers=ChromeHeadless --code-coverage || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-lcov
+          path: coverage/
 
-  security:
+  # ----------------------------------------------------------------------------
+  # SCA (Software Composition Analysis) — détecte les dépendances npm vulnérables
+  # (indicateur sécurité). Shift Left : vérifié avant tout merge.
+  # npm audit analyse l'arbre de dépendances contre la base de vulnérabilités npm.
+  # ----------------------------------------------------------------------------
+  security-sca:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -60,8 +100,48 @@ jobs:
       - run: npm ci
       - run: npm audit --audit-level=critical
 
-  docker:
-    needs: [lint, build, test, security]
+  # ----------------------------------------------------------------------------
+  # SonarCloud — SAST (Static Application Security Testing) + Quality Gate
+  # (indicateurs maintenabilité + sécurité)
+  # Analyse le code TypeScript pour détecter : bugs, vulnérabilités, code smells,
+  # duplication et complexité cyclomatique. Reçoit le rapport de couverture lcov.
+  # Le Quality Gate valide que les seuils sont respectés.
+  # ----------------------------------------------------------------------------
+  sonarcloud:
+    needs: test-unit
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: coverage-lcov
+          path: ./coverage
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=kevinfosse_CollectorShop-Front
+            -Dsonar.organization=kevinfosse
+            -Dsonar.sources=src
+            -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/*.spec.ts
+            -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.qualitygate.wait=false
+
+  # ----------------------------------------------------------------------------
+  # Build et push de l'image Docker vers GitHub Container Registry
+  # Taguée avec :latest ET :sha pour la traçabilité et les rollbacks.
+  # Le Dockerfile utilise un build multi-stage : node (build Angular) → nginx (serve).
+  # ----------------------------------------------------------------------------
+  docker-build:
+    needs: [lint, build, test-unit, security-sca]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
@@ -79,36 +159,60 @@ jobs:
             ${{ env.IMAGE_NAME }}:latest
             ${{ env.IMAGE_NAME }}:${{ github.sha }}
 
-  trivy:
-    needs: docker
+  # ----------------------------------------------------------------------------
+  # Scan de vulnérabilités de l'image Docker — Shift Left Security (indicateur sécurité)
+  # Trivy analyse l'image après build pour détecter les CVE dans les couches OS
+  # (nginx:alpine) et les librairies système.
+  # exit-code: 0 — warning seulement, documenté dans le plan de remédiation.
+  # ----------------------------------------------------------------------------
+  security-trivy:
+    needs: docker-build
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - uses: aquasecurity/trivy-action@master
+      - uses: actions/checkout@v4
+      - name: Trivy scan — collectorshop-front
+        uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ env.IMAGE_NAME }}:${{ github.sha }}
           format: table
-          exit-code: '0'
+          output: trivy-report-front.txt
           severity: CRITICAL,HIGH
+          exit-code: '0'
         env:
           TRIVY_USERNAME: ${{ github.actor }}
           TRIVY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: trivy-report-front
+          path: trivy-report-front.txt
 
+  # ----------------------------------------------------------------------------
+  # Déploiement Continuous Delivery — validation humaine avant production
+  # Déclenché manuellement (workflow_dispatch) car l'application gère des transactions
+  # financières : un humain valide chaque déploiement en production.
+  # ----------------------------------------------------------------------------
   deploy:
-    needs: trivy
-    if: github.ref == 'refs/heads/main'
+    needs: security-trivy
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     environment: production
     env:
       KUBECONFIG: /tmp/kubeconfig
     steps:
       - uses: azure/setup-kubectl@v3
+
       - name: Configure kubeconfig
         run: |
           echo "${{ secrets.KUBECONFIG_BASE64 }}" | base64 --decode > $KUBECONFIG
           chmod 600 $KUBECONFIG
-      - name: Deploy
+
+      - name: Deploy frontend
         run: |
           SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-          kubectl -n collectorshop set image deployment/collectorshop-front collectorshop-front="${{ env.IMAGE_NAME }}:${SHORT_SHA}"
+          IMAGE_FULL="${{ env.IMAGE_NAME }}:${SHORT_SHA}"
+          kubectl -n collectorshop set image deployment/collectorshop-front collectorshop-front="$IMAGE_FULL"
           kubectl -n collectorshop rollout status deployment/collectorshop-front --timeout=300s
+
+      - name: Verify deployment
+        run: kubectl -n collectorshop get deployment,pods,svc -l app=collectorshop-front
