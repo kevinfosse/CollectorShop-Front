@@ -109,7 +109,9 @@
         },
         "test": {
           "builder": "@angular/build:unit-test",
-          "options": {}
+          "options": {
+            "include": ["src/**/*.spec.ts"]
+          }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
