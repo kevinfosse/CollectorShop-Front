@@ -78,9 +78,7 @@
           @if (isUserMenuOpen) {
             <div class="header__user-menu">
               <div class="header__user-info">
-                <span class="header__user-name"
-                  >{{ user()?.firstName }} {{ user()?.lastName }}</span
-                >
+                <span class="header__user-name">{{ userDisplayName() }}</span>
                 <span class="header__user-email">{{ user()?.email }}</span>
               </div>
               <a routerLink="/account" class="header__user-option" (click)="closeUserMenu()">
@@ -100,9 +98,9 @@
           }
         </div>
       } @else {
-        <a routerLink="/auth/login" class="header__action-btn" aria-label="Login">
+        <button class="header__action-btn" aria-label="Login" (click)="login()">
           <i class="pi pi-sign-in"></i>
-        </a>
+        </button>
       }
 
       <!-- Wishlist -->

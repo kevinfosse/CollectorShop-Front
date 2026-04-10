@@ -4,37 +4,27 @@ import { AuthService } from '../services/auth.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
-  const router = inject(Router);
-
-  if (authService.isAuthenticated()) {
-    return true;
-  }
-
-  // Store the attempted URL for redirecting after login
-  router.navigate(['/auth/login'], {
-    queryParams: { returnUrl: state.url },
-  });
-
-  return false;
+  return authService.ensureAuthenticated(`${window.location.origin}${state.url}`);
 };
 
-export const adminGuard: CanActivateFn = (route, state) => {
+export const adminGuard: CanActivateFn = async (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.isAuthenticated() && authService.isAdmin()) {
+  const isAuthenticated = await authService.ensureAuthenticated(
+    `${window.location.origin}${state.url}`,
+  );
+
+  if (!isAuthenticated) {
+    return false;
+  }
+
+  if (authService.isAdmin()) {
     return true;
   }
 
-  if (!authService.isAuthenticated()) {
-    router.navigate(['/auth/login'], {
-      queryParams: { returnUrl: state.url },
-    });
-  } else {
-    // User is authenticated but not admin
-    router.navigate(['/']);
-  }
-
+  // User is authenticated but not admin
+  router.navigate(['/']);
   return false;
 };
 

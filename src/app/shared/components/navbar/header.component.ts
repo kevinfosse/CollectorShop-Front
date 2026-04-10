@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
   // Reactive state from services
   protected readonly isAuthenticated = this.authService.isAuthenticated;
   protected readonly user = this.authService.user;
+  protected readonly userDisplayName = this.authService.userDisplayName;
   protected readonly cartItemCount = this.cartService.itemCount;
   protected readonly wishlistCount = this.wishlistService.count;
   protected languages = [
@@ -81,12 +82,16 @@ export class HeaderComponent implements OnInit {
     this.isLangMenuOpen = false;
   }
 
+  async login(): Promise<void> {
+    this.isUserMenuOpen = false;
+    await this.authService.login(window.location.href);
+  }
+
   logout(): void {
-    this.authService.logout();
+    this.authService.logout(window.location.origin);
     this.cartService.resetCart();
     this.wishlistService.resetWishlist();
     this.isUserMenuOpen = false;
-    this.router.navigate(['/']);
   }
 
   onSearch(term: string): void {
