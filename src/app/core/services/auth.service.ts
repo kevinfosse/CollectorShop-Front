@@ -58,9 +58,9 @@ export class AuthService {
 
     try {
       const authenticated = await this.keycloak.init({
-        onLoad: 'check-sso',
+        onLoad: 'login-required',
         silentCheckSsoRedirectUri: this.silentCheckSsoRedirectUri,
-        checkLoginIframe: true,
+        checkLoginIframe: false,
       });
       this._isKeycloakInitialized.set(true);
       this._isKeycloakAuthenticated.set(authenticated);
